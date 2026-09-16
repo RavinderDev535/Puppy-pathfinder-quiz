@@ -123,7 +123,7 @@ const BreedSelector: React.FC<BreedSelectorProps> = ({ value, onChange, onNext }
               transition={{ delay: i * 0.08, duration: 0.3, ease: [0.34, 1.56, 0.64, 1] }}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.97 }}
-            className="breed-mode-button relative text-center py-3 md:py-4 px-3 md:px-4 cursor-pointer transition-colors duration-200"
+            className={`breed-mode-button ${isSelected ? "breed-mode-button-selected" : ""} relative text-center py-3 md:py-4 px-3 md:px-4 cursor-pointer transition-colors duration-200`}
               style={{
                 borderRadius: "16px",
                 background: isSelected ? "#FFF3EC" : "#FFFBF6",
@@ -199,7 +199,7 @@ const BreedSelector: React.FC<BreedSelectorProps> = ({ value, onChange, onNext }
                   animate={{ opacity: 1, y: 0, scaleY: 1 }}
                   exit={{ opacity: 0, y: -4, scaleY: 0.95 }}
                   transition={{ duration: 0.15 }}
-                  className="absolute z-50 w-full mt-1.5 rounded-xl border overflow-hidden shadow-lg max-h-[240px] overflow-y-auto"
+                  className="breed-suggestions absolute z-50 w-full mt-1.5 rounded-xl border overflow-hidden shadow-lg max-h-[240px] overflow-y-auto"
                   style={{
                     background: "#FFFBF6",
                     borderColor: "#E8C9B5",

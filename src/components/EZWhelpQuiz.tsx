@@ -570,7 +570,7 @@ const QuestionCard: React.FC<{
   }, [step, recsMap, visibleOptions]);
 
   return (
-  <div key={step.id} className="storybook-question-content">
+  <div key={step.id} className={`storybook-question-content ${step.type === "breed" ? "storybook-breed-question" : ""}`}>
     
     <h2 className="text-[20px] md:text-[34px] lg:text-[38px] font-display font-black text-center leading-tight mb-1 md:mb-3" style={{ color: '#2D2316' }}>{displayQuestion}</h2>
     {step.subtitle && <p className="storybook-question-subtitle text-center mb-4 md:mb-6 font-bold text-xs md:text-base" style={{ color: '#6B5B4A' }}>{step.subtitle}</p>}
@@ -704,7 +704,7 @@ const QuestionCard: React.FC<{
 
 // ===== MAIN QUIZ COMPONENT =====
 
-const EZWhelpQuiz: React.FC<{ onQuizStarted?: (started: boolean) => void; onPuppyProgress?: (count: number) => void; onSceneChange?: (scene: MeadowScene) => void }> = ({ onQuizStarted, onPuppyProgress, onSceneChange }) => {
+const EZWhelpQuiz: React.FC<{ onQuizStarted?: (started: boolean) => void; onQuizComplete?: (complete: boolean) => void; onPuppyProgress?: (count: number) => void; onSceneChange?: (scene: MeadowScene) => void }> = ({ onQuizStarted, onQuizComplete, onPuppyProgress, onSceneChange }) => {
   const [customerType, setCustomerType] = useState<CustomerType>(null);
   const [currentStep, setCurrentStep] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
@@ -814,6 +814,10 @@ const EZWhelpQuiz: React.FC<{ onQuizStarted?: (started: boolean) => void; onPupp
     onPuppyProgress?.(gateAnswered ? currentStep + 1 + (isComplete ? 1 : 0) : 0);
   }, [gateAnswered, currentStep, isComplete, onPuppyProgress]);
   const currentQuizStep = steps[currentStep];
+  useEffect(() => {
+    onQuizComplete?.(isComplete);
+  }, [isComplete, onQuizComplete]);
+
   useEffect(() => {
     onSceneChange?.(getMeadowScene(gateAnswered ? customerType : null, newData, existingData, isComplete));
   }, [customerType, gateAnswered, newData, existingData, isComplete, onSceneChange]);
@@ -1999,7 +2003,7 @@ const handleNext = useCallback((overrideVal?: string) => {
 
   return (
     <div
-      className="story-quiz-card story-quiz-screen w-full max-w-[960px] mx-auto relative"
+      className={`story-quiz-card story-quiz-screen w-full max-w-[960px] mx-auto relative ${currentQuizStep.type === "breed" ? "storybook-breed-step-active" : ""}`}
       style={{
         borderRadius: '40px',
         background: '#F7F3EC',
