@@ -1,0 +1,326 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
+
+.storybook { position: relative; isolation: isolate; min-height: calc(100svh - 24px); margin: 12px; overflow: hidden; border: 1px solid #9acbd0; border-radius: 16px; background: linear-gradient(165deg,#b4e4ee,#acf0ef 70%); color: #593716; font-family: 'Patrick Hand', 'Comic Sans MS', cursive; display: flex; flex-direction: column; }
+.storybook::after { content: ''; position: absolute; inset: 0; z-index: 8; pointer-events: none; opacity: .075; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath fill='%23000' filter='url(%23n)' opacity='.5' d='M0 0h180v180H0z'/%3E%3C/svg%3E"); }
+.story-header { text-align: center; position: relative; z-index: 2; padding: 36px 60px 10px; }
+.story-eyebrow { font: 700 10px 'Nunito', sans-serif; letter-spacing: 3px; opacity: .65; }
+.story-header h1 { font: 400 clamp(48px,7vw,86px)/1.15 'Patrick Hand',cursive; letter-spacing: 5px; margin: 8px 0 12px; color: #60320d; }
+.story-header p { font-size: clamp(17px,2vw,23px); margin: 0; }
+.story-sun { position: absolute; width: 160px; height: 160px; right: -40px; top: -46px; border-radius: 50%; background: #f5df87; box-shadow: 0 0 0 22px #f5df8740,0 0 45px 24px #f5df8740; }
+.story-sound { position: absolute; z-index: 10; right: 16px; top: 16px; border-radius: 50%; padding: 11px; color: #fffbed; background: #756b45cf; }
+.story-cloud { position: absolute; width: 155px; height: 40px; background: #fffdf5d9; border-radius: 50%; filter: blur(3px); animation: cloud-drift 16s ease-in-out infinite alternate; }
+.story-cloud::before,.story-cloud::after { content: ''; position: absolute; width: 70px; height: 62px; border-radius: 50%; background: #fffdf5d9; left: 28px; bottom: 0; }
+.story-cloud::after { width: 65px; height: 45px; left: 75px; }
+.cloud-one { top: 72px; left: 4%; transform: scale(.85); }
+.cloud-two { top: 210px; left: 12%; width: 180px; animation-delay: -6s; }
+.cloud-three { top: 145px; right: 8%; animation-delay: -10s; }
+.story-intro { position: relative; z-index: 2; text-align: center; margin: 28px 0 18px; }
+.wood-button { position: relative; border: 2px solid #8f5b2e; border-radius: 4px 7px 3px 5px; padding: 15px 27px; background: repeating-linear-gradient(3deg,transparent 0 12px,#ad71362e 13px 14px),linear-gradient(100deg,#d59a56,#edb869 50%,#cc8c48); box-shadow: 2px 3px 0 #76563055,inset 0 0 9px #965c3980; font-size: 22px; color: #563518; transform: rotate(-1deg); transition: filter .2s; }
+.wood-button:hover { filter: brightness(1.08); }
+.wood-button span { margin-left: 16px; }
+.story-intro p { font-size: 16px; margin-top: 14px; opacity: .75; }
+.puppy-meadow { position: relative; min-height: 300px; flex: 1; margin-top: 12px; }
+.meadow-hills { position: absolute; inset: 0; width: 100%; height: 100%; }
+.meadow-family { position: relative; z-index: 2; min-height: 300px; max-width: 950px; margin: 0 auto; padding-top: 140px; }
+.adult-dog { position: absolute; width: 165px; top: 4px; text-align: center; }
+.adult-dog .adult-art { position: relative; display: block; animation: dog-breathe 3s ease-in-out infinite; transform-origin: center bottom; }
+.adult-dog .adult-art img { width: 100%; height: auto; display: block; }
+/* Tail sits under the body so the joint stays covered at every angle. */
+.adult-dog .adult-tail { position: absolute; inset: 0; z-index: 0; animation: tail-wag 1.1s ease-in-out infinite alternate; }
+.adult-dog .adult-body { position: relative; z-index: 1; }
+.dog-dad .adult-tail { transform-origin: 15% 31%; }
+.dog-mom .adult-tail { transform-origin: 76% 40%; animation-duration: 1.45s; animation-delay: -.45s; }
+/* Only the intro page shows the dogs big enough for a wag to read; during the
+   quiz they are thumbnails, so the tail rests in its drawn position. */
+.storybook-playing .adult-tail { animation: none; }
+.adult-dog span { display: inline-flex; flex-direction: column; font-size: 16px; line-height: 1; color: #5c5b32; background: #eef0b373; border-radius: 50%; padding: 3px 13px; }
+.adult-dog span em { font: 10px Nunito, sans-serif; font-style: normal; opacity: .72; white-space: nowrap; margin-top: 3px; }
+.dog-dad { left: 23%; transform: rotate(-1deg); filter: saturate(.88); }
+.dog-dad .adult-art { animation: dad-stand 3.5s ease-in-out infinite; }
+.dog-mom { right: 23%; transform: rotate(-2deg); }
+/* Mom's illustration is drawn taller than Dad's (bow + fuller coat), so equal
+   container width would render her as the bigger dog. 92% equalises their
+   measured shoulder height (ground to top of back); damSize then adjusts her
+   from there via .mother-size. */
+.dog-mom .mother-size { width: 92%; margin: 0 auto; }
+.dog-mom .adult-art { animation: mom-sway 3.7s ease-in-out infinite; }
+.puppy-pack { display: flex; flex-wrap: wrap; justify-content: center; align-items: end; gap: 0 8px; padding: 35px 100px 30px; }
+
+.puppy-arrival { --k: .208px; animation: puppy-join .65s ease-out both; }
+/* MeadowDog sizes each drawing as (its width on the source sheet) x --k, so
+   every pose lands at the same scale however its bounding box is shaped. */
+.puppy-arrival img { display: block; animation: puppy-hop 3s ease-in-out infinite; animation-delay: var(--delay); transform-origin: center bottom; }
+.story-fence { position: absolute; top: 64px; width: 205px; height: 115px; z-index: 1; }
+.fence-left { left: -25px; transform: rotate(-15deg); }.fence-right { right: -25px; transform: rotate(15deg); }
+.meadow-flowers { position: absolute; bottom: 26px; left: 6%; right: 6%; display: flex; justify-content: space-between; color: #fff2c7; font-size: 27px; }.meadow-flowers span { color: #f8da84; }
+.story-footer { position: relative; z-index: 2; display: flex; justify-content: space-between; gap: 12px; padding: 12px 25px; background: #a9c35f; color: #425529; font-size: 14px; }
+.story-questions { position: relative; z-index: 3; width: min(760px, 94%); margin: 16px auto 0; }
+.storybook .story-quiz-card { border: 2px solid #b59b66; border-radius: 16px 12px 19px 11px !important; background: #fff9e9f5 !important; box-shadow: 4px 5px 0 #6e713a20 !important; padding: 24px 32px 12px; animation: none; }
+.story-quiz-card h2 { font-family: 'Patrick Hand',cursive; font-size: clamp(26px,4vw,38px); font-weight: 400; color: #593716 !important; }
+.story-quiz-card .path-tile { border-radius: 9px !important; }
+.story-quiz-card .duo-btn { background: linear-gradient(#edbc79,#d89e56); color: #563518; border: 2px solid #946231; box-shadow: 0 3px 0 #946231; border-radius: 5px; }
+.storybook-playing .story-header { padding-top: 22px; }.storybook-playing .story-header h1 { font-size: 46px; margin: 0 0 3px; }.storybook-playing .story-header p { font-size: 18px; }
+.storybook button:focus-visible { outline: 3px solid #6c4d20; outline-offset: 5px; }
+@keyframes cloud-drift { to { translate: 35px 0; } }
+@keyframes dog-breathe { 50% { transform: scaleY(1.025); } }
+@keyframes tail-wag { from { transform: rotate(-7deg); } to { transform: rotate(8deg); } }
+@keyframes dad-stand { 0%,100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-2px) rotate(.7deg); } }
+@keyframes mom-sway { 0%,100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-3px) rotate(-2deg); } }
+@keyframes puppy-join { from { opacity: 0; transform: translateY(-35px) scale(.5); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes puppy-hop { 0%,70%,100% { transform: translateY(0) rotate(0); } 80% { transform: translateY(-7px) rotate(var(--tilt)); } 90% { transform: translateY(0) rotate(0); } }
+@media(min-width: 1100px) { .storybook:not(.storybook-playing) .story-header { padding-top: 55px; }.storybook:not(.storybook-playing) .puppy-meadow { min-height: 360px; }.storybook:not(.storybook-playing) .meadow-family { padding-top: 180px; }.storybook:not(.storybook-playing) .adult-dog { width: 205px; top: 20px; } }
+@media(max-width: 600px) { .storybook { margin: 6px; min-height: calc(100svh - 12px); }.story-header { padding: 76px 18px 10px; }.story-eyebrow { font-size: 8px; letter-spacing: 2px; }.story-header h1 { letter-spacing: 3px; }.cloud-two { left: -90px; }.cloud-three { right: -85px; top: 260px; }.story-intro { margin-top: 24px; }.story-fence { width: 115px; top: 93px; }.story-fence i { width: 13px; }.adult-dog { width: 104px; top: 25px; }.dog-dad { left: 5%; }.dog-mom { right: 5%; }.puppy-pack { padding: 35px 25px 25px; gap: 0 4px; }.puppy-arrival { --k: .149px; }.story-footer { font-size: 11px; padding: 10px 12px; }.storybook .story-quiz-card { padding: 18px 12px 8px; }.storybook-playing .story-header { padding: 30px 45px 0; }.storybook-playing .story-header h1 { font-size: 37px; }.storybook-playing .story-eyebrow { display: none; }.storybook-playing .story-header p { font-size: 15px; } }
+@media(prefers-reduced-motion: reduce) { .storybook *, .storybook *::before, .storybook *::after { animation: none !important; transition: none !important; } }
+
+/* Answer-driven story scenes. */
+.meadow-caption { position: relative; z-index: 3; text-align: center; padding: 3px 18px 16px; font-size: 19px; color: #51462a; }
+.meadow-caption small { display: block; font-size: 13px; opacity: .8; }
+.mother-size { transform-origin: center bottom; transition: transform .6s ease; }
+.puppy-arrival { position: relative; }
+.puppy-arrival[aria-label]::after { content: attr(aria-label); position: absolute; opacity: 0; pointer-events: none; bottom: -16px; left: 50%; transform: translateX(-50%); white-space: nowrap; font: 11px Nunito, sans-serif; color: #46542b; }
+.puppy-arrival:hover::after, .puppy-arrival:focus-within::after { opacity: 1; }
+.puppy-sleeping img { animation: puppy-sleep 4s ease-in-out infinite; }
+.puppy-eating { padding-bottom: 5px; }
+.puppy-eating img { animation: puppy-nibble 1.35s ease-in-out infinite; }
+.puppy-jumping img { animation: puppy-jump 1.9s cubic-bezier(.36,.07,.19,.97) infinite; }
+.puppy-sitting img { animation: puppy-sit 3.4s ease-in-out infinite; }
+.puppy-playing img { animation: puppy-pounce 2.3s ease-in-out infinite; }
+.puppy-stretching img { animation: puppy-stretch 3.3s ease-in-out infinite; }
+.puppy-bowl { position: absolute; z-index: 2; width: 28px; height: 13px; bottom: 3px; right: -10px; border: 2px solid #7b6851; border-radius: 3px 3px 13px 13px; background: #8eae9f; box-shadow: inset 0 5px #f2c873; }
+.puppy-bowl i { position: absolute; width: 13px; height: 4px; border-radius: 50%; background: #8c6744; left: 5px; top: -2px; }
+.puppy-ball { position: absolute; z-index: 2; right: -4px; bottom: 8px; width: 18px; height: 18px; border: 1px solid #9b693e; border-radius: 50%; background: linear-gradient(45deg,#dc886e 48%,#f6db79 49% 60%,#70a3a0 61%); animation: puppy-ball-bounce 2.3s ease-in-out infinite; }
+.stage-sleeping .puppy-sleeping img { animation: puppy-sleep 4s ease-in-out infinite; }
+.sleep-bubbles { position: absolute; right: 0; top: -7px; color: #697f90; letter-spacing: 3px; font-size: 14px; animation: sleepy-float 3s ease-out infinite; }
+.stage-growing .puppy-stretching img { animation: puppy-stretch 4s ease-in-out infinite; animation-delay: var(--delay); }
+.stage-expecting .puppy-arrival { opacity: .7; }
+.stage-expecting .puppy-arrival img { animation: dog-breathe 4s ease-in-out infinite; }
+.puppy-dream { position: absolute; top: 0; right: 15%; color: #ad6768; font-size: 23px; animation: sleepy-float 4s ease-out infinite; }
+/* The kennel is the setting, not a legend: the play yard frames the scene, the
+   whelping box sits inside it, and puppies are placed on the box floor or
+   around the yard. */
+.kennel-stage { position: relative; width: min(880px, 98%); margin: 2px auto 0; animation: setup-appear .55s ease-out both; }
+/* Every layer shares the kennel's viewBox, so they register exactly. */
+.kennel-layer { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.kennel-box-front { z-index: 3; pointer-events: none; }
+.kennel-yard-front { z-index: 5; pointer-events: none; }
+.sr-slot { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+.stage-feeding { position: absolute; left: 3%; bottom: 8%; width: 14%; z-index: 7; }
+.stage-lamp { position: absolute; right: 9%; top: 3%; width: 16%; z-index: 7; }
+.stage-feeding svg, .stage-lamp svg { width: 100%; height: auto; display: block; }
+.stage-caption { position: absolute; left: 0; right: 0; bottom: -22px; text-align: center; font-size: 13px; color: #48512c; z-index: 7; }
+.kennel-stage .puppy-arrival { margin: 0; --k: .22px; }
+/* Newborns in the box are smaller than the litter out in the yard, which also
+   keeps them clear of the near panel. */
+.kennel-stage .puppy-arrival.in-box { --k: .18px; }
+.storybook-playing .kennel-stage .puppy-arrival { --k: .109px; }
+/* During the quiz the meadow is a thin strip above the questions, so the
+   kennel shrinks to fit it rather than overflowing. */
+/* Sized from height, not width: the strip's height is the binding constraint,
+   so this keeps the whole pen on screen instead of cropping its front corner. */
+/* Only the kennel moves up — meadow-family's padding also sets where the
+   puppy row stands, and lifting that floats the puppies off the grass. */
+.storybook-playing .kennel-stage { width: auto; height: 290px; max-width: 94%; margin: -48px auto 0; }
+/* Puppies in the kennel are sized from the stage's own width, so the pens and
+   the litter scale as one scene at every breakpoint. The px values above stay
+   as the fallback. */
+@supports (container-type: inline-size) {
+  .kennel-stage { container-type: inline-size; }
+  .kennel-stage .puppy-arrival { --k: .0235cqw; }
+  .kennel-stage .puppy-arrival.in-box { --k: .0175cqw; }
+}
+.storybook-playing .stage-caption { display: none; }
+.stage-lamp .lamp-pool { animation: lamp-warmth 3s ease-in-out infinite alternate; transform-origin: 84px 128px; }
+.meadow-complete .kennel-stage { outline: 2px dashed #e7ecac; outline-offset: 10px; border-radius: 18px; }
+.meadow-celebration { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.meadow-celebration span { position: absolute; top: -35px; font-size: 24px; animation: meadow-confetti 3.5s ease-out 2 both; }
+.storybook-playing .story-header { order: 0; }
+.storybook-playing .puppy-meadow { order: 1; flex: none; min-height: 220px; }
+.storybook-playing .story-questions { order: 2; margin-bottom: 24px; }
+.storybook-playing .story-footer { order: 3; margin-top: auto; }
+.storybook-playing .meadow-family { min-height: 185px; padding-top: 86px; }
+.storybook-playing .adult-dog { width: 110px; top: -8px; }
+.storybook-playing .dog-dad { left: 7%; }
+.storybook-playing .dog-mom { right: 7%; }
+.storybook-playing .puppy-pack { padding: 22px 90px 15px; }
+.storybook-playing .puppy-arrival { --k: .14px; }
+.storybook-playing .story-fence { top: 74px; scale: .75; }
+.storybook-playing .meadow-hills { top: 30px; height: calc(100% - 30px); }
+.storybook-playing .meadow-flowers { bottom: 12px; }
+@keyframes puppy-sleep { 0%,100% { transform: scale(1); } 50% { transform: scale(1.035); } }
+@keyframes puppy-nibble { 0%,100% { transform: rotate(0) translate(0,0); } 50% { transform: rotate(4deg) translate(3px,4px); } }
+@keyframes puppy-jump { 0%,35%,100% { transform: translateY(0) rotate(0); } 56% { transform: translateY(-32px) rotate(var(--tilt)); } 70% { transform: translateY(0) rotate(0); } }
+@keyframes puppy-sit { 0%,100% { transform: translateY(0); } 50% { transform: translateY(3px) scaleY(.98); } }
+@keyframes puppy-pounce { 0%,50%,100% { transform: translate(0,0) rotate(0); } 65% { transform: translate(13px,-9px) rotate(5deg); } }
+@keyframes puppy-ball-bounce { 0%,50%,100% { transform: translate(0,0) rotate(0); } 65% { transform: translate(12px,-18px) rotate(90deg); } }
+@keyframes puppy-stretch { 0%,65%,100% { transform: scale(1); } 80% { transform: scaleX(1.08) scaleY(.92); } }
+@keyframes sleepy-float { 0% { opacity: 0; translate: 0 8px; } 40% { opacity: 1; } 100% { opacity: 0; translate: 5px -13px; } }
+@keyframes setup-appear { from { opacity: 0; translate: 0 20px; } to { opacity: 1; translate: 0 0; } }
+@keyframes lamp-warmth { from { opacity: .35; transform: scale(.94); } to { opacity: .62; transform: scale(1.06); } }
+@keyframes meadow-confetti { 0% { opacity: 0; transform: translateY(0) rotate(0); } 12% { opacity: 1; } 100% { opacity: 0; transform: translateY(350px) rotate(150deg); } }
+@media(max-width: 600px) { .meadow-caption { font-size: 16px; padding-bottom: 16px; }.storybook-playing .puppy-pack { padding: 20px 30px 15px; }.storybook-playing .puppy-arrival { --k: .112px; }.storybook-playing .dog-dad { left: 4%; }.storybook-playing .dog-mom { right: 4%; }.storybook-playing .adult-dog { width: 96px; }.kennel-stage { width: 90%; }.stage-caption { font-size: 11px; bottom: -18px; }.storybook-playing .story-fence { opacity: .7; } }
+@media(prefers-reduced-motion: reduce) { .storybook *, .storybook *::before, .storybook *::after { animation: none !important; transition: none !important; }.sleep-bubbles { opacity: 1; }.meadow-celebration { display: none; } }
+
+/* Active quiz: one game screen. The meadow stays visible below the wooden
+   question boards, rather than being a separate section users must scroll to. */
+.storybook.storybook-playing { height: calc(100svh - 24px); min-height: 520px; overflow: hidden; }
+.storybook.storybook-complete { height: auto; min-height: calc(100svh - 24px); overflow: visible; }
+.storybook-complete .story-questions { display: block; flex: none; min-height: auto; margin: 0 auto; }
+.storybook-complete .puppy-meadow { display: none; }
+.storybook-playing .story-header { flex: none; padding: 9px 58px 4px; }
+.storybook-playing .story-header h1 { font-size: clamp(28px, 4vw, 46px); line-height: 1; letter-spacing: 3px; }
+.storybook-playing .story-header p { font-size: clamp(13px, 1.5vw, 17px); line-height: 1.1; }
+.storybook-playing .story-questions { order: 1; display: flex; align-items: center; flex: 1 1 auto; min-height: 0; width: min(920px, 96%); margin: 0 auto; }
+.storybook-playing .puppy-meadow { order: 2; flex: 0 0 44vh; min-height: 300px; margin: 0; overflow: hidden; }
+.storybook-playing .story-footer { display: none; }
+.storybook-playing .story-quiz-screen { max-height: 100%; overflow: hidden; padding: 0 22px 7px; border: 0 !important; border-radius: 0 !important; background: transparent !important; box-shadow: none !important; }
+.storybook-playing .story-quiz-screen > div:first-child { min-height: 0 !important; }
+.storybook-playing .storybook-question-content { max-height: min(44vh, 380px); overflow-y: auto; overflow-x: hidden; padding: 4px 8px 7px; scrollbar-width: thin; scrollbar-color: #9c6b37 transparent; }
+.storybook-playing .storybook-question-content > h2 { position: relative; max-width: 840px; margin: 0 auto 12px; padding: 18px 52px 14px; color: #553317 !important; font-family: 'Patrick Hand', cursive; font-size: clamp(20px, 2.5vw, 31px); font-weight: 400; text-align: center; background: #fff9e9; border: 3px solid #81562d; border-top-width: 13px; border-radius: 4px 4px 10px 10px; box-shadow: inset 0 0 15px #b48b5830, 2px 3px 0 #6b482733; }
+.storybook-playing .storybook-question-content > h2::before { content: ''; position: absolute; inset: -13px -6px auto; height: 17px; border: 2px solid #764723; border-radius: 4px 6px 3px 5px; background: repeating-linear-gradient(3deg, transparent 0 10px, #9055232a 11px 12px), linear-gradient(100deg, #d7974d, #f1bd70 48%, #c98742); box-shadow: 0 2px 2px #65432266; }
+.storybook-playing .storybook-question-content > h2 + p { box-sizing: border-box; max-width: 650px; margin: 12px auto 18px !important; padding: 0 16px; font-family: 'Patrick Hand', cursive; font-size: clamp(14px, 1.6vw, 18px); line-height: 1.22; color: #65472c !important; overflow-wrap: anywhere; }
+.storybook-playing .storybook-question-content > h2 + p + div { clear: both; }
+.storybook-playing .storybook-question-subtitle { display: table !important; position: static !important; float: none !important; width: fit-content !important; max-width: calc(100% - 24px); margin-left: auto !important; margin-right: auto !important; padding: 5px 12px !important; border-radius: 999px; background: #fff9e9d9; box-shadow: 0 1px 0 #8a613540; text-align: center !important; }
+.storybook-playing .storybook-question-content > h2 + .storybook-question-subtitle { display: table !important; width: auto !important; max-width: calc(100% - 24px) !important; margin: 12px auto 18px !important; text-align: center !important; }
+.storybook-playing .storybook-question-content > h2 + .storybook-question-subtitle { position: relative !important; left: 50%; transform: translateX(-50%); margin-left: 0 !important; margin-right: 0 !important; margin-bottom: 20px !important; }
+.storybook-playing .storybook-question-content > h2 + .storybook-question-subtitle + .storybook-box-config { margin-top: 0 !important; }
+.storybook-playing .storybook-field { display: block !important; position: static !important; float: none !important; width: 100%; margin: 0 auto !important; }
+.storybook-playing .storybook-question-subtitle + .storybook-field { margin-top: 18px !important; }
+.storybook-playing .storybook-field input { display: block; width: 100%; }
+.storybook-playing .storybook-question-content > h2 ~ .mb-4 { height: 0; margin: 0 !important; }
+.storybook-playing .storybook-question-content .grid { max-width: 780px; margin: 0 auto; gap: 12px; }
+.storybook-playing .story-quiz-card .duo-option { min-height: 61px; padding: 12px 21px; align-items: center; border: 2px solid #875326 !important; border-radius: 5px 8px 4px 6px !important; color: #513016; background: repeating-linear-gradient(4deg, transparent 0 10px, #8f552425 11px 12px), linear-gradient(100deg, #d8964c, #efb768 48%, #ce8a45) !important; box-shadow: 2px 3px 0 #73482066, inset 0 0 8px #80501c5c !important; text-align: center; }
+.storybook-playing .story-quiz-card .duo-option:hover { filter: brightness(1.06); transform: translateY(-2px); }
+.storybook-playing .story-quiz-card .duo-option-selected { background: repeating-linear-gradient(4deg, transparent 0 10px, #61421425 11px 12px), linear-gradient(100deg, #bd7737, #dfa35b 48%, #b87032) !important; box-shadow: 0 0 0 3px #fff8e6, 0 0 0 5px #7d5128, 2px 4px 0 #65401d !important; }
+.storybook-playing .story-quiz-card .duo-option .font-display { color: #523016 !important; font-family: 'Patrick Hand', cursive; font-size: clamp(17px, 2vw, 22px); font-weight: 400; text-align: center; }
+.storybook-playing .story-quiz-card .duo-option .text-xs { color: #674225 !important; font-family: 'Patrick Hand', cursive; font-size: 15px; text-align: center; }
+.storybook-playing .story-quiz-card .duo-option .flex-1 { text-align: center; }
+.storybook-playing .story-quiz-screen > div:last-child { margin-top: 5px; padding-top: 5px; border-top: 0 !important; }
+.storybook-playing .story-quiz-screen > div:last-child .mb-3 { margin-bottom: 4px; }
+.storybook-playing .story-quiz-screen > div:last-child img { display: none; }
+.storybook-playing #gate-question { position: relative; max-width: 840px; margin: 0 auto 10px; padding: 17px 45px 13px; color: #553317 !important; font-family: 'Patrick Hand', cursive; font-size: clamp(23px, 3vw, 33px); font-weight: 400; background: #fff9e9; border: 3px solid #81562d; border-top-width: 13px; border-radius: 4px 4px 10px 10px; box-shadow: inset 0 0 15px #b48b5830, 2px 3px 0 #6b482733; }
+.storybook-playing #gate-question::before { content: ''; position: absolute; inset: -13px -6px auto; height: 17px; border: 2px solid #764723; border-radius: 4px 6px 3px 5px; background: repeating-linear-gradient(3deg, transparent 0 10px, #9055232a 11px 12px), linear-gradient(100deg, #d7974d, #f1bd70 48%, #c98742); box-shadow: 0 2px 2px #65432266; }
+.storybook-playing .path-tile { min-height: 0 !important; padding: 11px 16px !important; border: 2px solid #875326 !important; border-radius: 5px 8px 4px 6px !important; background: repeating-linear-gradient(4deg, transparent 0 10px, #8f552425 11px 12px), linear-gradient(100deg, #d8964c, #efb768 48%, #ce8a45) !important; box-shadow: 2px 3px 0 #73482066, inset 0 0 8px #80501c5c !important; }
+.storybook-playing .path-tile > span:first-of-type { display: none; }
+.storybook-playing .path-tile > span:nth-of-type(2) { color: #523016 !important; font-family: 'Patrick Hand', cursive; font-size: 19px !important; font-weight: 400 !important; }
+.storybook-playing .path-tile > span:nth-of-type(3) { color: #674225 !important; font-family: 'Patrick Hand', cursive; font-size: 14px !important; }
+.storybook-playing [role="radiogroup"] { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 850px !important; gap: 14px; padding: 0 8px !important; }
+.storybook-playing [role="radiogroup"].space-y-4 > :not([hidden]) ~ :not([hidden]),
+.storybook-playing [role="radiogroup"].md\:space-y-3 > :not([hidden]) ~ :not([hidden]) { margin-top: 0; }
+.storybook-playing [role="radiogroup"] > div > [aria-hidden="true"] { display: none; }
+.storybook-playing [role="radiogroup"] .path-tile { height: 92px; justify-content: center; }
+.storybook-playing [role="radiogroup"] .path-tile > span:nth-of-type(2) { font-size: clamp(18px, 2vw, 23px) !important; line-height: 1.05; }
+.storybook-playing [role="radiogroup"] .path-tile > span:nth-of-type(3) { max-width: 300px; font-size: 14px !important; line-height: 1.18; }
+.storybook-playing .meadow-caption { display: none; }
+.storybook-playing .meadow-family { min-height: 300px; padding-top: 52px; }
+.storybook-playing .adult-dog { width: 124px; top: 2px; }
+.storybook-playing .puppy-pack { padding: 12px 100px 4px; }
+.storybook-playing .puppy-arrival { width: 52px; }
+.storybook-playing .story-fence { top: 34px; scale: .56; }
+.storybook-playing .meadow-hills { top: 0; height: 100%; }
+
+/* The quiz itself is the focus once play begins. */
+.storybook-playing .story-header { display: none; }
+.storybook-playing .storybook-question-content { max-height: none; overflow: hidden; }
+.storybook-playing .story-quiz-card .duo-option { box-sizing: border-box; min-height: 54px; padding: 8px 17px; }
+.storybook-playing .adult-dog > span { display: none; }
+.storybook-playing .story-quiz-screen > div:first-child { justify-content: flex-start !important; }
+.storybook-playing .storybook-question-content > h2 { margin-bottom: 8px; padding: 10px 35px 7px; border-top-width: 9px; font-size: clamp(20px, 2.25vw, 27px); }
+.storybook-playing .storybook-question-content > h2::before { inset: -9px -5px auto; height: 12px; }
+.storybook-playing .storybook-question-content .grid { gap: 8px; }
+.storybook-playing .story-quiz-card .duo-option { min-height: 68px; padding: 6px 13px; }
+.storybook-playing .story-quiz-card .duo-option .font-display { font-size: clamp(16px, 1.7vw, 20px); line-height: 1; }
+.storybook-playing .story-quiz-card .duo-option .text-xs { margin-top: 2px; font-size: 12px; line-height: 1.05; }
+.storybook-playing .story-quiz-card .duo-option-recommended .flex-1 > span:last-child { display: none; }
+.storybook-playing .story-quiz-card .duo-option-recommended .flex-1 > span:first-child { margin-bottom: 2px; padding: 2px 7px; font-size: 9px; }
+.storybook-playing .storybook-question-content > p:last-child { margin-top: 6px !important; font-family: 'Patrick Hand', cursive; font-size: 12px; line-height: 1.1; }
+.storybook-playing .storybook-box-config { max-width: 900px !important; margin: 0 auto; }
+.storybook-playing .storybook-box-config.space-y-5 > :not([hidden]) ~ :not([hidden]) { margin-top: 0 !important; }
+.storybook-playing .storybook-box-config > .box-size-grid { display: flex; flex-wrap: nowrap; justify-content: center; gap: 10px; max-width: none; margin: 0 auto 8px; }
+.storybook-playing .storybook-box-config .box-size-button { box-sizing: border-box; width: 23%; min-height: 58px; padding: 7px 6px !important; border: 2px solid #875326 !important; border-radius: 5px 8px 4px 6px !important; background: repeating-linear-gradient(4deg, transparent 0 10px, #8f552425 11px 12px), linear-gradient(100deg, #d8964c, #efb768 48%, #ce8a45) !important; box-shadow: 2px 3px 0 #73482066, inset 0 0 8px #80501c5c !important; }
+.storybook-playing .storybook-box-config .box-size-button > span:first-of-type { color: #523016 !important; font-family: 'Patrick Hand', cursive; font-size: 19px; }
+.storybook-playing .storybook-box-config .box-size-button > span:nth-of-type(2) { color: #674225 !important; font-family: 'Patrick Hand', cursive; font-size: 12px; }
+.storybook-playing .storybook-box-config > div.text-center { display: table !important; position: relative; left: 50%; transform: translateX(-50%); width: max-content !important; max-width: calc(100vw - 24px); margin: 3px 0 5px !important; }
+.storybook-playing .storybook-box-config > div.text-center { display: none !important; }
+.storybook-playing .storybook-box-config .box-height-grid, .storybook-playing .storybook-box-config .box-window-grid { gap: 8px; max-width: 430px; margin: 0 auto; }
+.storybook-playing .storybook-box-config .box-height-button, .storybook-playing .storybook-box-config .box-window-button { box-sizing: border-box; min-height: 48px; padding: 6px !important; border: 2px solid #875326 !important; border-radius: 5px !important; background: repeating-linear-gradient(4deg, transparent 0 10px, #8f552425 11px 12px), linear-gradient(100deg, #d8964c, #efb768 48%, #ce8a45) !important; box-shadow: 2px 3px 0 #73482066 !important; }
+.storybook-playing .storybook-box-config .box-height-button span, .storybook-playing .storybook-box-config .box-window-button span { font-family: 'Patrick Hand', cursive; color: #523016 !important; font-size: 15px; line-height: 1.05; }
+.storybook-playing .storybook-box-config .box-height-button span + span, .storybook-playing .storybook-box-config .box-window-button span + span { font-size: 11px; }
+.storybook-playing .storybook-box-config .box-height-section, .storybook-playing .storybook-box-config .box-window-section { margin-top: 5px !important; }
+.storybook-playing .storybook-box-config .box-height-section > p, .storybook-playing .storybook-box-config .box-window-section > p { margin: 0 0 4px; font-family: 'Patrick Hand', cursive; font-size: 16px; }
+.storybook-playing .storybook-box-config .w-full.flex { box-sizing: border-box; width: max-content !important; min-width: 230px; margin: 6px auto 0 !important; padding: 8px 18px; border: 2px solid #875326 !important; border-radius: 5px !important; font-family: 'Patrick Hand', cursive; background: repeating-linear-gradient(4deg, transparent 0 10px, #8f552425 11px 12px), linear-gradient(100deg, #d8964c, #efb768 48%, #ce8a45) !important; color: #523016 !important; box-shadow: 2px 3px 0 #73482066, inset 0 0 8px #80501c5c !important; }
+.storybook-playing .storybook-box-config .w-full.flex span { color: #523016 !important; font-size: 17px; }
+.storybook-playing .storybook-box-config .w-full.flex { min-height: 42px; }
+.storybook-playing .quiz-navigation { margin: 4px auto 0 !important; padding: 4px 0 0 !important; width: min(670px, 88%); }
+.storybook-playing .quiz-navigation > div:first-child { margin-bottom: 3px !important; }
+.storybook-playing .quiz-navigation > div:first-child > div { height: 5px !important; }
+.storybook-playing .quiz-navigation > div:last-child { margin-top: 2px !important; gap: 15px; font-family: 'Patrick Hand', cursive; font-size: 13px; }
+.storybook-playing .quiz-brand { display: none; }
+.storybook-playing .storybook-breed-selector { max-width: 720px; margin: 0 auto; }
+.storybook-playing .breed-helper { margin: 2px auto 7px !important; font-family: 'Patrick Hand', cursive; font-size: 14px; color: #6a4b2c !important; }
+.storybook-playing .breed-mode-toggle { margin-bottom: 8px !important; gap: 10px; }
+.storybook-playing .breed-mode-button { box-sizing: border-box; min-height: 47px; padding: 7px 12px !important; border: 2px solid #875326 !important; border-radius: 5px 8px 4px 6px !important; background: repeating-linear-gradient(4deg, transparent 0 10px, #8f552425 11px 12px), linear-gradient(100deg, #d8964c, #efb768 48%, #ce8a45) !important; box-shadow: 2px 3px 0 #73482066, inset 0 0 8px #80501c5c !important; }
+.storybook-playing .breed-mode-button-selected { border-color: #6d3f1c !important; background: repeating-linear-gradient(4deg, transparent 0 10px, #5f381c2d 11px 12px), linear-gradient(100deg, #b96e30, #db9851 48%, #a95f27) !important; box-shadow: 0 0 0 2px #fff8e6, 0 0 0 4px #7d5128, 2px 4px 0 #65401d, inset 0 0 8px #62361773 !important; }
+.storybook-playing .breed-mode-button .font-display { font-family: 'Patrick Hand', cursive; font-size: 18px; color: #553317 !important; }
+.storybook-playing .breed-search { max-width: 450px; }
+.storybook-playing .breed-search input { height: 47px !important; border-radius: 8px !important; font-family: 'Patrick Hand', cursive; font-size: 18px !important; background: #fffdf4 !important; }
+.storybook-playing .breed-search + p { margin-top: 6px !important; }
+.storybook-playing .storybook-breed-step-active { overflow: visible; }
+.storybook-playing .storybook-breed-step-active > div:first-child { position: relative; z-index: 20; }
+.storybook-playing .storybook-breed-question { position: relative; z-index: 20; overflow: visible; }
+.storybook-playing .storybook-breed-question .storybook-breed-selector,
+.storybook-playing .storybook-breed-question .breed-search { position: relative; z-index: 20; }
+.storybook-playing .breed-suggestions { z-index: 30; max-height: 170px; border: 2px solid #875326 !important; border-radius: 5px !important; background: #fff9e9 !important; box-shadow: 3px 4px 0 #73482066, inset 0 0 8px #80501c5c !important; }
+
+@media (max-width: 600px) {
+  .storybook.storybook-playing { height: calc(100svh - 12px); min-height: 500px; }
+  .storybook-playing .story-header { padding: 8px 46px 2px; }
+  .storybook-playing .story-header h1 { font-size: 31px; }
+  .storybook-playing .story-header p { font-size: 12px; }
+  .storybook-playing .story-questions { width: 98%; }
+  .storybook-playing .puppy-meadow { flex-basis: 40vh; min-height: 240px; }
+  .storybook-playing .story-quiz-screen { padding: 0 7px 4px; }
+  .storybook-playing .storybook-question-content { max-height: none; padding-inline: 3px; }
+  .storybook-playing .storybook-question-content > h2 { padding: 14px 22px 10px; margin-bottom: 8px; border-top-width: 10px; font-size: 20px; }
+  .storybook-playing .storybook-question-content > h2::before { inset: -10px -3px auto; height: 13px; }
+  .storybook-playing .storybook-question-content > h2 + p { max-width: 330px; margin: 9px auto 13px !important; padding: 0 8px; font-size: 14px; line-height: 1.2; }
+  .storybook-playing .storybook-question-subtitle { padding: 4px 10px !important; }
+  .storybook-playing .storybook-question-content > h2 + .storybook-question-subtitle { margin: 9px auto 13px !important; max-width: calc(100% - 16px) !important; }
+  .storybook-playing .storybook-question-content > h2 + .storybook-question-subtitle { margin-left: 0 !important; margin-right: 0 !important; margin-bottom: 15px !important; }
+  .storybook-playing .storybook-question-subtitle + .storybook-field { margin-top: 13px !important; }
+  .storybook-playing #gate-question { padding: 13px 18px 9px; border-top-width: 10px; font-size: 22px; }
+  .storybook-playing #gate-question::before { inset: -10px -3px auto; height: 13px; }
+  .storybook-playing .path-tile { padding: 8px 11px !important; }
+  .storybook-playing [role="radiogroup"] { grid-template-columns: 1fr; max-width: 430px !important; gap: 8px; }
+  .storybook-playing [role="radiogroup"] .path-tile { height: 58px; }
+  .storybook-playing [role="radiogroup"] .path-tile > span:nth-of-type(2) { font-size: 17px !important; }
+  .storybook-playing [role="radiogroup"] .path-tile > span:nth-of-type(3) { display: none; }
+  .storybook-playing .story-quiz-card .duo-option { box-sizing: border-box; min-height: 46px; padding: 6px 12px; }
+  .storybook-playing .breed-helper { margin-bottom: 5px !important; font-size: 13px; }
+  .storybook-playing .breed-mode-toggle { max-width: 330px; margin-bottom: 6px !important; gap: 7px; }
+  .storybook-playing .breed-mode-button { min-height: 42px; padding: 5px 8px !important; }
+  .storybook-playing .breed-mode-button .font-display { font-size: 16px; }
+  .storybook-playing .breed-search { max-width: 315px; }
+  .storybook-playing .breed-search input { height: 43px !important; font-size: 16px !important; }
+  .storybook-playing .storybook-question-content > h2 { padding: 8px 20px 5px; font-size: 20px; }
+  .storybook-playing .storybook-question-content > h2::before { inset: -8px -3px auto; height: 10px; }
+  .storybook-playing .story-quiz-card .duo-option { min-height: 54px; padding: 5px 9px; }
+  .storybook-playing .story-quiz-card .duo-option .font-display { font-size: 16px; }
+  .storybook-playing .story-quiz-card .duo-option .text-xs { font-size: 11px; }
+  .storybook-playing .quiz-navigation { margin-top: 2px !important; padding-top: 3px !important; }
+  .storybook-playing .storybook-box-config > .box-size-grid { gap: 6px; }
+  .storybook-playing .storybook-box-config .box-size-button { min-height: 50px; padding: 5px 3px !important; }
+  .storybook-playing .storybook-box-config .box-size-button > span:first-of-type { font-size: 16px; }
+  .storybook-playing .storybook-box-config .box-size-button > span:nth-of-type(2) { font-size: 10px; }
+  .storybook-playing .storybook-box-config .w-full.flex { min-width: 205px; padding: 7px 12px; }
+  .storybook-playing .story-quiz-card .duo-option .font-display { font-size: 17px; }
+  .storybook-playing .story-quiz-card .duo-option .text-xs { font-size: 13px; }
+  .storybook-playing .story-quiz-card .duo-option .text-xs:empty { display: none; }
+  .storybook-playing .meadow-family { min-height: 240px; padding-top: 42px; }
+  .storybook-playing .kennel-stage { height: 230px; margin-top: -38px; }
+  .storybook-playing .adult-dog { width: 77px; top: 4px; }
+  .storybook-playing .adult-dog span { font-size: 12px; padding: 2px 7px; }
+  .storybook-playing .adult-dog span em { display: none; }
+  .storybook-playing .puppy-pack { padding: 8px 24px 2px; }
+  .storybook-playing .puppy-arrival { width: 42px; }
+  .storybook-playing .story-fence { top: 29px; scale: .43; }
+}
