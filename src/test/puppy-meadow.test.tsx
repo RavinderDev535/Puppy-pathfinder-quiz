@@ -12,10 +12,16 @@ describe("Puppy meadow", () => {
       rerender(<PuppyMeadow count={count} showQuizKennel />);
       const puppies = screen.getAllByTestId("meadow-puppy");
       expect(puppies).toHaveLength(count);
-      expect(puppies[0]).toBe(first);
-      expect(puppies[0].getAttribute("style")).toBe(position);
+      expect(document.querySelector('[data-puppy-id="0"]')).toBe(first);
+      expect(first.getAttribute("style")).toBe(position);
       expect(new Set(puppies.map(p => `${p.querySelector("img")?.getAttribute("src")}-${p.dataset.coat}`)).size).toBe(count);
     }
+  });
+
+  it("places two puppies inside the middle container with their own depth layer", () => {
+    render(<PuppyMeadow count={6} showQuizKennel />);
+    expect(document.querySelectorAll('.kennel-nursery-puppies [data-pen="box"]')).toHaveLength(2);
+    expect(document.querySelectorAll('[data-pen="yard"]')).toHaveLength(4);
   });
 
   it("shows selected accessories and removes them when answers change", () => {

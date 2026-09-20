@@ -30,6 +30,7 @@ type PuppyPlacement = {
   left: number;
   bottom: number;
   width: number;
+  pen: "box" | "yard";
 };
 
 // Each point is a coordinate on the yard floor (not a screen coordinate). This
@@ -69,12 +70,15 @@ export default function PuppyMeadow({ count, scene = initialMeadowScene, showQui
     // house-floor spots keep every puppy within the illustrated playpen.
     const activity = puppyActivities[(i * 5 + 3) % puppyActivities.length];
     const spot = kennelPuppySpots[i % kennelPuppySpots.length];
-    const pen = kennelGeom.yard;
-    const floorPoint = pen?.floorAt(spot.u, spot.v);
+    const inBox = i === 1 || i === 3;
+    const pen = inBox ? kennelGeom.box : kennelGeom.yard;
+    const floorPoint = inBox
+      ? pen?.floorAt(i === 1 ? .34 : .62, i === 1 ? .25 : .62)
+      : pen?.floorAt(spot.u, spot.v);
     // The values used by the absolutely positioned puppy are percentages of
     // the shared SVG canvas. Offset its left edge by half its rendered width
     // so the puppy's paws sit on the selected floor point.
-    const renderedWidth = 7.8;
+    const renderedWidth = inBox ? (kennelGeom.box.BR[0] - kennelGeom.box.BL[0]) * .44 / kennelGeom.vw * 100 : 7.8;
     return {
       i,
       activity,
@@ -82,15 +86,17 @@ export default function PuppyMeadow({ count, scene = initialMeadowScene, showQui
       left: floorPoint ? floorPoint.x / kennelGeom.vw * 100 - renderedWidth / 2 : 43,
       bottom: floorPoint ? 100 - floorPoint.y / kennelGeom.vh * 100 : 48,
       width: renderedWidth,
+      pen: inBox ? "box" : "yard",
     };
   }), [count, kennelGeom]);
 
-  const renderPuppy = ({ i, activity, pose, left, bottom, width }: PuppyPlacement) => (
+  const renderPuppy = ({ i, activity, pose, left, bottom, width, pen }: PuppyPlacement) => (
     <div
       className={`puppy-arrival puppy-${activity} pose-${pose}`}
       key={i}
       data-testid="meadow-puppy"
       data-puppy-id={i}
+      data-pen={pen}
       data-coat={i < 6 ? "golden" : "cocoa"}
       aria-label={`Puppy ${i + 1}, ${activityLabels[activity]}`}
       style={{
@@ -153,8 +159,10 @@ export default function PuppyMeadow({ count, scene = initialMeadowScene, showQui
           {scene.tools && <div className="scene-accessory scene-tools" aria-label="Breeder care kit"><svg viewBox="0 0 100 85" aria-hidden="true"><path d="M33 27V15h34v12" fill="none" stroke="#674832" strokeWidth="6" /><rect x="8" y="27" width="84" height="52" rx="9" fill="#fff1d5" stroke="#674832" strokeWidth="3" /><path d="M50 39v27M37 52h26" stroke="#cc8569" strokeWidth="9" /></svg><small>Care kit</small></div>}
           {scene.monitoring && <div className="scene-accessory scene-monitor" aria-label="WiFi puppy monitor"><svg viewBox="0 0 80 110" aria-hidden="true"><path d="M40 60v37m-20 4h40" stroke="#674832" strokeWidth="5" /><rect x="12" y="25" width="56" height="39" rx="12" fill="#fff9eb" stroke="#674832" strokeWidth="3" /><circle cx="40" cy="44" r="12" fill="#577d87" stroke="#674832" strokeWidth="3" /><circle cx="44" cy="40" r="4" fill="#e0f2ed" /><path d="M26 15q14-12 28 0m-21 5q7-6 14 0" fill="none" stroke="#577d87" strokeWidth="3" strokeLinecap="round" /></svg><small>Puppy cam</small></div>}
           {scene.heating && <div className="stage-lamp" aria-label="Heat lamp included"><HeatLamp /></div>}
-          <div className="kennel-puppies" aria-live="polite">{puppies.map(renderPuppy)}</div>
-          <KennelBoxFront geom={kennelGeom} spec={kennelSpec} className="kennel-box-front" />
+          <div className="kennel-puppies kennel-nursery-puppies" aria-label="Puppies resting inside the middle container">{puppies.filter(p => p.pen === "box").map(renderPuppy)}</div>
+          {/* Lower near walls give a cutaway view into the nursery. */}
+          <KennelBoxFront geom={{ ...kennelGeom, box: { ...kennelGeom.box, h: 10 } }} spec={kennelSpec} className="kennel-box-front" />
+          <div className="kennel-puppies" aria-live="polite">{puppies.filter(p => p.pen === "yard").map(renderPuppy)}</div>
           <KennelYardFront geom={kennelGeom} className="kennel-yard-front" />
           <small className="stage-caption">{scene.box ? describeBox(scene.box) : "Your storybook setup · illustration"}</small>
         </div>

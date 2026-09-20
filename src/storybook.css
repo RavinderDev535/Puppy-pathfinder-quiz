@@ -126,6 +126,7 @@
 .starter-pup-sitting { left: 46%; bottom: 28%; width: 18%; }
 .starter-pup-playing { left: 62%; bottom: 21%; width: 21%; transform: scaleX(-1); }
 .kennel-box-front { z-index: 4; }
+.kennel-nursery-puppies { z-index: 3; }
 .kennel-yard-front { z-index: 6; }
 .kennel-puppies .puppy-arrival { position: absolute; width: 10%; transform-origin: center bottom; }
 .kennel-puppies .puppy-arrival img { width: 100%; height: auto; animation: dog-breathe 4s ease-in-out infinite; filter: drop-shadow(0 2px 1px #4a2e2128); }
@@ -366,7 +367,7 @@
    .adult-dog widths in pixels further up, and would otherwise win on order. */
 .storybook .meadow-has-kennel .kennel-stage .adult-dog { width: 25%; z-index: 1; }
 .storybook .meadow-has-kennel .kennel-stage .dog-dad { left: -15%; top: 2%; }
-.storybook .meadow-has-kennel .kennel-stage .dog-mom { right: -15%; top: -6%; }
+.storybook .meadow-has-kennel .kennel-stage .dog-mom { right: -12%; top: 10%; }
 /* The name pills belong to the page-level pair on the intro screen; beside the
    pen they would just float on the grass. */
 .storybook .meadow-has-kennel .kennel-stage .adult-dog > span { display: none; }
@@ -375,6 +376,6 @@
 @media(max-width: 600px) {
   .storybook .meadow-has-kennel .kennel-stage .adult-dog { width: 26%; }
   .storybook .meadow-has-kennel .kennel-stage .dog-dad { left: 0; top: 2%; }
-  .storybook .meadow-has-kennel .kennel-stage .dog-mom { right: 0; top: -3%; }
+  .storybook .meadow-has-kennel .kennel-stage .dog-mom { right: 0; top: 10%; }
   .stage-lamp { right: 0; top: 65%; width: 12%; }
 }
