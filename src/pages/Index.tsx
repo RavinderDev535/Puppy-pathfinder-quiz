@@ -23,7 +23,7 @@ export default function Index() {
       <button className="wood-button" onClick={() => setStarted(true)}>ONCE UPON A TIME… <span>→</span></button>
       <p>A few questions. A growing puppy family.</p>
     </section> : <section className="story-questions" aria-label="Whelping setup quiz"><EZWhelpQuiz onQuizComplete={setCompleted} onPuppyProgress={setPuppies} onSceneChange={setScene} /></section>}
-    <PuppyMeadow count={puppies} scene={scene} />
+    <PuppyMeadow count={puppies} scene={scene} showQuizKennel={started} />
     <footer className="story-footer"><span>Made for little paws & big beginnings</span><span role="status" aria-live="polite">{puppies === 0 ? "Your story starts here" : `${puppies} ${puppies === 1 ? "puppy" : "puppies"} in your meadow`}</span></footer>
   </main>;
 }

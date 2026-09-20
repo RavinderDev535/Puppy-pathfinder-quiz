@@ -22,18 +22,30 @@ const PAD_DK = "#D4C9B6";
 const WOOD = "#D9A45B";
 const WOOD_DK = "#B47F3C";
 const GRASS = "#B9D97E";
+/** The yard's panels are knocked back a shade so the whelping box reads as a
+ *  separate white object standing inside it, not as more of the same wall. */
+const YARD_WALLS: [string, string] = ["#E7EEF1", "#F3F8F9"];
+const BOX_WALLS: [string, string] = [PANEL_SH, PANEL];
 
 const up = (p: Pt, h: number): Pt => [p[0], p[1] - h];
 const pts = (...list: Pt[]) => list.map(p => p.join(",")).join(" ");
 
 /* ---------------- pen halves ---------------- */
 
-/** An upright: white post with the navy cap the real panels are joined by. */
+/** An upright: white post, rounded off, under the navy cap the real panels are
+ *  joined by. The cap overhangs the post on both sides, which is what makes a
+ *  join read as hardware rather than as a seam in the moulding. */
 const post = (p: Pt, h: number, key: string) => (
   <g key={key}>
-    <polygon points={pts([p[0] - 4.5, p[1] - h - 2], [p[0] + 4.5, p[1] - h - 2], [p[0] + 4.5, p[1] + 3], [p[0] - 4.5, p[1] + 3])} fill={PANEL} />
-    <polygon points={pts([p[0] - 6, p[1] - h - 5], [p[0] + 6, p[1] - h - 5], [p[0] + 6, p[1] - h + 3], [p[0] - 6, p[1] - h + 3])} fill={NAVY} />
+    <rect x={p[0] - 4.6} y={p[1] - h - 2} width={9.2} height={h + 5} rx={2.8} fill={PANEL} />
+    <rect x={p[0] - 6.2} y={p[1] - h - 5.5} width={12.4} height={9.5} rx={3.6} fill={NAVY} />
   </g>
+);
+
+/** The navy end face a panel shows where a run stops — at the gate, where the
+ *  two halves of the front wall are cut apart. */
+const endCap = (p: Pt, h: number, key: string) => (
+  <rect key={key} x={p[0] - 3.4} y={p[1] - h - 1} width={6.8} height={h + 4} rx={2.4} fill={NAVY} />
 );
 
 /** Moulded wave grain running along a panel run. The wavelength is fixed in
@@ -59,7 +71,8 @@ const grain = (a: Pt, b: Pt, h: number, key: string) => {
   );
 };
 
-/** The paired line where two panels butt together. */
+/** The paired line where two panels butt together — all a wall seen from its
+ *  inside face, or a plain yard run, actually shows. */
 const seam = (a: Pt, b: Pt, h: number, s: number, key: string) => {
   const x = a[0] + (b[0] - a[0]) * s, y = a[1] + (b[1] - a[1]) * s;
   return (
@@ -70,16 +83,29 @@ const seam = (a: Pt, b: Pt, h: number, s: number, key: string) => {
   );
 };
 
+/** The navy reinforcing strap bolted down the outside of a whelping-box panel.
+ *  Two to a face, standing on the base rail and stopping short of the top. */
+const strap = (a: Pt, b: Pt, h: number, t: number, base: number, key: string) => {
+  const x = a[0] + (b[0] - a[0]) * t, y = a[1] + (b[1] - a[1]) * t;
+  const foot = y - base * 0.5;
+  return <rect key={key} x={x - 3} y={foot - h * 0.78} width={6} height={h * 0.78} rx={2.4} fill={NAVY} />;
+};
+
+/** The navy base rail the box's outside faces sit on. */
+const rail = (a: Pt, b: Pt, base: number, key: string) => (
+  <polygon key={key} points={pts(a, b, up(b, base), up(a, base))} fill={NAVY} stroke={INK} strokeWidth={2.2} strokeLinejoin="round" />
+);
+
 /** Far walls, floor and bedding — everything the animals stand in front of. */
-function PenBack({ pen, floor, bedding }: { pen: Pen; floor: string; bedding?: boolean }) {
+function PenBack({ pen, floor, bedding, walls = BOX_WALLS }: { pen: Pen; floor: string; bedding?: boolean; walls?: [string, string] }) {
   const { FL, BL, BR, FR, h } = pen;
   const centre: Pt = [(FL[0] + BL[0] + BR[0] + FR[0]) / 4, (FL[1] + BL[1] + BR[1] + FR[1]) / 4];
   const inset = (p: Pt, k: number): Pt => [p[0] + (centre[0] - p[0]) * k, p[1] + (centre[1] - p[1]) * k];
   return (
     <>
       <g stroke={INK} strokeWidth={2.35} strokeLinejoin="round" strokeLinecap="round">
-        <polygon points={pts(up(FL, h), up(BL, h), BL, FL)} fill={PANEL_SH} />
-        <polygon points={pts(up(BL, h), up(BR, h), BR, BL)} fill={PANEL} />
+        <polygon points={pts(up(FL, h), up(BL, h), BL, FL)} fill={walls[0]} />
+        <polygon points={pts(up(BL, h), up(BR, h), BR, BL)} fill={walls[1]} />
         <polygon points={pts(FL, BL, BR, FR)} fill={floor} />
       </g>
       <g>
@@ -99,50 +125,69 @@ function PenBack({ pen, floor, bedding }: { pen: Pen; floor: string; bedding?: b
   );
 }
 
-/** Near walls, windows and front posts — everything that overlaps the animals. */
-function PenFront({ pen, window: hasWindow, gate }: { pen: Pen; window?: boolean; gate?: boolean }) {
+/** Near walls, windows and front posts — everything that overlaps the animals.
+ *
+ *  `floor` is the pen's own floor colour: a viewing window is a hole in the
+ *  panel, so what shows through it is the bedding or the grass behind, not a
+ *  tinted pane. `base` is the navy rail a whelping box stands on — the yard
+ *  panels have none, which is most of what tells the two products apart. */
+function PenFront({ pen, window: hasWindow, gate, walls = BOX_WALLS, floor = GLASS, base = 0 }: {
+  pen: Pen; window?: boolean; gate?: boolean; walls?: [string, string]; floor?: string; base?: number;
+}) {
   const { FL, BL, BR, FR, h } = pen;
   const at = (a: Pt, b: Pt, t: number): Pt => [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t];
-  /** A viewing window: green pane in a moulded frame, with corner screws. */
+  /** A viewing window: an aperture cut through the panel, in a moulded frame. */
   const pane = (a: Pt, b: Pt, t0: number, t1: number, key: string) => {
     const p0 = at(a, b, t0), p1 = at(a, b, t1);
     const inset = (p: Pt, q: Pt, k: number): Pt => [p[0] + (q[0] - p[0]) * k, p[1] + (q[1] - p[1]) * k];
-    const i0 = inset(p0, p1, 0.1), i1 = inset(p1, p0, 0.1);
-    const screw = (p: Pt, t: number, k: string) => (
-      <circle key={k} cx={p[0]} cy={p[1] - h * t} r={1.5} fill="none" stroke={PANEL_DK} strokeWidth={1.1} />
-    );
+    const i0 = inset(p0, p1, 0.11), i1 = inset(p1, p0, 0.11);
+    const lo = base ? base * 0.6 + h * 0.1 : h * 0.22;
     return (
       <g key={key}>
-        <polygon points={pts(up(p0, h * .78), up(p1, h * .78), up(p1, h * .16), up(p0, h * .16))}
-          fill={PANEL_SH} stroke={PANEL_DK} strokeWidth={1.6} strokeLinejoin="round" />
-        <polygon points={pts(up(i0, h * .70), up(i1, h * .70), up(i1, h * .24), up(i0, h * .24))}
-          fill={GLASS} stroke={PANEL_DK} strokeWidth={1.6} strokeLinejoin="round" />
-        {screw(p0, .74, "a")}{screw(p1, .74, "b")}{screw(p0, .20, "c")}{screw(p1, .20, "d")}
+        <polygon points={pts(up(p0, h * .78), up(p1, h * .78), up(p1, lo), up(p0, lo))}
+          fill={walls[0]} stroke={PANEL_DK} strokeWidth={1.6} strokeLinejoin="round" />
+        <polygon points={pts(up(i0, h * .70), up(i1, h * .70), up(i1, lo + h * .09), up(i0, lo + h * .09))}
+          fill={floor} stroke={INK} strokeWidth={1.8} strokeLinejoin="round" />
+        {/* What shows through an aperture stands in the panel's shadow, so it
+            reads as a hole rather than as a gap in the drawing. */}
+        <polygon points={pts(up(i0, h * .70), up(i1, h * .70), up(i1, lo + h * .09), up(i0, lo + h * .09))}
+          fill={INK} opacity=".17" />
       </g>
     );
   };
-  // An open gate leaves a gap in the near-left wall so the yard reads as enterable.
+  // An open gate leaves a gap in the near wall so the yard reads as enterable.
   const gateA = at(FL, FR, 0.44), gateB = at(FL, FR, 0.64);
   return (
     <>
       <g stroke={INK} strokeWidth={2.35} strokeLinejoin="round" strokeLinecap="round">
-        <polygon points={pts(up(FR, h), up(BR, h), BR, FR)} fill={PANEL_SH} />
+        <polygon points={pts(up(FR, h), up(BR, h), BR, FR)} fill={walls[0]} />
         {gate ? (
           <>
-            <polygon points={pts(up(FL, h), up(gateA, h), gateA, FL)} fill={PANEL} />
-            <polygon points={pts(up(gateB, h), up(FR, h), FR, gateB)} fill={PANEL} />
+            <polygon points={pts(up(FL, h), up(gateA, h), gateA, FL)} fill={walls[1]} />
+            <polygon points={pts(up(gateB, h), up(FR, h), FR, gateB)} fill={walls[1]} />
           </>
-        ) : <polygon points={pts(up(FL, h), up(FR, h), FR, FL)} fill={PANEL} />}
+        ) : <polygon points={pts(up(FL, h), up(FR, h), FR, FL)} fill={walls[1]} />}
       </g>
       <g>
         {!gate && grain(FL, FR, h, "gf")}{grain(FR, BR, h, "gr")}
-        {!gate && seam(FL, FR, h, 0.5, "sf")}{seam(FR, BR, h, 0.5, "sr")}
       </g>
-      {hasWindow && pane(FL, FR, 0.14, 0.54, "w1")}
-      {hasWindow && pane(FR, BR, 0.26, 0.62, "w2")}
+      {base ? (
+        <>
+          {rail(FL, FR, base, "rf")}{rail(FR, BR, base, "rr")}
+          {strap(FR, BR, h, 0.3, base, "pr1")}{strap(FR, BR, h, 0.7, base, "pr2")}
+          {hasWindow
+            ? strap(FL, FR, h, 0.8, base, "pf1")
+            : <>{strap(FL, FR, h, 0.3, base, "pf1")}{strap(FL, FR, h, 0.7, base, "pf2")}</>}
+        </>
+      ) : (
+        <>{!gate && seam(FL, FR, h, 0.5, "sf")}{seam(FR, BR, h, 0.5, "sr")}</>
+      )}
+      {hasWindow && !gate && pane(FL, FR, 0.12, 0.58, "w1")}
+      {hasWindow && gate && <>{pane(FL, FR, 0.06, 0.34, "w1")}{pane(FL, FR, 0.70, 0.94, "w3")}</>}
+      {hasWindow && !base && pane(FR, BR, 0.26, 0.62, "w2")}
       <g stroke={INK} strokeWidth={2} strokeLinejoin="round">
         {post(FL, h, "fl")}{post(BR, h, "br")}{post(FR, h, "fr")}
-        {gate && <>{post(gateA, h, "ga")}{post(gateB, h, "gb")}</>}
+        {gate && <>{endCap(gateA, h, "ga")}{endCap(gateB, h, "gb")}</>}
       </g>
     </>
   );
@@ -155,7 +200,13 @@ interface LayerProps { geom: Geom; spec?: BoxSpec; className?: string; style?: C
 export function KennelBack({ geom, className, style }: LayerProps) {
   return (
     <svg className={className} style={style} viewBox={geom.viewBox} fill="none" aria-hidden="true">
-      {geom.yard && <PenBack pen={geom.yard} floor={GRASS} />}
+      {geom.yard && <PenBack pen={geom.yard} floor={GRASS} walls={YARD_WALLS} />}
+      {/* The box casts onto the yard floor, which is what lifts it off the grass
+          instead of leaving it looking printed on. */}
+      {geom.yard && <polygon points={pts(
+        [geom.box.FL[0] - 4, geom.box.FL[1] + 6], [geom.box.BL[0] - 4, geom.box.BL[1] + 6],
+        [geom.box.BR[0] - 4, geom.box.BR[1] + 6], [geom.box.FR[0] - 4, geom.box.FR[1] + 6],
+      )} fill={INK} opacity=".13" />}
       <PenBack pen={geom.box} floor={PAD} bedding />
     </svg>
   );
@@ -165,7 +216,7 @@ export function KennelBack({ geom, className, style }: LayerProps) {
 export function KennelBoxFront({ geom, spec = DEFAULT_BOX, className, style }: LayerProps) {
   return (
     <svg className={className} style={style} viewBox={geom.viewBox} fill="none" aria-hidden="true">
-      <PenFront pen={geom.box} window={spec.window} />
+      <PenFront pen={geom.box} window={spec.window} floor={PAD} base={geom.box.h * 0.17} />
     </svg>
   );
 }
@@ -175,7 +226,7 @@ export function KennelYardFront({ geom, className, style }: LayerProps) {
   if (!geom.yard) return null;
   return (
     <svg className={className} style={style} viewBox={geom.viewBox} fill="none" aria-hidden="true">
-      <PenFront pen={geom.yard} gate />
+      <PenFront pen={geom.yard} gate window walls={YARD_WALLS} floor={GRASS} />
     </svg>
   );
 }
@@ -222,6 +273,21 @@ export function HeatLamp({ className, style }: ArtProps) {
       <g stroke="#FFC451" strokeWidth={3.2} strokeLinecap="round" opacity=".95">
         <path d="M62,98 L56,110 M84,102 L84,116 M106,98 L112,110" />
       </g>
+    </svg>
+  );
+}
+
+/** The beach ball that lives on the grass outside the pen. */
+export function PlayBall({ className, style }: ArtProps) {
+  return (
+    <svg className={className} style={style} viewBox="0 0 96 104" fill="none" aria-hidden="true">
+      <ellipse cx="50" cy="93" rx="30" ry="8" fill="#000" opacity=".1" />
+      <g stroke={INK} strokeWidth={3.2} strokeLinejoin="round">
+        <circle cx="48" cy="52" r="42" fill="#FBFCFD" />
+        <path d="M48,10 C64,24 64,80 48,94 C70,94 90,76 90,52 C90,28 70,10 48,10 Z" fill="#E2762F" />
+        <path d="M48,10 C32,24 32,80 48,94 C26,94 6,76 6,52 C6,28 26,10 48,10 Z" fill="#4E8FC4" />
+      </g>
+      <path d="M26,30 C32,23 40,18 49,17" stroke="#fff" strokeWidth={3} fill="none" opacity=".6" strokeLinecap="round" />
     </svg>
   );
 }

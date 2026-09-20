@@ -4,6 +4,32 @@ import PuppyMeadow from "@/components/PuppyMeadow";
 import { initialMeadowScene } from "@/lib/meadow-scene";
 
 describe("Puppy meadow", () => {
+  it("keeps existing puppies anchored while every later step adds a distinct puppy", () => {
+    const { rerender } = render(<PuppyMeadow count={1} showQuizKennel />);
+    const first = screen.getAllByTestId("meadow-puppy")[0];
+    const position = first.getAttribute("style");
+    for (let count = 2; count <= 12; count++) {
+      rerender(<PuppyMeadow count={count} showQuizKennel />);
+      const puppies = screen.getAllByTestId("meadow-puppy");
+      expect(puppies).toHaveLength(count);
+      expect(puppies[0]).toBe(first);
+      expect(puppies[0].getAttribute("style")).toBe(position);
+      expect(new Set(puppies.map(p => `${p.querySelector("img")?.getAttribute("src")}-${p.dataset.coat}`)).size).toBe(count);
+    }
+  });
+
+  it("shows selected accessories and removes them when answers change", () => {
+    const { rerender } = render(<PuppyMeadow count={4} showQuizKennel scene={{ ...initialMeadowScene, tools: true, stage: "sleeping" }} />);
+    expect(screen.getByLabelText("Breeder care kit")).toBeInTheDocument();
+    expect(screen.getByLabelText("Fresh blankets for the nursery")).toBeInTheDocument();
+    rerender(<PuppyMeadow count={4} showQuizKennel scene={{ ...initialMeadowScene, monitoring: true, zones: 2 }} />);
+    expect(screen.queryByLabelText("Breeder care kit")).not.toBeInTheDocument();
+    expect(screen.queryByLabelText("Fresh blankets for the nursery")).not.toBeInTheDocument();
+    expect(screen.getByLabelText("WiFi puppy monitor")).toBeInTheDocument();
+    expect(screen.getByLabelText("Playtime toys")).toBeInTheDocument();
+    expect(screen.queryByLabelText("Feeding area")).not.toBeInTheDocument();
+  });
+
   it("reveals the matching setup and resets it with the quiz", () => {
     const { rerender } = render(<PuppyMeadow count={4} scene={{ ...initialMeadowScene, breed: "Poodle", size: "over_90", stage: "sleeping", zones: 3, heating: true, complete: true }} />);
     expect(screen.getByLabelText("Whelping box")).toBeInTheDocument();
@@ -34,16 +60,21 @@ describe("Puppy meadow", () => {
 
   it("gives each puppy a different illustrated activity", () => {
     render(<PuppyMeadow count={6} />);
-    ["sleeping", "eating", "jumping", "sitting", "playing with a ball", "stretching"].forEach((activity, index) => {
-      expect(screen.getByLabelText(`Puppy ${index + 1}, ${activity}`)).toBeInTheDocument();
+    ["sleeping", "eating", "jumping", "sitting", "playing with a ball", "stretching"].forEach((activity) => {
+      expect(screen.getByLabelText(new RegExp(`Puppy \\d+, ${activity}`))).toBeInTheDocument();
     });
     expect(document.querySelector(".puppy-bowl")).toBeInTheDocument();
     expect(document.querySelector(".puppy-ball")).toBeInTheDocument();
   });
 
-  it("keeps the litter inside a one-zone whelping box", () => {
-    render(<PuppyMeadow count={6} scene={{ ...initialMeadowScene, stage: "playful", zones: 1 }} />);
-    expect(document.querySelectorAll(".kennel-stage .puppy-arrival.in-box")).toHaveLength(6);
-    expect(screen.queryByLabelText("Play yard")).not.toBeInTheDocument();
+  it("shows the kennel from the first quiz step and adds puppies inside it", () => {
+    const { rerender } = render(<PuppyMeadow count={0} scene={initialMeadowScene} showQuizKennel />);
+    expect(document.querySelector(".kennel-stage .kennel-back")).toBeInTheDocument();
+    expect(document.querySelectorAll(".kennel-stage .puppy-arrival")).toHaveLength(0);
+    rerender(<PuppyMeadow count={3} scene={{ ...initialMeadowScene, stage: "playful", zones: 1 }} showQuizKennel />);
+    expect(screen.getByLabelText("Family play yard")).toBeInTheDocument();
+    expect(screen.getByLabelText("Whelping box")).toBeInTheDocument();
+    expect(document.querySelector(".kennel-stage .kennel-back")).toBeInTheDocument();
+    expect(document.querySelectorAll(".kennel-stage .puppy-arrival")).toHaveLength(3);
   });
 });

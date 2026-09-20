@@ -811,8 +811,11 @@ const EZWhelpQuiz: React.FC<{ onQuizStarted?: (started: boolean) => void; onQuiz
   const totalSteps = gateAnswered ? steps.length + 1 : 1;
   const globalStep = gateAnswered ? currentStep + 2 : 1;
   useEffect(() => {
-    onPuppyProgress?.(gateAnswered ? currentStep + 1 + (isComplete ? 1 : 0) : 0);
-  }, [gateAnswered, currentStep, isComplete, onPuppyProgress]);
+    // The path-choice screen introduces the empty home. The first actual quiz
+    // question already has a puppy waiting inside it, then each new question
+    // welcomes another puppy.
+    onPuppyProgress?.(gateAnswered ? (isComplete ? steps.length + 1 : currentStep + 1) : 0);
+  }, [gateAnswered, currentStep, isComplete, steps.length, onPuppyProgress]);
   const currentQuizStep = steps[currentStep];
   useEffect(() => {
     onQuizComplete?.(isComplete);

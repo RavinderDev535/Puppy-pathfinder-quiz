@@ -9,7 +9,13 @@ export type Pt = [number, number];
 
 interface Dims { W: number; D: number; h: number; ex: Pt; ey: Pt }
 
-const makeDims = (W: number, D: number, h: number): Dims => ({ W, D, h, ex: [W, W / 2], ey: [-D, D / 2] });
+// The camera the reference scene is drawn from. The two axes deliberately rise
+// by different amounts: the width axis runs almost flat across the page while
+// the depth axis falls steeply toward the reader, so a pen reads as a wide
+// rectangle seen from the front instead of a 45-degree diamond.
+const ISO_X = 0.32;
+const ISO_Y = 0.72;
+const makeDims = (W: number, D: number, h: number): Dims => ({ W, D, h, ex: [W, W * ISO_X], ey: [-D, D * ISO_Y] });
 
 export interface BoxSpec {
   /** Footprint in inches, as sold: 28×28, 38×38, 48×48, 48×76. */
@@ -27,13 +33,22 @@ export const DEFAULT_BOX: BoxSpec = { width: 48, depth: 48, panel: 18, window: t
  *  well on screen. The difference stays obvious; neither extreme breaks layout. */
 const compress = (inches: number, from: number, k: number) => from + (inches - from) * k;
 const UNIT = 2.3;
-/** How far the play yard stands off the box, in drawing units. */
-/* Wide enough that a puppy standing in the yard clears the box rather than
-   piling onto its wall. */
-const YARD_MARGIN = 58;
-const YARD_PANEL = 20;
-/** How far the box sits toward the back of the yard, as a share of the margin. */
-const BOX_SETBACK = 0.32;
+/** How far the play yard stands off the box, in drawing units. The yard is far
+ *  wider than it is deep: that is what keeps the litter reading as a row across
+ *  the scene, with open grass in front of the box rather than a deep well. */
+/* The yard has to be wide enough to read as a rectangle seen from the front,
+   and deep enough that the strip of floor in front of the box clears the near
+   wall — otherwise every puppy standing there is cut in half by a panel. */
+const YARD_MARGIN_X = 104;
+const YARD_MARGIN_Y = 90;
+/** Panel height is what stops a pen reading as a floor decal: the yard wall
+ *  has to stand tall enough beside a puppy to look like something it cannot
+ *  simply walk over. */
+const YARD_PANEL = 34;
+/** Where the box sits inside the yard, as a share of the floor the box leaves
+ *  over: a little left of centre, tucked up against the back wall. */
+const BOX_U = 0.34;
+const BOX_V = 0.1;
 
 // Panel height is compressed harder than the footprint: a true-to-scale 28"
 // panel on a 48" box hides the whole litter, which defeats the point of the
@@ -41,7 +56,7 @@ const BOX_SETBACK = 0.32;
 const boxDims = (spec: BoxSpec) => makeDims(
   compress(spec.width, 28, 0.55) * UNIT,
   compress(spec.depth, 28, 0.55) * UNIT,
-  compress(spec.panel, 18, 0.45) * UNIT * 0.48,
+  compress(spec.panel, 18, 0.45) * UNIT * 0.62,
 );
 
 /** A pen's four floor corners plus a mapper from normalised floor coordinates. */
@@ -69,7 +84,7 @@ const LARGEST: BoxSpec = { width: 48, depth: 76, panel: 28, window: false };
 export function kennelGeometry(spec: BoxSpec, withYard: boolean) {
   const box = boxDims(spec);
   const yard = withYard
-    ? makeDims(box.W + YARD_MARGIN * 2, box.D + YARD_MARGIN * 2, YARD_PANEL)
+    ? makeDims(box.W + YARD_MARGIN_X * 2, box.D + YARD_MARGIN_Y * 2, YARD_PANEL)
     : null;
 
   // A stand-alone box gets a tight canvas. Keeping the yard-sized canvas for a
@@ -78,28 +93,35 @@ export function kennelGeometry(spec: BoxSpec, withYard: boolean) {
   // hand, deliberately keeps the shared large canvas so its scale is clear.
   const max = boxDims(LARGEST);
   const canvas = yard
-    ? makeDims(max.W + YARD_MARGIN * 2, max.D + YARD_MARGIN * 2, YARD_PANEL)
+    ? makeDims(max.W + YARD_MARGIN_X * 2, max.D + YARD_MARGIN_Y * 2, YARD_PANEL)
     : makeDims(box.W, box.D, box.h);
   const pad = 16;
   const vw = canvas.W + canvas.D + pad * 2;
-  const vh = (canvas.W + canvas.D) / 2 + canvas.h + pad * 2;
+  const vh = canvas.W * ISO_X + canvas.D * ISO_Y + canvas.h + pad * 2;
   const canvasBL: Pt = [canvas.D + pad, canvas.h + pad];
   const centre: Pt = [
     canvasBL[0] + (canvas.ex[0] + canvas.ey[0]) / 2,
     canvasBL[1] + (canvas.ex[1] + canvas.ey[1]) / 2,
   ];
   // Both pens hang off the same centre.
-  const placeAt = (d: Dims, back = 0): Pt => [
+  const placeAt = (d: Dims): Pt => [
     centre[0] - (d.ex[0] + d.ey[0]) / 2,
-    // Moving equally along both isometric axes is pure vertical travel, so a
-    // setback is simply a lift: it pushes the box toward the yard's back wall
-    // and opens up the play area in front, the way the reference scene reads.
-    centre[1] - (d.ex[1] + d.ey[1]) / 2 - back,
+    centre[1] - (d.ex[1] + d.ey[1]) / 2,
   ];
+
+  const yardPen = yard ? corners(yard, placeAt(yard)) : null;
+  // Inside a yard the box is positioned in the yard's own floor coordinates
+  // rather than by a screen offset, so however the footprint changes it keeps
+  // the same stand-off from the back wall and the same open play area in front.
+  let boxBL = placeAt(box);
+  if (yardPen && yard) {
+    const at = yardPen.floorAt(BOX_U * (1 - box.W / yard.W), BOX_V * (1 - box.D / yard.D));
+    boxBL = [at.x, at.y];
+  }
 
   return {
     vw, vh, viewBox: `0 0 ${vw.toFixed(1)} ${vh.toFixed(1)}`,
-    box: corners(box, placeAt(box, yard ? YARD_MARGIN * BOX_SETBACK : 0)),
-    yard: yard ? corners(yard, placeAt(yard)) : null,
+    box: corners(box, boxBL),
+    yard: yardPen,
   };
 }

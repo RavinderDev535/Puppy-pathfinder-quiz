@@ -8,13 +8,15 @@ export interface MeadowScene {
   stage: "waiting" | "expecting" | "sleeping" | "growing" | "playful";
   zones: number;
   heating: boolean;
+  tools: boolean;
+  monitoring: boolean;
   complete: boolean;
   /** The box they are being recommended, or already own, once it is known. */
   box: BoxSpec | null;
 }
 
 export const initialMeadowScene: MeadowScene = {
-  breed: "", size: null, stage: "waiting", zones: 0, heating: false, complete: false, box: null,
+  breed: "", size: null, stage: "waiting", zones: 0, heating: false, tools: false, monitoring: false, complete: false, box: null,
 };
 
 /** 48×76 is the XL/Giant box; every other size is square. */
@@ -57,6 +59,8 @@ export function getMeadowScene(type: CustomerType, fresh: NewCustomerData, exist
     zones: type === "new" ? fresh.zones ?? 0 : existing.boxSize && existing.boxSize !== "unsure" ? 1 : 0,
     // branchAnswer also means tools/monitoring on other branches, never heat there.
     heating: type === "new" && fresh.zones === 3 && fresh.branchAnswer === true,
+    tools: type === "new" && fresh.zones === 1 && fresh.branchAnswer === true,
+    monitoring: type === "new" && fresh.zones === 2 && fresh.branchAnswer === true,
     box: getBoxSpec(type, fresh, existing),
   };
 }

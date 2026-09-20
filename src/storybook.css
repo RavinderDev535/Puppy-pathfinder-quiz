@@ -44,6 +44,10 @@
    from there via .mother-size. */
 .dog-mom .mother-size { width: 92%; margin: 0 auto; }
 .dog-mom .adult-art { animation: mom-sway 3.7s ease-in-out infinite; }
+.meadow-has-kennel .meadow-family { max-width: 1120px; padding-top: 46px; }
+/* Mom and Dad stand in the illustrated scene once the enclosure arrives — see
+   the block at the end of this file, which has to out-rank every later
+   page-level .adult-dog size rule. */
 .puppy-pack { display: flex; flex-wrap: wrap; justify-content: center; align-items: end; gap: 0 8px; padding: 35px 100px 30px; }
 
 .puppy-arrival { --k: .208px; animation: puppy-join .65s ease-out both; }
@@ -66,7 +70,7 @@
 @keyframes tail-wag { from { transform: rotate(-7deg); } to { transform: rotate(8deg); } }
 @keyframes dad-stand { 0%,100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-2px) rotate(.7deg); } }
 @keyframes mom-sway { 0%,100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-3px) rotate(-2deg); } }
-@keyframes puppy-join { from { opacity: 0; transform: translateY(-35px) scale(.5); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes puppy-join { from { opacity: 0; transform: translateY(-35px) scale(calc(var(--puppy-scale, 1) * .5)); } to { opacity: 1; transform: translateY(0) scale(var(--puppy-scale, 1)); } }
 @keyframes puppy-hop { 0%,70%,100% { transform: translateY(0) rotate(0); } 80% { transform: translateY(-7px) rotate(var(--tilt)); } 90% { transform: translateY(0) rotate(0); } }
 @media(min-width: 1100px) { .storybook:not(.storybook-playing) .story-header { padding-top: 55px; }.storybook:not(.storybook-playing) .puppy-meadow { min-height: 360px; }.storybook:not(.storybook-playing) .meadow-family { padding-top: 180px; }.storybook:not(.storybook-playing) .adult-dog { width: 205px; top: 20px; } }
 @media(max-width: 600px) { .storybook { margin: 6px; min-height: calc(100svh - 12px); }.story-header { padding: 76px 18px 10px; }.story-eyebrow { font-size: 8px; letter-spacing: 2px; }.story-header h1 { letter-spacing: 3px; }.cloud-two { left: -90px; }.cloud-three { right: -85px; top: 260px; }.story-intro { margin-top: 24px; }.story-fence { width: 115px; top: 93px; }.story-fence i { width: 13px; }.adult-dog { width: 104px; top: 25px; }.dog-dad { left: 5%; }.dog-mom { right: 5%; }.puppy-pack { padding: 35px 25px 25px; gap: 0 4px; }.puppy-arrival { --k: .149px; }.story-footer { font-size: 11px; padding: 10px 12px; }.storybook .story-quiz-card { padding: 18px 12px 8px; }.storybook-playing .story-header { padding: 30px 45px 0; }.storybook-playing .story-header h1 { font-size: 37px; }.storybook-playing .story-eyebrow { display: none; }.storybook-playing .story-header p { font-size: 15px; } }
@@ -95,39 +99,65 @@
 .stage-expecting .puppy-arrival { opacity: .7; }
 .stage-expecting .puppy-arrival img { animation: dog-breathe 4s ease-in-out infinite; }
 .puppy-dream { position: absolute; top: 0; right: 15%; color: #ad6768; font-size: 23px; animation: sleepy-float 4s ease-out infinite; }
-/* The kennel is the setting, not a legend: the play yard frames the scene, the
-   whelping box sits inside it, and puppies are placed on the box floor or
-   around the yard. */
-.kennel-stage { position: relative; width: min(880px, 98%); margin: 2px auto 0; animation: setup-appear .55s ease-out both; }
-/* Every layer shares the kennel's viewBox, so they register exactly. */
-.kennel-layer { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-.kennel-box-front { z-index: 3; pointer-events: none; }
-.kennel-yard-front { z-index: 5; pointer-events: none; }
+/* The kennel is the setting, not a legend: one supplied illustration of the
+   play yard, the whelping box inside it and the litter at play. It is close to
+   square, so it is sized well below the meadow's full width. */
+/* The illustration is close to square, so a stage sized on width alone runs off
+   the bottom of a short window and the pen gets trimmed. Every size below is a
+   width — the vh term is the height budget converted through the drawing's own
+   1346:1168 ratio — with the height left to the inline aspect-ratio. Capping the
+   height with max-height instead would letterbox the art inside the box, and
+   Mom and Dad are positioned in percentages of that box. */
+.kennel-stage { position: relative; z-index: 2; width: min(96%, 645px, 64.5vh); height: auto; margin: 2px auto 0; animation: setup-appear .55s ease-out both; }
+.kennel-back, .kennel-box-front, .kennel-yard-front { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.kennel-back { z-index: 3; }
+.kennel-puppies {
+  position: absolute;
+  inset: 0;
+  /* Puppies stand in front of the nursery and behind the yard's near walls. */
+  z-index: 5;
+  pointer-events: none;
+  overflow: hidden;
+}
+.starter-puppies { position: absolute; inset: 0; z-index: 4; pointer-events: none; overflow: hidden; }
+.starter-pup { position: absolute; display: block; width: 20%; transform-origin: center bottom; filter: drop-shadow(0 3px 1px #4a2e2130); }
+.starter-pup img { display: block; width: 100%; height: auto; }
+.starter-pup-napping { left: 29%; bottom: 30%; width: 16%; }
+.starter-pup-sitting { left: 46%; bottom: 28%; width: 18%; }
+.starter-pup-playing { left: 62%; bottom: 21%; width: 21%; transform: scaleX(-1); }
+.kennel-box-front { z-index: 4; }
+.kennel-yard-front { z-index: 6; }
+.kennel-puppies .puppy-arrival { position: absolute; width: 10%; transform-origin: center bottom; }
+.kennel-puppies .puppy-arrival img { width: 100%; height: auto; animation: dog-breathe 4s ease-in-out infinite; filter: drop-shadow(0 2px 1px #4a2e2128); }
+.kennel-puppies .puppy-arrival { padding: 0; animation: kennel-puppy-join .45s ease-out both; }
+.kennel-puppies .puppy-arrival[data-coat="cocoa"] img { filter: saturate(.6) brightness(.82) drop-shadow(0 2px 1px #4a2e2128); }
+.kennel-puppies .puppy-bowl { width: 38%; height: 17%; right: -8%; bottom: 0; border-width: 1px; }
+.kennel-puppies .puppy-bowl i { width: 50%; height: 20%; left: 25%; }
+.kennel-puppies .puppy-ball { width: 23%; height: auto; aspect-ratio: 1; bottom: 0; animation: none; }
+.kennel-puppies .sleep-bubbles { font-size: clamp(8px, 1vw, 12px); }
+@keyframes kennel-puppy-join { from { opacity: 0; } to { opacity: 1; } }
+.kennel-nameplate { position: absolute; z-index: 7; top: -8%; left: 30%; width: 40%; padding: 3px 8px; text-align: center; border: 2px solid #9b7041; border-radius: 5px; background: #fff1ce; color: #634726; font-size: clamp(11px, 1.5vw, 17px); }
+.scene-accessory { position: absolute; z-index: 7; text-align: center; }
+.scene-accessory svg { display: block; width: 100%; height: auto; }
+.scene-accessory small { display: block; color: #4d5730; font-size: clamp(9px, 1.2vw, 14px); }
+.scene-feeding { left: 3%; bottom: 0; width: 18%; }
+.scene-toys { right: 6%; bottom: 8%; width: 6%; }
+.scene-tools { left: 0; bottom: 27%; width: 10%; }
+.scene-monitor { right: 4%; top: 18%; width: 8%; }
+.scene-blankets { left: 1%; bottom: 24%; width: 12%; height: 10%; }
+.scene-blankets span { position: absolute; inset: 35% 0 0; border: 2px solid #876b51; border-radius: 5px; background: #edc9ad; transform: rotate(-7deg); }
+.scene-blankets span + span { inset: 0 4% 35%; background: #bad4ce; transform: rotate(4deg); }
 .sr-slot { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
-.stage-feeding { position: absolute; left: 3%; bottom: 8%; width: 14%; z-index: 7; }
-.stage-lamp { position: absolute; right: 9%; top: 3%; width: 16%; z-index: 7; }
-.stage-feeding svg, .stage-lamp svg { width: 100%; height: auto; display: block; }
-.stage-caption { position: absolute; left: 0; right: 0; bottom: -22px; text-align: center; font-size: 13px; color: #48512c; z-index: 7; }
-.kennel-stage .puppy-arrival { margin: 0; --k: .22px; }
-/* Newborns in the box are smaller than the litter out in the yard, which also
-   keeps them clear of the near panel. */
-.kennel-stage .puppy-arrival.in-box { --k: .18px; }
-.storybook-playing .kennel-stage .puppy-arrival { --k: .109px; }
+.stage-lamp { position: absolute; right: -14%; top: 46%; width: 15%; z-index: 7; }
+.stage-lamp svg { width: 100%; height: auto; display: block; }
+.stage-caption { position: absolute; left: 0; right: 0; bottom: -46px; text-align: center; font-size: 13px; color: #48512c; z-index: 7; }
 /* During the quiz the meadow is a thin strip above the questions, so the
    kennel shrinks to fit it rather than overflowing. */
 /* Sized from height, not width: the strip's height is the binding constraint,
    so this keeps the whole pen on screen instead of cropping its front corner. */
 /* Only the kennel moves up — meadow-family's padding also sets where the
    puppy row stands, and lifting that floats the puppies off the grass. */
-.storybook-playing .kennel-stage { width: auto; height: 290px; max-width: 94%; margin: -48px auto 0; }
-/* Puppies in the kennel are sized from the stage's own width, so the pens and
-   the litter scale as one scene at every breakpoint. The px values above stay
-   as the fallback. */
-@supports (container-type: inline-size) {
-  .kennel-stage { container-type: inline-size; }
-  .kennel-stage .puppy-arrival { --k: .0235cqw; }
-  .kennel-stage .puppy-arrival.in-box { --k: .0175cqw; }
-}
+.storybook-playing .kennel-stage { width: min(94%, 390px, 46vh); height: auto; margin: -8px auto 0; }
 .storybook-playing .stage-caption { display: none; }
 .stage-lamp .lamp-pool { animation: lamp-warmth 3s ease-in-out infinite alternate; transform-origin: 84px 128px; }
 .meadow-complete .kennel-stage { outline: 2px dashed #e7ecac; outline-offset: 10px; border-radius: 18px; }
@@ -157,20 +187,20 @@
 @keyframes setup-appear { from { opacity: 0; translate: 0 20px; } to { opacity: 1; translate: 0 0; } }
 @keyframes lamp-warmth { from { opacity: .35; transform: scale(.94); } to { opacity: .62; transform: scale(1.06); } }
 @keyframes meadow-confetti { 0% { opacity: 0; transform: translateY(0) rotate(0); } 12% { opacity: 1; } 100% { opacity: 0; transform: translateY(350px) rotate(150deg); } }
-@media(max-width: 600px) { .meadow-caption { font-size: 16px; padding-bottom: 16px; }.storybook-playing .puppy-pack { padding: 20px 30px 15px; }.storybook-playing .puppy-arrival { --k: .112px; }.storybook-playing .dog-dad { left: 4%; }.storybook-playing .dog-mom { right: 4%; }.storybook-playing .adult-dog { width: 96px; }.kennel-stage { width: 90%; }.stage-caption { font-size: 11px; bottom: -18px; }.storybook-playing .story-fence { opacity: .7; } }
+@media(max-width: 600px) { .meadow-caption { font-size: 16px; padding-bottom: 16px; }.storybook-playing .puppy-pack { padding: 20px 30px 15px; }.storybook-playing .puppy-arrival { --k: .112px; }.storybook-playing .dog-dad { left: 4%; }.storybook-playing .dog-mom { right: 4%; }.storybook-playing .adult-dog { width: 96px; }.kennel-stage { width: min(96%, 346px, 39.2vh); }.stage-caption { font-size: 11px; bottom: -18px; }.storybook-playing .story-fence { opacity: .7; } }
 @media(prefers-reduced-motion: reduce) { .storybook *, .storybook *::before, .storybook *::after { animation: none !important; transition: none !important; }.sleep-bubbles { opacity: 1; }.meadow-celebration { display: none; } }
 
 /* Active quiz: one game screen. The meadow stays visible below the wooden
    question boards, rather than being a separate section users must scroll to. */
-.storybook.storybook-playing { height: calc(100svh - 24px); min-height: 520px; overflow: hidden; }
+.storybook.storybook-playing { height: auto; min-height: calc(100svh - 24px); overflow: hidden; }
 .storybook.storybook-complete { height: auto; min-height: calc(100svh - 24px); overflow: visible; }
 .storybook-complete .story-questions { display: block; flex: none; min-height: auto; margin: 0 auto; }
 .storybook-complete .puppy-meadow { display: none; }
 .storybook-playing .story-header { flex: none; padding: 9px 58px 4px; }
 .storybook-playing .story-header h1 { font-size: clamp(28px, 4vw, 46px); line-height: 1; letter-spacing: 3px; }
 .storybook-playing .story-header p { font-size: clamp(13px, 1.5vw, 17px); line-height: 1.1; }
-.storybook-playing .story-questions { order: 1; display: flex; align-items: center; flex: 1 1 auto; min-height: 0; width: min(920px, 96%); margin: 0 auto; }
-.storybook-playing .puppy-meadow { order: 2; flex: 0 0 44vh; min-height: 300px; margin: 0; overflow: hidden; }
+.storybook-playing .story-questions { order: 1; display: flex; align-items: center; flex: 1 0 auto; min-height: auto; width: min(920px, 96%); margin: 16px auto 0; }
+.storybook-playing .puppy-meadow { order: 2; flex: 0 0 auto; min-height: 300px; margin: 0; overflow: hidden; }
 .storybook-playing .story-footer { display: none; }
 .storybook-playing .story-quiz-screen { max-height: 100%; overflow: hidden; padding: 0 22px 7px; border: 0 !important; border-radius: 0 !important; background: transparent !important; box-shadow: none !important; }
 .storybook-playing .story-quiz-screen > div:first-child { min-height: 0 !important; }
@@ -211,8 +241,9 @@
 .storybook-playing [role="radiogroup"] .path-tile > span:nth-of-type(2) { font-size: clamp(18px, 2vw, 23px) !important; line-height: 1.05; }
 .storybook-playing [role="radiogroup"] .path-tile > span:nth-of-type(3) { max-width: 300px; font-size: 14px !important; line-height: 1.18; }
 .storybook-playing .meadow-caption { display: none; }
-.storybook-playing .meadow-family { min-height: 300px; padding-top: 52px; }
+.storybook-playing .meadow-family { min-height: 300px; padding-top: min(52px, 6vh); }
 .storybook-playing .adult-dog { width: 124px; top: 2px; }
+.storybook-playing .meadow-has-kennel .meadow-family { padding-top: 52px; }
 .storybook-playing .puppy-pack { padding: 12px 100px 4px; }
 .storybook-playing .puppy-arrival { width: 52px; }
 .storybook-playing .story-fence { top: 34px; scale: .56; }
@@ -223,6 +254,7 @@
 .storybook-playing .storybook-question-content { max-height: none; overflow: hidden; }
 .storybook-playing .story-quiz-card .duo-option { box-sizing: border-box; min-height: 54px; padding: 8px 17px; }
 .storybook-playing .adult-dog > span { display: none; }
+.storybook-playing .meadow-has-kennel .kennel-stage { width: min(76%, 710px); max-width: 92%; margin-bottom: 36px; }
 .storybook-playing .story-quiz-screen > div:first-child { justify-content: flex-start !important; }
 .storybook-playing .storybook-question-content > h2 { margin-bottom: 8px; padding: 10px 35px 7px; border-top-width: 9px; font-size: clamp(20px, 2.25vw, 27px); }
 .storybook-playing .storybook-question-content > h2::before { inset: -9px -5px auto; height: 12px; }
@@ -272,12 +304,12 @@
 .storybook-playing .breed-suggestions { z-index: 30; max-height: 170px; border: 2px solid #875326 !important; border-radius: 5px !important; background: #fff9e9 !important; box-shadow: 3px 4px 0 #73482066, inset 0 0 8px #80501c5c !important; }
 
 @media (max-width: 600px) {
-  .storybook.storybook-playing { height: calc(100svh - 12px); min-height: 500px; }
+  .storybook.storybook-playing { height: auto; min-height: calc(100svh - 12px); }
   .storybook-playing .story-header { padding: 8px 46px 2px; }
   .storybook-playing .story-header h1 { font-size: 31px; }
   .storybook-playing .story-header p { font-size: 12px; }
   .storybook-playing .story-questions { width: 98%; }
-  .storybook-playing .puppy-meadow { flex-basis: 40vh; min-height: 240px; }
+  .storybook-playing .puppy-meadow { flex-basis: auto; min-height: 240px; }
   .storybook-playing .story-quiz-screen { padding: 0 7px 4px; }
   .storybook-playing .storybook-question-content { max-height: none; padding-inline: 3px; }
   .storybook-playing .storybook-question-content > h2 { padding: 14px 22px 10px; margin-bottom: 8px; border-top-width: 10px; font-size: 20px; }
@@ -316,11 +348,33 @@
   .storybook-playing .story-quiz-card .duo-option .text-xs { font-size: 13px; }
   .storybook-playing .story-quiz-card .duo-option .text-xs:empty { display: none; }
   .storybook-playing .meadow-family { min-height: 240px; padding-top: 42px; }
-  .storybook-playing .kennel-stage { height: 230px; margin-top: -38px; }
+  .storybook-playing .kennel-stage { width: min(94%, 292px, 37vh); margin-top: -6px; }
   .storybook-playing .adult-dog { width: 77px; top: 4px; }
+  .storybook-playing .meadow-has-kennel .kennel-stage { width: 96%; max-width: 96%; }
   .storybook-playing .adult-dog span { font-size: 12px; padding: 2px 7px; }
   .storybook-playing .adult-dog span em { display: none; }
   .storybook-playing .puppy-pack { padding: 8px 24px 2px; }
   .storybook-playing .puppy-arrival { width: 42px; }
   .storybook-playing .story-fence { top: 29px; scale: .43; }
+}
+
+/* ---- Mom and Dad, standing in the illustrated scene ----
+   They live inside .kennel-stage so they scale with the pen rather than with
+   the page, and they stand off its left and right edges: the illustration runs
+   wall to wall, so the only grass left for them is beside it. The specificity
+   here is deliberate — the >=1100px block and the quiz-strip block both set
+   .adult-dog widths in pixels further up, and would otherwise win on order. */
+.storybook .meadow-has-kennel .kennel-stage .adult-dog { width: 25%; z-index: 1; }
+.storybook .meadow-has-kennel .kennel-stage .dog-dad { left: -15%; top: 2%; }
+.storybook .meadow-has-kennel .kennel-stage .dog-mom { right: -15%; top: -6%; }
+/* The name pills belong to the page-level pair on the intro screen; beside the
+   pen they would just float on the grass. */
+.storybook .meadow-has-kennel .kennel-stage .adult-dog > span { display: none; }
+/* A phone has no room for a dog either side of the pen, so they move up onto
+   the grass behind it instead of walking off the screen. */
+@media(max-width: 600px) {
+  .storybook .meadow-has-kennel .kennel-stage .adult-dog { width: 26%; }
+  .storybook .meadow-has-kennel .kennel-stage .dog-dad { left: 0; top: 2%; }
+  .storybook .meadow-has-kennel .kennel-stage .dog-mom { right: 0; top: -3%; }
+  .stage-lamp { right: 0; top: 65%; width: 12%; }
 }

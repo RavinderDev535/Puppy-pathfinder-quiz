@@ -15,6 +15,12 @@ describe("answer-driven meadow", () => {
     expect(getMeadowScene("new", { ...fresh, zones: 3, branchAnswer: false }, existing, false).heating).toBe(false);
   });
 
+  it("matches branch accessories to the selected layout and clears them on path changes", () => {
+    expect(getMeadowScene("new", { ...fresh, zones: 1, branchAnswer: true }, existing, false)).toMatchObject({ tools: true, monitoring: false, heating: false });
+    expect(getMeadowScene("new", { ...fresh, zones: 2, branchAnswer: true }, existing, false)).toMatchObject({ tools: false, monitoring: true, heating: false });
+    expect(getMeadowScene("existing", { ...fresh, zones: 2, branchAnswer: true }, existing, false)).toMatchObject({ tools: false, monitoring: false, heating: false });
+  });
+
   it("does not carry an old path's scene into a new one", () => {
     expect(getMeadowScene(null, { ...fresh, breed: "Poodle", zones: 3 }, existing, false)).toEqual(initialMeadowScene);
     expect(getMeadowScene("existing", fresh, { ...existing, breed: "Beagle", boxSize: "28" }, true)).toMatchObject({ breed: "Beagle", zones: 1, heating: false, complete: true });
