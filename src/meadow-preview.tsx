@@ -9,6 +9,11 @@ const scene = { ...initialMeadowScene, breed: "Beagle", size: "40_90" as const, 
 const params = new URLSearchParams(location.search);
 const playing = params.has("playing");
 const count = Math.max(0, Math.min(12, Number(params.get("count") ?? 8) || 0));
+if (params.get("size") === "small") {
+  scene.box = { width: 28, depth: 28, panel: 18, window: false };
+} else if (params.get("size") === "xl") {
+  scene.box = { width: 48, depth: 76, panel: 28, window: false };
+}
 createRoot(document.getElementById("root")!).render(
   <main className={`storybook${playing ? " storybook-playing" : ""}`}><PuppyMeadow count={count} scene={scene} /></main>
 );

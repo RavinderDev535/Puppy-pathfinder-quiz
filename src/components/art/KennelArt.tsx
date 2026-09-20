@@ -24,7 +24,7 @@ const WOOD_DK = "#B47F3C";
 const GRASS = "#B9D97E";
 /** The yard's panels are knocked back a shade so the whelping box reads as a
  *  separate white object standing inside it, not as more of the same wall. */
-const YARD_WALLS: [string, string] = ["#E7EEF1", "#F3F8F9"];
+const YARD_WALLS: [string, string] = ["#EEECE5", "#FFFCF4"];
 const BOX_WALLS: [string, string] = [PANEL_SH, PANEL];
 
 const up = (p: Pt, h: number): Pt => [p[0], p[1] - h];
@@ -165,11 +165,12 @@ function PenFront({ pen, window: hasWindow, gate, walls = BOX_WALLS, floor = GLA
           <>
             <polygon points={pts(up(FL, h), up(gateA, h), gateA, FL)} fill={walls[1]} />
             <polygon points={pts(up(gateB, h), up(FR, h), FR, gateB)} fill={walls[1]} />
+            <polygon points={pts(up(gateA, h * .15), up(gateB, h * .15), gateB, gateA)} fill={walls[1]} />
           </>
         ) : <polygon points={pts(up(FL, h), up(FR, h), FR, FL)} fill={walls[1]} />}
       </g>
       <g>
-        {!gate && grain(FL, FR, h, "gf")}{grain(FR, BR, h, "gr")}
+        {gate ? <>{grain(FL, gateA, h, "gfl")}{grain(gateB, FR, h, "gfr")}</> : grain(FL, FR, h, "gf")}{grain(FR, BR, h, "gr")}
       </g>
       {base ? (
         <>

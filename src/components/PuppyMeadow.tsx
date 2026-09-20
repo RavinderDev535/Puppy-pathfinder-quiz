@@ -1,4 +1,5 @@
 import { useMemo, type CSSProperties } from "react";
+import ReferencePuppyHome from "@/components/ReferencePuppyHome";
 import { MeadowAdult, MeadowPuppy, type PuppyPose } from "@/components/art/MeadowDog";
 import { FeedingArea, HeatLamp, KennelBack, KennelBoxFront, KennelYardFront, PicketFence, PlayBall } from "@/components/art/KennelArt";
 import { DEFAULT_BOX, kennelGeometry } from "@/lib/kennel-geometry";
@@ -30,7 +31,7 @@ type PuppyPlacement = {
   left: number;
   bottom: number;
   width: number;
-  pen: "box" | "yard";
+  pen: "box" | "yard" | "entrance";
 };
 
 // Each point is a coordinate on the yard floor (not a screen coordinate). This
@@ -39,16 +40,16 @@ type PuppyPlacement = {
 const kennelPuppySpots = [
   { u: .20, v: .60 },
   { u: .65, v: .20 },
-  { u: .60, v: .60 },
+  { u: .20, v: .62 },
   { u: .40, v: .82 },
-  { u: .84, v: .39 },
-  { u: .80, v: .82 },
-  { u: .40, v: .60 },
-  { u: .84, v: .20 },
-  { u: .20, v: .82 },
-  { u: .80, v: .60 },
-  { u: .65, v: .39 },
-  { u: .60, v: .82 },
+  { u: .76, v: .62 },
+  { u: .48, v: .70 },
+  { u: .53, v: .98 },
+  { u: .19, v: 1.18 },
+  { u: .31, v: .80 },
+  { u: .77, v: .82 },
+  { u: .17, v: .40 },
+  { u: .83, v: 1.15 },
 ] as const;
 
 export default function PuppyMeadow({ count, scene = initialMeadowScene, showQuizKennel = false }: PuppyMeadowProps) {
@@ -70,15 +71,16 @@ export default function PuppyMeadow({ count, scene = initialMeadowScene, showQui
     // house-floor spots keep every puppy within the illustrated playpen.
     const activity = puppyActivities[(i * 5 + 3) % puppyActivities.length];
     const spot = kennelPuppySpots[i % kennelPuppySpots.length];
-    const inBox = i === 1 || i === 3;
+    const inBox = i === 0 || i === 1 || i === 3;
+    const atEntrance = i === 6 || i === 7 || i === 11;
     const pen = inBox ? kennelGeom.box : kennelGeom.yard;
     const floorPoint = inBox
-      ? pen?.floorAt(i === 1 ? .34 : .62, i === 1 ? .25 : .62)
+      ? pen?.floorAt(i === 0 ? .52 : i === 1 ? .20 : .83, i === 0 ? .32 : .52)
       : pen?.floorAt(spot.u, spot.v);
     // The values used by the absolutely positioned puppy are percentages of
     // the shared SVG canvas. Offset its left edge by half its rendered width
     // so the puppy's paws sit on the selected floor point.
-    const renderedWidth = inBox ? (kennelGeom.box.BR[0] - kennelGeom.box.BL[0]) * .44 / kennelGeom.vw * 100 : 7.8;
+    const renderedWidth = inBox ? (kennelGeom.box.BR[0] - kennelGeom.box.BL[0]) * .30 / kennelGeom.vw * 100 : 11;
     return {
       i,
       activity,
@@ -86,9 +88,11 @@ export default function PuppyMeadow({ count, scene = initialMeadowScene, showQui
       left: floorPoint ? floorPoint.x / kennelGeom.vw * 100 - renderedWidth / 2 : 43,
       bottom: floorPoint ? 100 - floorPoint.y / kennelGeom.vh * 100 : 48,
       width: renderedWidth,
-      pen: inBox ? "box" : "yard",
+      pen: inBox ? "box" : atEntrance ? "entrance" : "yard",
     };
   }), [count, kennelGeom]);
+
+  if (showKennel) return <ReferencePuppyHome count={count} scene={scene} />;
 
   const renderPuppy = ({ i, activity, pose, left, bottom, width, pen }: PuppyPlacement) => (
     <div
@@ -160,10 +164,11 @@ export default function PuppyMeadow({ count, scene = initialMeadowScene, showQui
           {scene.monitoring && <div className="scene-accessory scene-monitor" aria-label="WiFi puppy monitor"><svg viewBox="0 0 80 110" aria-hidden="true"><path d="M40 60v37m-20 4h40" stroke="#674832" strokeWidth="5" /><rect x="12" y="25" width="56" height="39" rx="12" fill="#fff9eb" stroke="#674832" strokeWidth="3" /><circle cx="40" cy="44" r="12" fill="#577d87" stroke="#674832" strokeWidth="3" /><circle cx="44" cy="40" r="4" fill="#e0f2ed" /><path d="M26 15q14-12 28 0m-21 5q7-6 14 0" fill="none" stroke="#577d87" strokeWidth="3" strokeLinecap="round" /></svg><small>Puppy cam</small></div>}
           {scene.heating && <div className="stage-lamp" aria-label="Heat lamp included"><HeatLamp /></div>}
           <div className="kennel-puppies kennel-nursery-puppies" aria-label="Puppies resting inside the middle container">{puppies.filter(p => p.pen === "box").map(renderPuppy)}</div>
-          {/* Lower near walls give a cutaway view into the nursery. */}
-          <KennelBoxFront geom={{ ...kennelGeom, box: { ...kennelGeom.box, h: 10 } }} spec={kennelSpec} className="kennel-box-front" />
+          {/* A low viewing edge keeps all three nursery puppies visible. */}
+          <KennelBoxFront geom={{ ...kennelGeom, box: { ...kennelGeom.box, h: 26 } }} spec={kennelSpec} className="kennel-box-front" />
           <div className="kennel-puppies" aria-live="polite">{puppies.filter(p => p.pen === "yard").map(renderPuppy)}</div>
           <KennelYardFront geom={kennelGeom} className="kennel-yard-front" />
+          <div className="kennel-puppies kennel-entrance-puppies">{puppies.filter(p => p.pen === "entrance").map(renderPuppy)}</div>
           <small className="stage-caption">{scene.box ? describeBox(scene.box) : "Your storybook setup · illustration"}</small>
         </div>
       ) : <div className="puppy-pack">{puppies.map(renderPuppy)}</div>}

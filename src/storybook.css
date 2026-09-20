@@ -127,11 +127,12 @@
 .starter-pup-playing { left: 62%; bottom: 21%; width: 21%; transform: scaleX(-1); }
 .kennel-box-front { z-index: 4; }
 .kennel-nursery-puppies { z-index: 3; }
+.kennel-entrance-puppies { z-index: 7; overflow: visible; }
 .kennel-yard-front { z-index: 6; }
 .kennel-puppies .puppy-arrival { position: absolute; width: 10%; transform-origin: center bottom; }
 .kennel-puppies .puppy-arrival img { width: 100%; height: auto; animation: dog-breathe 4s ease-in-out infinite; filter: drop-shadow(0 2px 1px #4a2e2128); }
 .kennel-puppies .puppy-arrival { padding: 0; animation: kennel-puppy-join .45s ease-out both; }
-.kennel-puppies .puppy-arrival[data-coat="cocoa"] img { filter: saturate(.6) brightness(.82) drop-shadow(0 2px 1px #4a2e2128); }
+.kennel-puppies .puppy-arrival[data-coat="cocoa"] img { filter: saturate(1.2) brightness(.92) drop-shadow(0 2px 1px #4a2e2128); }
 .kennel-puppies .puppy-bowl { width: 38%; height: 17%; right: -8%; bottom: 0; border-width: 1px; }
 .kennel-puppies .puppy-bowl i { width: 50%; height: 20%; left: 25%; }
 .kennel-puppies .puppy-ball { width: 23%; height: auto; aspect-ratio: 1; bottom: 0; animation: none; }
@@ -141,8 +142,8 @@
 .scene-accessory { position: absolute; z-index: 7; text-align: center; }
 .scene-accessory svg { display: block; width: 100%; height: auto; }
 .scene-accessory small { display: block; color: #4d5730; font-size: clamp(9px, 1.2vw, 14px); }
-.scene-feeding { left: 3%; bottom: 0; width: 18%; }
-.scene-toys { right: 6%; bottom: 8%; width: 6%; }
+.scene-feeding { left: 42%; bottom: -16%; width: 18%; }
+.scene-toys { right: 5%; bottom: -13%; width: 9%; }
 .scene-tools { left: 0; bottom: 27%; width: 10%; }
 .scene-monitor { right: 4%; top: 18%; width: 8%; }
 .scene-blankets { left: 1%; bottom: 24%; width: 12%; height: 10%; }
@@ -244,7 +245,7 @@
 .storybook-playing .meadow-caption { display: none; }
 .storybook-playing .meadow-family { min-height: 300px; padding-top: min(52px, 6vh); }
 .storybook-playing .adult-dog { width: 124px; top: 2px; }
-.storybook-playing .meadow-has-kennel .meadow-family { padding-top: 52px; }
+.storybook-playing .meadow-has-kennel .meadow-family { padding-top: 84px; padding-bottom: clamp(70px, 12vw, 115px); }
 .storybook-playing .puppy-pack { padding: 12px 100px 4px; }
 .storybook-playing .puppy-arrival { width: 52px; }
 .storybook-playing .story-fence { top: 34px; scale: .56; }
@@ -255,7 +256,7 @@
 .storybook-playing .storybook-question-content { max-height: none; overflow: hidden; }
 .storybook-playing .story-quiz-card .duo-option { box-sizing: border-box; min-height: 54px; padding: 8px 17px; }
 .storybook-playing .adult-dog > span { display: none; }
-.storybook-playing .meadow-has-kennel .kennel-stage { width: min(76%, 710px); max-width: 92%; margin-bottom: 36px; }
+.storybook-playing .meadow-has-kennel .kennel-stage { width: min(80%, 620px); max-width: 92%; margin-bottom: 36px; }
 .storybook-playing .story-quiz-screen > div:first-child { justify-content: flex-start !important; }
 .storybook-playing .storybook-question-content > h2 { margin-bottom: 8px; padding: 10px 35px 7px; border-top-width: 9px; font-size: clamp(20px, 2.25vw, 27px); }
 .storybook-playing .storybook-question-content > h2::before { inset: -9px -5px auto; height: 12px; }
@@ -365,9 +366,9 @@
    wall to wall, so the only grass left for them is beside it. The specificity
    here is deliberate — the >=1100px block and the quiz-strip block both set
    .adult-dog widths in pixels further up, and would otherwise win on order. */
-.storybook .meadow-has-kennel .kennel-stage .adult-dog { width: 25%; z-index: 1; }
-.storybook .meadow-has-kennel .kennel-stage .dog-dad { left: -15%; top: 2%; }
-.storybook .meadow-has-kennel .kennel-stage .dog-mom { right: -12%; top: 10%; }
+.storybook .meadow-has-kennel .kennel-stage .adult-dog { width: 29%; z-index: 1; }
+.storybook .meadow-has-kennel .kennel-stage .dog-dad { left: -4%; top: -2%; }
+.storybook .meadow-has-kennel .kennel-stage .dog-mom { right: -4%; top: 0; }
 /* The name pills belong to the page-level pair on the intro screen; beside the
    pen they would just float on the grass. */
 .storybook .meadow-has-kennel .kennel-stage .adult-dog > span { display: none; }
@@ -376,6 +377,30 @@
 @media(max-width: 600px) {
   .storybook .meadow-has-kennel .kennel-stage .adult-dog { width: 26%; }
   .storybook .meadow-has-kennel .kennel-stage .dog-dad { left: 0; top: 2%; }
-  .storybook .meadow-has-kennel .kennel-stage .dog-mom { right: 0; top: 10%; }
+  .storybook .meadow-has-kennel .kennel-stage .dog-mom { right: 0; top: 0; }
   .stage-lamp { right: 0; top: 65%; width: 12%; }
 }
+/* Reference illustration: every puppy and prop shares the artwork's coordinates. */
+.storybook .reference-meadow { background: linear-gradient(#a8e1ef 0 12%, #95c645 42%); overflow: hidden; margin: 0; }
+.reference-family-name { position: relative; z-index: 2; width: fit-content; max-width: 90%; margin: 12px auto; padding: 5px 22px; border: 2px solid #a87542; border-radius: 5px; background: #fff0cd; color: #684627; text-align: center; }
+/* Fit the entire portrait scene to the viewport, leaving room for its labels.
+   All dogs, puppies and rails scale together in the shared canvas. */
+.storybook .reference-meadow .reference-home-stage { width: min(100%, 520px, calc((100svh - 150px) * 0.5628)); max-width: 100%; margin: 0 auto; overflow: hidden; animation: none; }
+.reference-home-canvas { position: relative; aspect-ratio: 941 / 1672; isolation: isolate; }
+.reference-home-canvas .reference-home-art { position: relative; inset: auto; display: block; width: 100%; height: auto; z-index: 0; }
+.reference-puppy-layer { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+.reference-home-canvas .reference-puppy { position: absolute; padding: 0; animation: kennel-puppy-join .45s ease-out both; }
+.reference-home-canvas .reference-puppy img { display: block; width: 100%; height: auto; animation: dog-breathe 4s ease-in-out infinite; transform-origin: center bottom; }
+.reference-home-canvas .reference-puppy[data-coat="cocoa"] img { filter: saturate(1.12) brightness(.96); }
+.reference-front-rails { position: absolute; inset: 0; width: 100%; z-index: 3; pointer-events: none; clip-path: polygon(12% 79.5%, 61% 74%, 61% 75.5%, 12% 81%); }
+.reference-nursery-rail { clip-path: polygon(43.5% 47.2%, 75% 44%, 75% 50.3%, 43.5% 55.8%); }
+.reference-prop { position: absolute; z-index: 4; }
+.reference-prop svg { display: block; width: 100%; height: auto; }
+.reference-bowls { left: 49%; top: 83%; width: 19%; }
+.reference-ball { left: 79%; top: 84%; width: 10%; }
+.reference-heat { left: 78%; top: 46%; width: 18%; }
+.reference-blankets { left: 3%; bottom: 12%; width: 12%; height: 3.5%; }
+.reference-kit { left: 5%; top: 84%; width: 11%; }
+.reference-camera { left: 82%; top: 44%; width: 8%; }
+.reference-home-note { margin: 0; padding: 8px 16px 16px; color: #425427; text-align: center; font-size: 13px; }
+

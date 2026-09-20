@@ -18,10 +18,16 @@ describe("Puppy meadow", () => {
     }
   });
 
-  it("places two puppies inside the middle container with their own depth layer", () => {
+  it("places three puppies inside the middle container with their own depth layer", () => {
     render(<PuppyMeadow count={6} showQuizKennel />);
-    expect(document.querySelectorAll('.kennel-nursery-puppies [data-pen="box"]')).toHaveLength(2);
-    expect(document.querySelectorAll('[data-pen="yard"]')).toHaveLength(4);
+    expect(document.querySelectorAll('.kennel-nursery-puppies [data-pen="box"]')).toHaveLength(3);
+    expect(document.querySelectorAll('[data-pen="yard"]')).toHaveLength(3);
+  });
+
+  it("places later arrivals at the gate and on the foreground grass", () => {
+    render(<PuppyMeadow count={12} showQuizKennel />);
+    expect(document.querySelectorAll('.kennel-entrance-puppies [data-pen="entrance"]')).toHaveLength(4);
+    expect(screen.getAllByTestId("meadow-puppy")).toHaveLength(12);
   });
 
   it("shows selected accessories and removes them when answers change", () => {
