@@ -14,22 +14,13 @@ interface BreedSelectorProps {
 }
 
 const BreedSelector: React.FC<BreedSelectorProps> = ({ value, onChange, onNext }) => {
-  const [mode, setMode] = useState<BreedMode>("known");
-  const [searchText, setSearchText] = useState("");
+  const [mode, setMode] = useState<BreedMode>(() => value && !searchBreeds(value).includes(value) ? "mixed" : "known");
+  const [searchText, setSearchText] = useState(value);
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [highlightIdx, setHighlightIdx] = useState(-1);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
-
-  // Initialize mode from existing value
-  useEffect(() => {
-    if (value && mode === null) {
-      // If value matches a known breed, set to known mode
-      setMode("known");
-      setSearchText(value);
-    }
-  }, []);
 
   const handleModeSelect = useCallback((m: BreedMode) => {
     playSelect();

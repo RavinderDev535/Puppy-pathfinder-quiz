@@ -1,4 +1,6 @@
 import React, { useState, useCallback, useMemo, useEffect, useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import PuppyScene from "@/components/PuppyScene";
 import { getMeadowScene, type MeadowScene } from "@/lib/meadow-scene";
 import BundleSlideshow from "@/components/BundleSlideshow";
 import XLInquirySlideshow from "@/components/XLInquirySlideshow";
@@ -475,6 +477,11 @@ const GateQuestionCard: React.FC<{
 const ProgressBar: React.FC<{ current: number; total: number }> = ({ current, total }) => (
   <div className="w-full mb-3 md:mb-6">
     <div
+      role="progressbar"
+      aria-label="Quiz progress"
+      aria-valuemin={0}
+      aria-valuemax={total}
+      aria-valuenow={current}
       className="relative w-full overflow-hidden"
       style={{
         height: '12px',
@@ -588,6 +595,7 @@ const QuestionCard: React.FC<{
           return (
             <motion.button
               key={opt.value}
+              aria-pressed={isSelected}
               onClick={() => { playSelect(); onSelect(opt.value); }}
               onMouseEnter={() => playHover()}
               initial={{ opacity: 0, x: -16 }}
@@ -704,14 +712,15 @@ const QuestionCard: React.FC<{
 
 // ===== MAIN QUIZ COMPONENT =====
 
-const EZWhelpQuiz: React.FC<{ onQuizStarted?: (started: boolean) => void; onQuizComplete?: (complete: boolean) => void; onPuppyProgress?: (count: number) => void; onSceneChange?: (scene: MeadowScene) => void }> = ({ onQuizStarted, onQuizComplete, onPuppyProgress, onSceneChange }) => {
-  const [customerType, setCustomerType] = useState<CustomerType>(null);
+const EZWhelpQuiz: React.FC<{ initialPath?: CustomerType; onQuizStarted?: (started: boolean) => void; onQuizComplete?: (complete: boolean) => void; onPuppyProgress?: (count: number) => void; onSceneChange?: (scene: MeadowScene) => void }> = ({ initialPath = null, onQuizStarted, onQuizComplete, onPuppyProgress, onSceneChange }) => {
+  const navigate = useNavigate();
+  const [customerType, setCustomerType] = useState<CustomerType>(initialPath);
   const [currentStep, setCurrentStep] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
   const [direction, setDirection] = useState<1 | -1>(1);
   const [showMoreAddOns, setShowMoreAddOns] = useState(false);
   
-  const [gateAnswered, setGateAnswered] = useState(false);
+  const [gateAnswered, setGateAnswered] = useState(initialPath !== null);
   const [soundMuted, setSoundMuted] = useState(isMuted());
 
   const [newData, setNewData] = useState<NewCustomerData>({
@@ -732,6 +741,13 @@ const EZWhelpQuiz: React.FC<{ onQuizStarted?: (started: boolean) => void; onQuiz
    const [emailValue, setEmailValue] = useState("");
    const [breedValue, setBreedValue] = useState("");
   const autoAdvanceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    if (initialPath) void initQuizSession(initialPath);
+    return () => {
+      if (autoAdvanceRef.current) clearTimeout(autoAdvanceRef.current);
+    };
+  }, [initialPath]);
 
   // Backend API state
   const [apiLoading, setApiLoading] = useState(false);
@@ -1076,6 +1092,7 @@ const handleNext = useCallback((overrideVal?: string) => {
   }, [handleNext, currentQuizStep]);
 
   const handleBack = useCallback(() => {
+    if (autoAdvanceRef.current) clearTimeout(autoAdvanceRef.current);
     setDirection(-1);
     if (currentStep > 0) {
       setCurrentStep((s) => s - 1);
@@ -1087,6 +1104,8 @@ const handleNext = useCallback((overrideVal?: string) => {
         setDateValue(prevStep.type === "date" ? (stored || "") : "");
         setBreedValue(prevStep.type === "breed" ? (stored || "") : "");
       }
+    } else if (initialPath) {
+      navigate("/");
     } else if (gateAnswered) {
       setGateAnswered(false);
       onQuizStarted?.(false);
@@ -1096,12 +1115,13 @@ const handleNext = useCallback((overrideVal?: string) => {
       setTextValue("");
       setDateValue("");
     }
-  }, [currentStep, steps, getStoredValue, gateAnswered]);
+  }, [currentStep, steps, getStoredValue, gateAnswered, initialPath, navigate]);
 
   const handleRestart = useCallback(() => {
-    setCustomerType(null);
-    setGateAnswered(false);
-    onQuizStarted?.(false);
+    if (autoAdvanceRef.current) clearTimeout(autoAdvanceRef.current);
+    setCustomerType(initialPath);
+    setGateAnswered(initialPath !== null);
+    onQuizStarted?.(initialPath !== null);
     setCurrentStep(0);
     setIsComplete(false);
     setSelectedValue(null);
@@ -1115,9 +1135,10 @@ const handleNext = useCallback((overrideVal?: string) => {
     setApiLoading(false);
 
     resetTracking();
+    if (initialPath) void initQuizSession(initialPath);
     setNewData({ timeline: null, dueDate: null, breed: "", experience: null, litterSize: null, containment: null, zones: null, branchAnswer: null, damSize: null, panelHeight: null, hasWindow: null });
     setExistingData({ breed: "", damSize: null, experience: null, boxSize: null, boxHeight: null, hasWindow: null, stage: null, dueDate: null });
-  }, []);
+  }, [initialPath, onQuizStarted]);
 
   const canProceed = currentQuizStep?.optional || (
     currentQuizStep?.type === "select" ? !!selectedValue :
@@ -2006,13 +2027,14 @@ const handleNext = useCallback((overrideVal?: string) => {
 
   return (
     <div
-      className={`story-quiz-card story-quiz-screen w-full max-w-[960px] mx-auto relative ${currentQuizStep.type === "breed" ? "storybook-breed-step-active" : ""}`}
+      className={`reference-quiz-card w-full relative ${currentQuizStep.type === "breed" ? "storybook-breed-step-active" : ""}`}
       style={{
-        borderRadius: '40px',
+        borderRadius: '0',
         background: '#F7F3EC',
         boxShadow: '0px 20px 40px rgba(0,0,0,0.08), inset 0px 3px 6px rgba(255,255,255,0.6), inset 0px -4px 8px rgba(0,0,0,0.05)',
       }}
     >
+      <div className="reference-quiz-panel">
       {/* Question area with stable min-height to prevent layout shifts */}
       <div className="min-h-[220px] md:min-h-[280px] flex flex-col justify-center">
         <AnimatePresence mode="wait" custom={direction}>
@@ -2087,22 +2109,24 @@ const handleNext = useCallback((overrideVal?: string) => {
       {!isFirstStep && (
         <div className="quiz-navigation mt-3 md:mt-5 pt-3 md:pt-4" style={{ borderTop: '1px solid rgba(0,0,0,0.06)' }}>
           <ProgressBar current={globalStep} total={totalSteps} />
-          <div className="flex items-center justify-center gap-5 md:gap-6 mt-2 md:mt-3">
-            <button onClick={() => { playBack(); handleBack(); }} className="flex items-center gap-1 text-xs md:text-sm text-muted-foreground hover:text-foreground transition-colors font-bold">
-              <ArrowLeft className="w-3.5 h-3.5 md:w-4 md:h-4" /> Back
+          <div className="reference-quiz-nav">
+            <button onClick={() => { playBack(); handleBack(); }} className="reference-back">
+              ← Back
             </button>
-            <button onClick={handleRestart} className="flex items-center gap-1 text-xs md:text-sm text-muted-foreground hover:text-foreground transition-colors font-bold">
-              <RotateCcw className="w-3 h-3 md:w-3.5 md:h-3.5" /> Restart
-            </button>
+            <div className="reference-nav-right">
+              <Link to="/" className="reference-home">⌂ Home</Link>
+              <button onClick={handleRestart} className="reference-restart">Restart</button>
+            </div>
           </div>
         </div>
       )}
 
       {/* EZWhelp logo at bottom of quiz card */}
-      <div className="quiz-brand flex justify-center mt-5 md:mt-7 pb-2 md:pb-4">
+      <div className="quiz-brand flex justify-center mt-1 md:mt-7 pb-0 md:pb-4">
         <a href="https://www.ezwhelp.com/" target="_blank" rel="noopener noreferrer"><img src={ezwhelpLogo} alt="EZWhelp" className="h-7 md:h-9 object-contain opacity-35" /></a>
       </div>
-
+      </div>
+      <div className="reference-scene-slot"><PuppyScene /></div>
     </div>
   );
 };
