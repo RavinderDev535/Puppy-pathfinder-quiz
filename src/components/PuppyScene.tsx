@@ -2,7 +2,8 @@
 import { useReducedMotion } from "framer-motion";
 import { Pause, Play } from "lucide-react";
 import puppyPoster from "@/assets/quiz/puppy-family.png";
-import puppyVideo from "@/assets/quiz/puppy-family.mp4";
+
+const puppyVideo = "https://74f2dfc8-e4ff-4212-bd02-168ec82fc809.lovableproject.com/__l5e/assets-v1/f376cba8-81b7-4177-a920-f0d9e7ed9337/ezwhelp-home-premium.mp4";
 
 export default function PuppyScene() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -13,7 +14,7 @@ export default function PuppyScene() {
 
   return (
     <figure className="quiz-puppy-scene">
-      <img src={puppyPoster} alt="Two golden dogs watching their puppies play in an EZWhelp pen" width={1200} height={896} fetchPriority="high" />
+      {(!ready || failed) && <img className="quiz-puppy-poster" src={puppyPoster} alt="Two golden dogs watching their puppies play in an EZWhelp pen" width={1200} height={896} fetchPriority="high" />}
       {!failed && <>
         <video
           className={`quiz-puppy-motion${ready ? " quiz-puppy-motion-ready" : ""}`}

@@ -1,0 +1,5892 @@
+{
+  "EZclassic - Single Box Quiz": {
+    "24 Evidence required": [
+      {
+        "A": "#",
+        "B": "What to deliver",
+        "C": "Format",
+        "D": "Why"
+      },
+      {
+        "A": "1",
+        "B": "This workbook returned with the Result column filled",
+        "C": "PASS or FAIL on every row of tabs 20, 20b, 21 and 22. Where a value differs from expected, type the ACTUAL value in the notes column",
+        "D": "This is the primary artefact. Everything else supports it"
+      },
+      {
+        "A": "2",
+        "B": "One screenshot per test case",
+        "C": "PNG named by case ID - RES-001.png, SBX-014.png. Full results page including both box cards, the add-on shelf and the bundle card if shown. Delivered as one zip",
+        "D": "Proof of the result. One image per case, not one per question"
+      },
+      {
+        "A": "3",
+        "B": "All screenshots assembled into a PDF",
+        "C": "One PDF, one case per page, case ID in the page header, in case ID order",
+        "D": "Audit trail that can be shared or archived"
+      },
+      {
+        "A": "4",
+        "B": "Klaviyo event export",
+        "C": "CSV filtered to the test email addresses, covering every event in the schema",
+        "D": "Verifies event properties independently rather than on trust"
+      },
+      {
+        "A": "5",
+        "B": "Generated cart URLs",
+        "C": "Plain text or CSV, one line per case ID with the full /cart/ permalink",
+        "D": "Verifies the variant IDs resolved correctly"
+      },
+      {
+        "A": "6",
+        "B": "Negative case recordings",
+        "C": "Short screen recording per case in tab 22 only - 12 cases. These are about the journey, not the result",
+        "D": "Back navigation, invalid email and unresolved variants cannot be shown in a single frame"
+      },
+      {
+        "A": "BUILD REQUIREMENT that makes this work: the results page must show a 'Your answers' summary line at the top - breed, experience, stage, panel type, date, litter size."
+      },
+      {
+        "A": "With that line present, one screenshot proves the whole case: the answers given AND the recommendation returned. Without it, 560 screenshots would be needed instead of 80."
+      },
+      {
+        "A": "It is also a good customer feature - it lets the breeder check the quiz understood them before they buy."
+      },
+      {
+        "A": "MARKETING FOOTAGE - request separately, and only after every case passes."
+      },
+      {
+        "A": "  Clean browser. No dev tools, no bookmarks bar, no extensions visible."
+      },
+      {
+        "A": "  Real-looking scenarios: a Golden Retriever first litter, a Cavalier, a Great Dane, and the bundle-saving moment."
+      },
+      {
+        "A": "  Slow deliberate clicks. Pause on each result screen."
+      },
+      {
+        "A": "  Separate take per scenario. Not one long session."
+      },
+      {
+        "A": "  Capture mobile as well as desktop."
+      },
+      {
+        "A": "  No cursor jitter, no backtracking, no corrections."
+      }
+    ],
+    "20 Test cases core": [
+      {
+        "A": "Case ID",
+        "B": "Answers given",
+        "C": "Expected card 1 (Recommended)",
+        "D": "Expected card 2 (Alternative)",
+        "E": "Expected shelf - TICKED",
+        "F": "Expected shelf - unticked",
+        "G": "Expected card 3 (Bundle)",
+        "H": "Events expected",
+        "I": "Result",
+        "J": "Notes"
+      },
+      {
+        "A": "SBX-001",
+        "B": "Breed=Beagle; Experience=first; Stage=Preparing; Windowed=No; Litter=4-6",
+        "C": "EZclassic box 28x28 standard, solid",
+        "D": "Windowed box, same size",
+        "E": "Box + Heat Combo + Slip Resistant pad",
+        "F": "Whelping Kit, Liner, Corner Seat",
+        "G": "Per tab 13 rule - verify against live prices",
+        "H": "Quiz Completed with all tab 02 properties; Card Clicked; Added to Cart",
+        "I": "",
+        "J": ""
+      },
+      {
+        "A": "SBX-002",
+        "B": "Breed=Beagle; Experience=first; Stage=Due in 7 days; Windowed=No; Litter=4-6",
+        "C": "EZclassic box 28x28 standard, solid",
+        "D": "Windowed box, same size",
+        "E": "Box + Heat Combo + Quick Dry pad",
+        "F": "Whelping Kit, Combo Liner, Corner Seat",
+        "G": "Per tab 13 rule - verify against live prices",
+        "H": "Quiz Completed with all tab 02 properties; Card Clicked; Added to Cart",
+        "I": "",
+        "J": ""
+      },
+      {
+        "A": "SBX-003",
+        "B": "Breed=Beagle; Experience=first; Stage=Born 0-3 days; Windowed=No; Litter=4-6",
+        "C": "EZclassic box 28x28 standard, solid",
+        "D": "Windowed box, same size",
+        "E": "Box + Heat Combo + Quick Dry + Slip Resistant",
+        "F": "WiFi Camera, Acrylic Door",
+        "G": "Per tab 13 rule - verify against live prices",
+        "H": "Quiz Completed with all tab 02 properties; Card Clicked; Added to Cart",
+        "I": "",
+        "J": ""
+      },
+      {
+        "A": "SBX-004",
+        "B": "Breed=Beagle; Experience=first; Stage=1-2 weeks; Windowed=No; Litter=4-6",
+        "C": "EZclassic box 28x28 standard, solid",
+        "D": "Windowed box, same size",
+        "E": "Box + Traction pad + Quick Dry pad",
+        "F": "Add-On Room, Toy Mobile, WiFi Camera",
+        "G": "Per tab 13 rule - verify against live prices",
+        "H": "Quiz Completed with all tab 02 properties; Card Clicked; Added to Cart",
+        "I": "",
+        "J": ""
+      },
+      {
+        "A": "SBX-005",
+        "B": "Breed=Beagle; Experience=first; Stage=3+ weeks; Windowed=No; Litter=4-6",
+        "C": "EZclassic box 28x28 standard, solid",
+        "D": "Windowed box, same size",
+        "E": "Box + Add-On Room + Quick Dry pad",
+        "F": "Mess Hall, Feeding Station, Traction pad",
+        "G": "Per tab 13 rule - verify against live prices",
+        "H": "Quiz Completed with all tab 02 properties; Card Clicked; Added to Cart",
+        "I": "",
+        "J": ""
+      },
+      {
+        "A": "SBX-006",
+        "B": "Breed=Brittany; Experience=first; Stage=Preparing; Windowed=No; Litter=4-6",
+        "C": "EZclassic box 38x38 standard, solid",
+        "D": "Windowed box, same size",
+        "E": "Box + Heat Combo + Slip Resistant pad",
+        "F": "Whelping Kit, Liner, Corner Seat",
+        "G": "Per tab 13 rule - verify against live prices",
+        "H": "Quiz Completed with all tab 02 properties; Card Clicked; Added to Cart",
+        "I": "",
+        "J": ""
+      },
+      {
+        "A": "SBX-007",
+        "B": "Breed=Brittany; Experience=first; Stage=Due in 7 days; Windowed=No; Litter=4-6",
+        "C": "EZclassic box 38x38 standard, solid",
+        "D": "Windowed box, same size",
+        "E": "Box + Heat Combo + Quick Dry pad",
+        "F": "Whelping Kit, Combo Liner, Corner Seat",
+        "G": "Per tab 13 rule - verify against live prices",
+        "H": "Quiz Completed with all tab 02 properties; Card Clicked; Added to Cart",
+        "I": "",
+        "J": ""
+      },
+      {
+        "A": "SBX-008",
+        "B": "Breed=Brittany; Experience=first; Stage=Born 0-3 days; Windowed=No; Litter=4-6",
+        "C": "EZclassic box 38x38 standard, solid",
+        "D": "Windowed box, same size",
+        "E": "Box + Heat Combo + Quick Dry + Slip Resistant",
+        "F": "WiFi Camera, Acrylic Door",
+        "G": "Per tab 13 rule - verify against live prices",
+        "H": "Quiz Completed with all tab 02 properties; Card Clicked; Added to Cart",
+        "I": "",
+        "J": ""
+      },
+      {
+        "A": "SBX-009",
+        "B": "Breed=Brittany; Experience=first; Stage=1-2 weeks; Windowed=No; Litter=4-6",
+        "C": "EZclassic box 38x38 standard, solid",
+        "D": "Windowed box, same size",
+        "E": "Box + Traction pad + Quick Dry pad",
+        "F": "Add-On Room, Toy Mobile, WiFi Camera",
+        "G": "Per tab 13 rule - verify against live prices",
+        "H": "Quiz Completed with all tab 02 properties; Card Clicked; Added to Cart",
+        "I": "",
+        "J": ""
+      },
+      {
+        "A": "SBX-010",
+        "B": "Breed=Brittany; Experience=first; Stage=3+ weeks; Windowed=No; Litter=4-6",
+        "C": "EZclassic box 38x38 standard, solid",
+        "D": "Windowed box, same size",
+        "E": "Box + Add-On Room + Quick Dry pad",
+        "F": "Mess Hall, Feeding Station, Traction pad",
+        "G": "Per tab 13 rule - verify against live prices",
+        "H": "Quiz Completed with all tab 02 properties; Card Clicked; Added to Cart",
+        "I": "",
+        "J": ""
+      },
+      {
+        "A": "SBX-011",
+        "B": "Breed=Golden Retriever; Experience=first; Stage=Preparing; Windowed=No; Litter=4-6",
+        "C": "EZclassic box 48x48 standard, solid",
+        "D": "Windowed box, same size",
+        "E": "Box + Heat Combo + Slip Resistant pad",
+        "F": "Whelping Kit, Liner, Corner Seat",
+        "G": "Per tab 13 rule - verify against live prices",
+        "H": "Quiz Completed with all tab 02 properties; Card Clicked; Added to Cart",
+        "I": "",
+        "J": ""
+      },
+      {
+        "A": "SBX-012",
+        "B": "Breed=Golden Retriever; Experience=first; Stage=Due in 7 days; Windowed=No; Litter=4-6",
+        "C": "EZclassic box 48x48 standard, solid",
+        "D": "Windowed box, same size",
+        "E": "Box + Heat Combo + Quick Dry pad",
+        "F": "Whelping Kit, Combo Liner, Corner Seat",
+        "G": "Per tab 13 rule - verify against live prices",
+        "H": "Quiz Completed with all tab 02 properties; Card Clicked; Added to Cart",
+        "I": "",
+        "J": ""
+      },
+      {
+        "A": "SBX-013",
+        "B": "Breed=Golden Retriever; Experience=first; Stage=Born 0-3 days; Windowed=No; Litter=4-6",
+        "C": "EZclassic box 48x48 standard, solid",
+        "D": "Windowed box, same size",
+        "E": "Box + Heat Combo + Quick Dry + Slip Resistant",
+        "F": "WiFi Camera, Acrylic Door",
+        "G": "Per tab 13 rule - verify against live prices",
+        "H": "Quiz Completed with all tab 02 properties; Card Clicked; Added to Cart",
+        "I": "",
+        "J": ""
+      },
+      {
+        "A": "SBX-014",
+        "B": "Breed=Golden Retriever; Experience=first; Stage=1-2 weeks; Windowed=No; Litter=4-6",
+        "C": "EZclassic box 48x48 standard, solid",
+        "D": "Windowed box, same size",
+        "E": "Box + Traction pad + Quick Dry pad",
+        "F": "Add-On Room, Toy Mobile, WiFi Camera",
+        "G": "Per tab 13 rule - verify against live prices",
+        "H": "Quiz Completed with all tab 02 properties; Card Clicked; Added to Cart",
+        "I": "",
+        "J": ""
+      },
+      {
+        "A": "SBX-015",
+        "B": "Breed=Golden Retriever; Experience=first; Stage=3+ weeks; Windowed=No; Litter=4-6",
+        "C": "EZclassic box 48x48 standard, solid",
+        "D": "Windowed box, same size",
+        "E": "Box + Add-On Room + Quick Dry pad",
+        "F": "Mess Hall, Feeding Station, Traction pad",
+        "G": "Per tab 13 rule - verify against live prices",
+        "H": "Quiz Completed with all tab 02 properties; Card Clicked; Added to Cart",
+        "I": "",
+        "J": ""
+      },
+      {
+        "A": "SBX-016",
+        "B": "Breed=Great Dane; Experience=first; Stage=Preparing; Windowed=No; Litter=4-6",
+        "C": "EZclassic box 48x76 TALL, solid",
+        "D": "TALL Windowed 48x76",
+        "E": "Box + Heat Combo + Slip Resistant pad",
+        "F": "Whelping Kit, Liner, Corner Seat",
+        "G": "Per tab 13 rule - verify against live prices",
+        "H": "Quiz Completed with all tab 02 properties; Card Clicked; Added to Cart",
+        "I": "",
+        "J": "48x76 is height locked - no standard option"
+      },
+      {
+        "A": "SBX-017",
+        "B": "Breed=Great Dane; Experience=first; Stage=Due in 7 days; Windowed=No; Litter=4-6",
+        "C": "EZclassic box 48x76 TALL, solid",
+        "D": "TALL Windowed 48x76",
+        "E": "Box + Heat Combo + Quick Dry pad",
+        "F": "Whelping Kit, Combo Liner, Corner Seat",
+        "G": "Per tab 13 rule - verify against live prices",
+        "H": "Quiz Completed with all tab 02 properties; Card Clicked; Added to Cart",
+        "I": "",
+        "J": "48x76 is height locked - no standard option"
+      },
+      {
+        "A": "SBX-018",
+        "B": "Breed=Great Dane; Experience=first; Stage=Born 0-3 days; Windowed=No; Litter=4-6",
+        "C": "EZclassic box 48x76 TALL, solid",
+        "D": "TALL Windowed 48x76",
+        "E": "Box + Heat Combo + Quick Dry + Slip Resistant",
+        "F": "WiFi Camera, Acrylic Door",
+        "G": "Per tab 13 rule - verify against live prices",
+        "H": "Quiz Completed with all tab 02 properties; Card Clicked; Added to Cart",
+        "I": "",
+        "J": "48x76 is height locked - no standard option"
+      },
+      {
+        "A": "SBX-019",
+        "B": "Breed=Great Dane; Experience=first; Stage=1-2 weeks; Windowed=No; Litter=4-6",
+        "C": "EZclassic box 48x76 TALL, solid",
+        "D": "TALL Windowed 48x76",
+        "E": "Box + Traction pad + Quick Dry pad",
+        "F": "Add-On Room, Toy Mobile, WiFi Camera",
+        "G": "Per tab 13 rule - verify against live prices",
+        "H": "Quiz Completed with all tab 02 properties; Card Clicked; Added to Cart",
+        "I": "",
+        "J": "48x76 is height locked - no standard option"
+      },
+      {
+        "A": "SBX-020",
+        "B": "Breed=Great Dane; Experience=first; Stage=3+ weeks; Windowed=No; Litter=4-6",
+        "C": "EZclassic box 48x76 TALL, solid",
+        "D": "TALL Windowed 48x76",
+        "E": "Box + Add-On Room + Quick Dry pad",
+        "F": "Mess Hall, Feeding Station, Traction pad",
+        "G": "Per tab 13 rule - verify against live prices",
+        "H": "Quiz Completed with all tab 02 properties; Card Clicked; Added to Cart",
+        "I": "",
+        "J": "48x76 is height locked - no standard option"
+      },
+      {
+        "A": "20 core cases: 5 stages x 4 box sizes. All use experience=first and windowed=No to isolate the cart template."
+      }
+    ],
+    "20b Result matrix": [
+      {
+        "A": "Case ID",
+        "B": "Box size",
+        "C": "Stage",
+        "D": "Experience",
+        "E": "Expected TICKED lines",
+        "F": "Expected UNTICKED lines",
+        "G": "Expected cart total",
+        "H": "Expected bundle card",
+        "I": "Result",
+        "J": "Tester notes"
+      },
+      {
+        "A": "RES-001",
+        "B": "28x28",
+        "C": "Preparing",
+        "D": "First litter",
+        "E": "Box, Heat Combo, Slip Resistant pad",
+        "F": "Whelping Kit, Liner, Corner Seat",
+        "G": "389.57",
+        "H": "Starter - BETTER VALUE (save $40.39)",
+        "I": null,
+        "J": "28x28: traction substituted"
+      },
+      {
+        "A": "RES-002",
+        "B": "28x28",
+        "C": "Preparing",
+        "D": "1-2 litters",
+        "E": "Box, Heat Combo, Slip Resistant pad",
+        "F": "Whelping Kit, Liner, Corner Seat",
+        "G": "389.57",
+        "H": "Starter - BETTER VALUE (save $40.39)",
+        "I": null,
+        "J": "28x28: traction substituted"
+      },
+      {
+        "A": "RES-003",
+        "B": "28x28",
+        "C": "Preparing",
+        "D": "3-5 litters",
+        "E": "Box, Slip Resistant pad",
+        "F": "Heat Combo, Whelping Kit, Liner, Corner Seat",
+        "G": "255.58",
+        "H": "NONE",
+        "I": null,
+        "J": "28x28: traction substituted"
+      },
+      {
+        "A": "RES-004",
+        "B": "28x28",
+        "C": "Preparing",
+        "D": "6+ litters",
+        "E": "Box",
+        "F": "Heat Combo, Slip Resistant pad, Whelping Kit, Liner, Corner Seat",
+        "G": "228.59",
+        "H": "NONE",
+        "I": null,
+        "J": "28x28: traction substituted"
+      },
+      {
+        "A": "RES-005",
+        "B": "28x28",
+        "C": "Due in 7 days",
+        "D": "First litter",
+        "E": "Box, Heat Combo, Quick Dry pad",
+        "F": "Whelping Kit, Combo Liner, Corner Seat",
+        "G": "387.57",
+        "H": "Starter - BETTER VALUE (save $38.39)",
+        "I": null,
+        "J": "28x28: traction substituted"
+      },
+      {
+        "A": "RES-006",
+        "B": "28x28",
+        "C": "Due in 7 days",
+        "D": "1-2 litters",
+        "E": "Box, Heat Combo, Quick Dry pad",
+        "F": "Whelping Kit, Combo Liner, Corner Seat",
+        "G": "387.57",
+        "H": "Starter - BETTER VALUE (save $38.39)",
+        "I": null,
+        "J": "28x28: traction substituted"
+      },
+      {
+        "A": "RES-007",
+        "B": "28x28",
+        "C": "Due in 7 days",
+        "D": "3-5 litters",
+        "E": "Box, Quick Dry pad",
+        "F": "Heat Combo, Whelping Kit, Combo Liner, Corner Seat",
+        "G": "253.58",
+        "H": "NONE",
+        "I": null,
+        "J": "28x28: traction substituted"
+      },
+      {
+        "A": "RES-008",
+        "B": "28x28",
+        "C": "Due in 7 days",
+        "D": "6+ litters",
+        "E": "Box",
+        "F": "Heat Combo, Quick Dry pad, Whelping Kit, Combo Liner, Corner Seat",
+        "G": "228.59",
+        "H": "NONE",
+        "I": null,
+        "J": "28x28: traction substituted"
+      },
+      {
+        "A": "RES-009",
+        "B": "28x28",
+        "C": "Born 0-3 days",
+        "D": "First litter",
+        "E": "Box, Heat Combo, Quick Dry pad, Slip Resistant pad",
+        "F": "WiFi Camera, Acrylic Door",
+        "G": "414.56",
+        "H": "Starter - BETTER VALUE (save $65.38)",
+        "I": null,
+        "J": "28x28: traction substituted"
+      },
+      {
+        "A": "RES-010",
+        "B": "28x28",
+        "C": "Born 0-3 days",
+        "D": "1-2 litters",
+        "E": "Box, Heat Combo, Quick Dry pad, Slip Resistant pad",
+        "F": "WiFi Camera, Acrylic Door",
+        "G": "414.56",
+        "H": "Starter - BETTER VALUE (save $65.38)",
+        "I": null,
+        "J": "28x28: traction substituted"
+      },
+      {
+        "A": "RES-011",
+        "B": "28x28",
+        "C": "Born 0-3 days",
+        "D": "3-5 litters",
+        "E": "Box, Quick Dry pad, Slip Resistant pad",
+        "F": "Heat Combo, WiFi Camera, Acrylic Door",
+        "G": "280.57",
+        "H": "NONE",
+        "I": null,
+        "J": "28x28: traction substituted"
+      },
+      {
+        "A": "RES-012",
+        "B": "28x28",
+        "C": "Born 0-3 days",
+        "D": "6+ litters",
+        "E": "Box",
+        "F": "Heat Combo, Quick Dry pad, Slip Resistant pad, WiFi Camera, Acrylic Door",
+        "G": "228.59",
+        "H": "NONE",
+        "I": null,
+        "J": "28x28: traction substituted"
+      },
+      {
+        "A": "RES-013",
+        "B": "28x28",
+        "C": "1-2 weeks",
+        "D": "First litter",
+        "E": "Box, Slip Resistant pad (traction unavailable at 28x28), Quick Dry pad",
+        "F": "Add-On Room, WiFi Camera",
+        "G": "298.57",
+        "H": "NONE",
+        "I": null,
+        "J": "28x28: traction substituted"
+      },
+      {
+        "A": "RES-014",
+        "B": "28x28",
+        "C": "1-2 weeks",
+        "D": "1-2 litters",
+        "E": "Box, Slip Resistant pad (traction unavailable at 28x28), Quick Dry pad",
+        "F": "Add-On Room, WiFi Camera",
+        "G": "298.57",
+        "H": "NONE",
+        "I": null,
+        "J": "28x28: traction substituted"
+      },
+      {
+        "A": "RES-015",
+        "B": "28x28",
+        "C": "1-2 weeks",
+        "D": "3-5 litters",
+        "E": "Box, Slip Resistant pad (traction unavailable at 28x28), Quick Dry pad",
+        "F": "Add-On Room, WiFi Camera",
+        "G": "298.57",
+        "H": "NONE",
+        "I": null,
+        "J": "28x28: traction substituted"
+      },
+      {
+        "A": "RES-016",
+        "B": "28x28",
+        "C": "1-2 weeks",
+        "D": "6+ litters",
+        "E": "Box",
+        "F": "Slip Resistant pad (traction unavailable at 28x28), Quick Dry pad, Add-On Room, WiFi Camera",
+        "G": "228.59",
+        "H": "NONE",
+        "I": null,
+        "J": "28x28: traction substituted"
+      },
+      {
+        "A": "RES-017",
+        "B": "28x28",
+        "C": "3+ weeks",
+        "D": "First litter",
+        "E": "Box, Add-On Room, Quick Dry pad",
+        "F": "Mess Hall Room, Feeding Station, Slip Resistant pad (traction unavailable at 28x28)",
+        "G": "363.37",
+        "H": "NONE",
+        "I": null,
+        "J": "28x28: traction substituted"
+      },
+      {
+        "A": "RES-018",
+        "B": "28x28",
+        "C": "3+ weeks",
+        "D": "1-2 litters",
+        "E": "Box, Add-On Room, Quick Dry pad",
+        "F": "Mess Hall Room, Feeding Station, Slip Resistant pad (traction unavailable at 28x28)",
+        "G": "363.37",
+        "H": "NONE",
+        "I": null,
+        "J": "28x28: traction substituted"
+      },
+      {
+        "A": "RES-019",
+        "B": "28x28",
+        "C": "3+ weeks",
+        "D": "3-5 litters",
+        "E": "Box, Quick Dry pad",
+        "F": "Add-On Room, Mess Hall Room, Feeding Station, Slip Resistant pad (traction unavailable at 28x28)",
+        "G": "253.58",
+        "H": "NONE",
+        "I": null,
+        "J": "28x28: traction substituted"
+      },
+      {
+        "A": "RES-020",
+        "B": "28x28",
+        "C": "3+ weeks",
+        "D": "6+ litters",
+        "E": "Box",
+        "F": "Add-On Room, Quick Dry pad, Mess Hall Room, Feeding Station, Slip Resistant pad (traction unavailable at 28x28)",
+        "G": "228.59",
+        "H": "NONE",
+        "I": null,
+        "J": "28x28: traction substituted"
+      },
+      {
+        "A": "RES-021",
+        "B": "38x38",
+        "C": "Preparing",
+        "D": "First litter",
+        "E": "Box, Heat Combo, Slip Resistant pad",
+        "F": "Whelping Kit, Liner, Corner Seat",
+        "G": "price not captured",
+        "H": "cannot compute - price missing",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-022",
+        "B": "38x38",
+        "C": "Preparing",
+        "D": "1-2 litters",
+        "E": "Box, Heat Combo, Slip Resistant pad",
+        "F": "Whelping Kit, Liner, Corner Seat",
+        "G": "price not captured",
+        "H": "cannot compute - price missing",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-023",
+        "B": "38x38",
+        "C": "Preparing",
+        "D": "3-5 litters",
+        "E": "Box, Slip Resistant pad",
+        "F": "Heat Combo, Whelping Kit, Liner, Corner Seat",
+        "G": "price not captured",
+        "H": "cannot compute - price missing",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-024",
+        "B": "38x38",
+        "C": "Preparing",
+        "D": "6+ litters",
+        "E": "Box",
+        "F": "Heat Combo, Slip Resistant pad, Whelping Kit, Liner, Corner Seat",
+        "G": "332.99",
+        "H": "NONE",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-025",
+        "B": "38x38",
+        "C": "Due in 7 days",
+        "D": "First litter",
+        "E": "Box, Heat Combo, Quick Dry pad",
+        "F": "Whelping Kit, Combo Liner, Corner Seat",
+        "G": "price not captured",
+        "H": "cannot compute - price missing",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-026",
+        "B": "38x38",
+        "C": "Due in 7 days",
+        "D": "1-2 litters",
+        "E": "Box, Heat Combo, Quick Dry pad",
+        "F": "Whelping Kit, Combo Liner, Corner Seat",
+        "G": "price not captured",
+        "H": "cannot compute - price missing",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-027",
+        "B": "38x38",
+        "C": "Due in 7 days",
+        "D": "3-5 litters",
+        "E": "Box, Quick Dry pad",
+        "F": "Heat Combo, Whelping Kit, Combo Liner, Corner Seat",
+        "G": "price not captured",
+        "H": "cannot compute - price missing",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-028",
+        "B": "38x38",
+        "C": "Due in 7 days",
+        "D": "6+ litters",
+        "E": "Box",
+        "F": "Heat Combo, Quick Dry pad, Whelping Kit, Combo Liner, Corner Seat",
+        "G": "332.99",
+        "H": "NONE",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-029",
+        "B": "38x38",
+        "C": "Born 0-3 days",
+        "D": "First litter",
+        "E": "Box, Heat Combo, Quick Dry pad, Slip Resistant pad",
+        "F": "WiFi Camera, Acrylic Door",
+        "G": "price not captured",
+        "H": "cannot compute - price missing",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-030",
+        "B": "38x38",
+        "C": "Born 0-3 days",
+        "D": "1-2 litters",
+        "E": "Box, Heat Combo, Quick Dry pad, Slip Resistant pad",
+        "F": "WiFi Camera, Acrylic Door",
+        "G": "price not captured",
+        "H": "cannot compute - price missing",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-031",
+        "B": "38x38",
+        "C": "Born 0-3 days",
+        "D": "3-5 litters",
+        "E": "Box, Quick Dry pad, Slip Resistant pad",
+        "F": "Heat Combo, WiFi Camera, Acrylic Door",
+        "G": "price not captured",
+        "H": "cannot compute - price missing",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-032",
+        "B": "38x38",
+        "C": "Born 0-3 days",
+        "D": "6+ litters",
+        "E": "Box",
+        "F": "Heat Combo, Quick Dry pad, Slip Resistant pad, WiFi Camera, Acrylic Door",
+        "G": "332.99",
+        "H": "NONE",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-033",
+        "B": "38x38",
+        "C": "1-2 weeks",
+        "D": "First litter",
+        "E": "Box, Traction pad, Quick Dry pad",
+        "F": "Add-On Room, WiFi Camera",
+        "G": "price not captured",
+        "H": "cannot compute - price missing",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-034",
+        "B": "38x38",
+        "C": "1-2 weeks",
+        "D": "1-2 litters",
+        "E": "Box, Traction pad, Quick Dry pad",
+        "F": "Add-On Room, WiFi Camera",
+        "G": "price not captured",
+        "H": "cannot compute - price missing",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-035",
+        "B": "38x38",
+        "C": "1-2 weeks",
+        "D": "3-5 litters",
+        "E": "Box, Traction pad, Quick Dry pad",
+        "F": "Add-On Room, WiFi Camera",
+        "G": "price not captured",
+        "H": "cannot compute - price missing",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-036",
+        "B": "38x38",
+        "C": "1-2 weeks",
+        "D": "6+ litters",
+        "E": "Box",
+        "F": "Traction pad, Quick Dry pad, Add-On Room, WiFi Camera",
+        "G": "332.99",
+        "H": "NONE",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-037",
+        "B": "38x38",
+        "C": "3+ weeks",
+        "D": "First litter",
+        "E": "Box, Add-On Room, Quick Dry pad",
+        "F": "Mess Hall Room, Feeding Station, Traction pad",
+        "G": "price not captured",
+        "H": "cannot compute - price missing",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-038",
+        "B": "38x38",
+        "C": "3+ weeks",
+        "D": "1-2 litters",
+        "E": "Box, Add-On Room, Quick Dry pad",
+        "F": "Mess Hall Room, Feeding Station, Traction pad",
+        "G": "price not captured",
+        "H": "cannot compute - price missing",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-039",
+        "B": "38x38",
+        "C": "3+ weeks",
+        "D": "3-5 litters",
+        "E": "Box, Quick Dry pad",
+        "F": "Add-On Room, Mess Hall Room, Feeding Station, Traction pad",
+        "G": "price not captured",
+        "H": "cannot compute - price missing",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-040",
+        "B": "38x38",
+        "C": "3+ weeks",
+        "D": "6+ litters",
+        "E": "Box",
+        "F": "Add-On Room, Quick Dry pad, Mess Hall Room, Feeding Station, Traction pad",
+        "G": "332.99",
+        "H": "NONE",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-041",
+        "B": "48x48",
+        "C": "Preparing",
+        "D": "First litter",
+        "E": "Box, Heat Combo, Slip Resistant pad",
+        "F": "Whelping Kit, Liner, Corner Seat",
+        "G": "price not captured",
+        "H": "cannot compute - price missing",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-042",
+        "B": "48x48",
+        "C": "Preparing",
+        "D": "1-2 litters",
+        "E": "Box, Heat Combo, Slip Resistant pad",
+        "F": "Whelping Kit, Liner, Corner Seat",
+        "G": "price not captured",
+        "H": "cannot compute - price missing",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-043",
+        "B": "48x48",
+        "C": "Preparing",
+        "D": "3-5 litters",
+        "E": "Box, Slip Resistant pad",
+        "F": "Heat Combo, Whelping Kit, Liner, Corner Seat",
+        "G": "price not captured",
+        "H": "cannot compute - price missing",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-044",
+        "B": "48x48",
+        "C": "Preparing",
+        "D": "6+ litters",
+        "E": "Box",
+        "F": "Heat Combo, Slip Resistant pad, Whelping Kit, Liner, Corner Seat",
+        "G": "432.89",
+        "H": "NONE",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-045",
+        "B": "48x48",
+        "C": "Due in 7 days",
+        "D": "First litter",
+        "E": "Box, Heat Combo, Quick Dry pad",
+        "F": "Whelping Kit, Combo Liner, Corner Seat",
+        "G": "price not captured",
+        "H": "cannot compute - price missing",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-046",
+        "B": "48x48",
+        "C": "Due in 7 days",
+        "D": "1-2 litters",
+        "E": "Box, Heat Combo, Quick Dry pad",
+        "F": "Whelping Kit, Combo Liner, Corner Seat",
+        "G": "price not captured",
+        "H": "cannot compute - price missing",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-047",
+        "B": "48x48",
+        "C": "Due in 7 days",
+        "D": "3-5 litters",
+        "E": "Box, Quick Dry pad",
+        "F": "Heat Combo, Whelping Kit, Combo Liner, Corner Seat",
+        "G": "price not captured",
+        "H": "cannot compute - price missing",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-048",
+        "B": "48x48",
+        "C": "Due in 7 days",
+        "D": "6+ litters",
+        "E": "Box",
+        "F": "Heat Combo, Quick Dry pad, Whelping Kit, Combo Liner, Corner Seat",
+        "G": "432.89",
+        "H": "NONE",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-049",
+        "B": "48x48",
+        "C": "Born 0-3 days",
+        "D": "First litter",
+        "E": "Box, Heat Combo, Quick Dry pad, Slip Resistant pad",
+        "F": "WiFi Camera, Acrylic Door",
+        "G": "price not captured",
+        "H": "cannot compute - price missing",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-050",
+        "B": "48x48",
+        "C": "Born 0-3 days",
+        "D": "1-2 litters",
+        "E": "Box, Heat Combo, Quick Dry pad, Slip Resistant pad",
+        "F": "WiFi Camera, Acrylic Door",
+        "G": "price not captured",
+        "H": "cannot compute - price missing",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-051",
+        "B": "48x48",
+        "C": "Born 0-3 days",
+        "D": "3-5 litters",
+        "E": "Box, Quick Dry pad, Slip Resistant pad",
+        "F": "Heat Combo, WiFi Camera, Acrylic Door",
+        "G": "price not captured",
+        "H": "cannot compute - price missing",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-052",
+        "B": "48x48",
+        "C": "Born 0-3 days",
+        "D": "6+ litters",
+        "E": "Box",
+        "F": "Heat Combo, Quick Dry pad, Slip Resistant pad, WiFi Camera, Acrylic Door",
+        "G": "432.89",
+        "H": "NONE",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-053",
+        "B": "48x48",
+        "C": "1-2 weeks",
+        "D": "First litter",
+        "E": "Box, Traction pad, Quick Dry pad",
+        "F": "Add-On Room, WiFi Camera",
+        "G": "price not captured",
+        "H": "cannot compute - price missing",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-054",
+        "B": "48x48",
+        "C": "1-2 weeks",
+        "D": "1-2 litters",
+        "E": "Box, Traction pad, Quick Dry pad",
+        "F": "Add-On Room, WiFi Camera",
+        "G": "price not captured",
+        "H": "cannot compute - price missing",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-055",
+        "B": "48x48",
+        "C": "1-2 weeks",
+        "D": "3-5 litters",
+        "E": "Box, Traction pad, Quick Dry pad",
+        "F": "Add-On Room, WiFi Camera",
+        "G": "price not captured",
+        "H": "cannot compute - price missing",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-056",
+        "B": "48x48",
+        "C": "1-2 weeks",
+        "D": "6+ litters",
+        "E": "Box",
+        "F": "Traction pad, Quick Dry pad, Add-On Room, WiFi Camera",
+        "G": "432.89",
+        "H": "NONE",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-057",
+        "B": "48x48",
+        "C": "3+ weeks",
+        "D": "First litter",
+        "E": "Box, Add-On Room, Quick Dry pad",
+        "F": "Mess Hall Room, Feeding Station, Traction pad",
+        "G": "price not captured",
+        "H": "cannot compute - price missing",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-058",
+        "B": "48x48",
+        "C": "3+ weeks",
+        "D": "1-2 litters",
+        "E": "Box, Add-On Room, Quick Dry pad",
+        "F": "Mess Hall Room, Feeding Station, Traction pad",
+        "G": "price not captured",
+        "H": "cannot compute - price missing",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-059",
+        "B": "48x48",
+        "C": "3+ weeks",
+        "D": "3-5 litters",
+        "E": "Box, Quick Dry pad",
+        "F": "Add-On Room, Mess Hall Room, Feeding Station, Traction pad",
+        "G": "price not captured",
+        "H": "cannot compute - price missing",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-060",
+        "B": "48x48",
+        "C": "3+ weeks",
+        "D": "6+ litters",
+        "E": "Box",
+        "F": "Add-On Room, Quick Dry pad, Mess Hall Room, Feeding Station, Traction pad",
+        "G": "432.89",
+        "H": "NONE",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-061",
+        "B": "48x76",
+        "C": "Preparing",
+        "D": "First litter",
+        "E": "Box, Heat Combo, Slip Resistant pad",
+        "F": "Whelping Kit, Liner, Corner Seat",
+        "G": "price not captured",
+        "H": "cannot compute - price missing",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-062",
+        "B": "48x76",
+        "C": "Preparing",
+        "D": "1-2 litters",
+        "E": "Box, Heat Combo, Slip Resistant pad",
+        "F": "Whelping Kit, Liner, Corner Seat",
+        "G": "price not captured",
+        "H": "cannot compute - price missing",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-063",
+        "B": "48x76",
+        "C": "Preparing",
+        "D": "3-5 litters",
+        "E": "Box, Slip Resistant pad",
+        "F": "Heat Combo, Whelping Kit, Liner, Corner Seat",
+        "G": "price not captured",
+        "H": "cannot compute - price missing",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-064",
+        "B": "48x76",
+        "C": "Preparing",
+        "D": "6+ litters",
+        "E": "Box",
+        "F": "Heat Combo, Slip Resistant pad, Whelping Kit, Liner, Corner Seat",
+        "G": "price not captured",
+        "H": "cannot compute - price missing",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-065",
+        "B": "48x76",
+        "C": "Due in 7 days",
+        "D": "First litter",
+        "E": "Box, Heat Combo, Quick Dry pad",
+        "F": "Whelping Kit, Combo Liner, Corner Seat",
+        "G": "price not captured",
+        "H": "cannot compute - price missing",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-066",
+        "B": "48x76",
+        "C": "Due in 7 days",
+        "D": "1-2 litters",
+        "E": "Box, Heat Combo, Quick Dry pad",
+        "F": "Whelping Kit, Combo Liner, Corner Seat",
+        "G": "price not captured",
+        "H": "cannot compute - price missing",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-067",
+        "B": "48x76",
+        "C": "Due in 7 days",
+        "D": "3-5 litters",
+        "E": "Box, Quick Dry pad",
+        "F": "Heat Combo, Whelping Kit, Combo Liner, Corner Seat",
+        "G": "price not captured",
+        "H": "cannot compute - price missing",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-068",
+        "B": "48x76",
+        "C": "Due in 7 days",
+        "D": "6+ litters",
+        "E": "Box",
+        "F": "Heat Combo, Quick Dry pad, Whelping Kit, Combo Liner, Corner Seat",
+        "G": "price not captured",
+        "H": "cannot compute - price missing",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-069",
+        "B": "48x76",
+        "C": "Born 0-3 days",
+        "D": "First litter",
+        "E": "Box, Heat Combo, Quick Dry pad, Slip Resistant pad",
+        "F": "WiFi Camera, Acrylic Door",
+        "G": "price not captured",
+        "H": "cannot compute - price missing",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-070",
+        "B": "48x76",
+        "C": "Born 0-3 days",
+        "D": "1-2 litters",
+        "E": "Box, Heat Combo, Quick Dry pad, Slip Resistant pad",
+        "F": "WiFi Camera, Acrylic Door",
+        "G": "price not captured",
+        "H": "cannot compute - price missing",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-071",
+        "B": "48x76",
+        "C": "Born 0-3 days",
+        "D": "3-5 litters",
+        "E": "Box, Quick Dry pad, Slip Resistant pad",
+        "F": "Heat Combo, WiFi Camera, Acrylic Door",
+        "G": "price not captured",
+        "H": "cannot compute - price missing",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-072",
+        "B": "48x76",
+        "C": "Born 0-3 days",
+        "D": "6+ litters",
+        "E": "Box",
+        "F": "Heat Combo, Quick Dry pad, Slip Resistant pad, WiFi Camera, Acrylic Door",
+        "G": "price not captured",
+        "H": "cannot compute - price missing",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-073",
+        "B": "48x76",
+        "C": "1-2 weeks",
+        "D": "First litter",
+        "E": "Box, Traction pad, Quick Dry pad",
+        "F": "Add-On Room, WiFi Camera",
+        "G": "price not captured",
+        "H": "cannot compute - price missing",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-074",
+        "B": "48x76",
+        "C": "1-2 weeks",
+        "D": "1-2 litters",
+        "E": "Box, Traction pad, Quick Dry pad",
+        "F": "Add-On Room, WiFi Camera",
+        "G": "price not captured",
+        "H": "cannot compute - price missing",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-075",
+        "B": "48x76",
+        "C": "1-2 weeks",
+        "D": "3-5 litters",
+        "E": "Box, Traction pad, Quick Dry pad",
+        "F": "Add-On Room, WiFi Camera",
+        "G": "price not captured",
+        "H": "cannot compute - price missing",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-076",
+        "B": "48x76",
+        "C": "1-2 weeks",
+        "D": "6+ litters",
+        "E": "Box",
+        "F": "Traction pad, Quick Dry pad, Add-On Room, WiFi Camera",
+        "G": "price not captured",
+        "H": "cannot compute - price missing",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-077",
+        "B": "48x76",
+        "C": "3+ weeks",
+        "D": "First litter",
+        "E": "Box, Add-On Room, Quick Dry pad",
+        "F": "Mess Hall Room, Feeding Station, Traction pad",
+        "G": "price not captured",
+        "H": "cannot compute - price missing",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-078",
+        "B": "48x76",
+        "C": "3+ weeks",
+        "D": "1-2 litters",
+        "E": "Box, Add-On Room, Quick Dry pad",
+        "F": "Mess Hall Room, Feeding Station, Traction pad",
+        "G": "price not captured",
+        "H": "cannot compute - price missing",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-079",
+        "B": "48x76",
+        "C": "3+ weeks",
+        "D": "3-5 litters",
+        "E": "Box, Quick Dry pad",
+        "F": "Add-On Room, Mess Hall Room, Feeding Station, Traction pad",
+        "G": "price not captured",
+        "H": "cannot compute - price missing",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "RES-080",
+        "B": "48x76",
+        "C": "3+ weeks",
+        "D": "6+ litters",
+        "E": "Box",
+        "F": "Add-On Room, Quick Dry pad, Mess Hall Room, Feeding Station, Traction pad",
+        "G": "price not captured",
+        "H": "cannot compute - price missing",
+        "I": null,
+        "J": null
+      },
+      {
+        "A": "80 cases: 4 box sizes x 5 stages x 4 experience levels. Every combination that changes the RESULT."
+      },
+      {
+        "A": "Expected values were computed from the rules in tabs 07, 08 and 13 using prices captured 30 Sep 2026. Re-verify totals against live prices before signing off."
+      },
+      {
+        "A": "Rows showing 'price not captured' are the 38x38, 48x48 and 48x76 sizes where accessory variant prices are still outstanding. Contents and tick state are still testable."
+      }
+    ],
+    "20c Result summary": [
+      {
+        "A": "Finding",
+        "B": "Count",
+        "C": "Why it matters"
+      },
+      {
+        "A": "Total result cases",
+        "B": "80",
+        "C": "4 sizes x 5 stages x 4 experience levels"
+      },
+      {
+        "A": "Cases showing a BETTER VALUE bundle",
+        "B": "6",
+        "C": "The bundle costs less than the cart. Strongest conversion moment"
+      },
+      {
+        "A": "Cases showing MORE INCLUDED",
+        "B": "0",
+        "C": "Bundle costs slightly more but adds items. Second strongest"
+      },
+      {
+        "A": "Cases showing NO bundle card",
+        "B": "24",
+        "C": "Correct behaviour. The quiz must not push a bundle that does not help"
+      },
+      {
+        "A": "Cases needing live prices before the total can be checked",
+        "B": "50",
+        "C": "38x38, 48x48 and 48x76 accessory prices still outstanding"
+      },
+      {
+        "A": "6+ litter breeders shown no bundle",
+        "B": "15 of 20",
+        "C": "Confirms experienced breeders are not being pushed. This is the anti-nag test"
+      },
+      {
+        "A": "Every BETTER VALUE case is a sale the current quiz is not making. Every NONE case is a customer the current quiz would have annoyed."
+      }
+    ],
+    "21 Test cases behaviour": [
+      {
+        "A": "Case ID",
+        "B": "Answers given",
+        "C": "Expected card 1 (Recommended)",
+        "D": "Expected card 2 (Alternative)",
+        "E": "Expected shelf - TICKED",
+        "F": "Expected shelf - unticked",
+        "G": "Expected card 3 (Bundle)",
+        "H": "Events expected",
+        "I": "Result",
+        "J": "Notes"
+      },
+      {
+        "A": "SBX-021",
+        "B": "Breed=Beagle; Experience=first; Stage=Preparing; Windowed=No; Litter=4-6",
+        "C": "Box 28x28 solid",
+        "D": "Windowed 28x28",
+        "E": "Heat Combo, Slip pad, Whelping Kit",
+        "F": "Liner, Corner Seat",
+        "G": "Per rule",
+        "H": "Quiz Completed",
+        "I": "",
+        "J": "First litter pre-ticks everything in lines 1-3"
+      },
+      {
+        "A": "SBX-022",
+        "B": "Same but Experience=1-2",
+        "C": "Box 28x28 solid",
+        "D": "Windowed 28x28",
+        "E": "Heat Combo, Slip pad",
+        "F": "Whelping Kit, Liner, Corner Seat",
+        "G": "Per rule",
+        "H": "Quiz Completed",
+        "I": "",
+        "J": "Whelping Kit NOT pre-ticked"
+      },
+      {
+        "A": "SBX-023",
+        "B": "Same but Experience=3-5",
+        "C": "Box 28x28 solid",
+        "D": "Windowed 28x28",
+        "E": "Slip pad only",
+        "F": "Heat Combo, Whelping Kit, Liner, Corner Seat",
+        "G": "Per rule",
+        "H": "Quiz Completed",
+        "I": "",
+        "J": "Pads only"
+      },
+      {
+        "A": "SBX-024",
+        "B": "Same but Experience=6+",
+        "C": "Box 28x28 solid",
+        "D": "Windowed 28x28",
+        "E": "NOTHING pre-ticked",
+        "F": "All items, Add-On Room listed first",
+        "G": "NONE - cart is box only",
+        "H": "Quiz Completed",
+        "I": "",
+        "J": "Critical: no bundle card when nothing is ticked"
+      },
+      {
+        "A": "SBX-025",
+        "B": "Breed=Beagle; Windowed=Yes; Stage=Preparing; Experience=first",
+        "C": "Windowed box 28x28 - BADGED",
+        "D": "Solid box 28x28",
+        "E": "Heat Combo, Slip pad, Whelping Kit",
+        "F": "Liner, Corner Seat",
+        "G": "Per rule",
+        "H": "Quiz Completed",
+        "I": "",
+        "J": "Badge moves to the windowed card. Both still shown"
+      },
+      {
+        "A": "SBX-026",
+        "B": "Breed=Great Dane (locked 48x76); Windowed=No",
+        "C": "TALL 48x76 solid",
+        "D": "TALL 48x76 windowed",
+        "E": "Per stage",
+        "F": "Per stage",
+        "G": "Per rule",
+        "H": "Quiz Completed",
+        "I": "",
+        "J": "No smaller box may appear anywhere"
+      },
+      {
+        "A": "SBX-027",
+        "B": "Breed=Affenpinscher (28x28 primary, 38x38 secondary); Windowed=No",
+        "C": "Box 28x28 solid - BADGED",
+        "D": "Box 38x38 solid",
+        "E": "Per stage",
+        "F": "Per stage",
+        "G": "Per rule",
+        "H": "Quiz Completed",
+        "I": "",
+        "J": "Card 2 is the SECONDARY SIZE, not the windowed variant, when the breed has two sizes"
+      },
+      {
+        "A": "SBX-030",
+        "B": "Box 28x28, only Heat Combo ticked, cart = box + heat",
+        "C": "Box 28x28",
+        "D": "Windowed 28x28",
+        "E": "Heat Combo",
+        "F": "Rest of shelf",
+        "G": "Starter 28x28 - BETTER VALUE",
+        "H": "Card Clicked with selected_card=bundle",
+        "I": "",
+        "J": "Starter contains box + heat and costs less"
+      },
+      {
+        "A": "SBX-031",
+        "B": "Box 28x28, Heat + Whelping Kit ticked",
+        "C": "Box 28x28",
+        "D": "Windowed 28x28",
+        "E": "Heat Combo, Whelping Kit",
+        "F": "Rest",
+        "G": "Essential 28x28 - MORE INCLUDED",
+        "H": "Card Clicked",
+        "I": "",
+        "J": "Within 15%. Extras listed"
+      },
+      {
+        "A": "SBX-032",
+        "B": "Box 28x28, nothing ticked",
+        "C": "Box 28x28",
+        "D": "Windowed 28x28",
+        "E": "none",
+        "F": "All",
+        "G": "NONE",
+        "H": "Quiz Completed",
+        "I": "",
+        "J": "Cheapest bundle exceeds 15% of a bare box. No card"
+      },
+      {
+        "A": "SBX-033",
+        "B": "Box 28x28, Traction pad ticked only",
+        "C": "Box 28x28",
+        "D": "Windowed 28x28",
+        "E": "Traction pad",
+        "F": "Rest",
+        "G": "NONE",
+        "H": "Quiz Completed",
+        "I": "",
+        "J": "No bundle contains a traction pad"
+      },
+      {
+        "A": "SBX-034",
+        "B": "Box 48x76 TALL, Heat ticked",
+        "C": "TALL 48x76",
+        "D": "TALL 48x76 windowed",
+        "E": "Heat Combo",
+        "F": "Rest",
+        "G": "Starter TALL 48x76 - verify",
+        "H": "Card Clicked",
+        "I": "",
+        "J": "Confirms giant breeds still get a bundle option"
+      },
+      {
+        "A": "SBX-035",
+        "B": "Any cart, Two Room Condo would otherwise qualify",
+        "C": "-",
+        "D": "-",
+        "E": "-",
+        "F": "-",
+        "G": "NEVER shown",
+        "H": "-",
+        "I": "",
+        "J": "Two Room Condo contains two boxes. Hard exclusion"
+      },
+      {
+        "A": "SBX-036",
+        "B": "Box 38x38, Play Yard would qualify but Heat is ticked",
+        "C": "Box 38x38",
+        "D": "Windowed 38x38",
+        "E": "Heat Combo",
+        "F": "Rest",
+        "G": "Play Yard EXCLUDED",
+        "H": "Quiz Completed",
+        "I": "",
+        "J": "Play Yard has no heat so it fails containment"
+      },
+      {
+        "A": "SBX-040",
+        "B": "Stage=Preparing, due date entered",
+        "C": "-",
+        "D": "-",
+        "E": "-",
+        "F": "-",
+        "G": "-",
+        "H": "Quiz Completed with due_date set on PROFILE",
+        "I": "",
+        "J": "Verify profile property, not just event"
+      },
+      {
+        "A": "SBX-041",
+        "B": "Stage=Born 0-3 days, DOB entered",
+        "C": "-",
+        "D": "-",
+        "E": "-",
+        "F": "-",
+        "G": "-",
+        "H": "Quiz Completed with dob set on PROFILE",
+        "I": "",
+        "J": "Go-home date = DOB + 56"
+      },
+      {
+        "A": "SBX-042",
+        "B": "Litter=1-3 vs 10+, same stage and size",
+        "C": "-",
+        "D": "-",
+        "E": "Pad quantity differs per tab 11",
+        "F": "-",
+        "G": "-",
+        "H": "Quiz Completed with litter_size_band",
+        "I": "",
+        "J": "Quantities only, same items"
+      },
+      {
+        "A": "SBX-043",
+        "B": "Box 48x76, Quick Dry pad quantity",
+        "C": "-",
+        "D": "-",
+        "E": "Quick Dry is a SINGLE pack at this size",
+        "F": "-",
+        "G": "-",
+        "H": "-",
+        "I": "",
+        "J": "Quantity must double or display as pads not packs"
+      },
+      {
+        "A": "SBX-028",
+        "B": "Breed=Affenpinscher (28x28 + 38x38); Stage=Preparing; Experience=first",
+        "C": "Box 28x28 solid - after chooser defaults to 28x28",
+        "D": "Box 28x28 windowed",
+        "E": "Per stage at 28x28 variants",
+        "F": "Per stage",
+        "G": "Per rule",
+        "H": "Quiz Completed with box_size=28x28",
+        "I": null,
+        "J": "SIZE CHOOSER must appear with two chips. 28x28 badged Best fit"
+      },
+      {
+        "A": "SBX-029",
+        "B": "Same breed, breeder selects the 38x38 chip",
+        "C": "Box 38x38 solid",
+        "D": "Box 38x38 windowed",
+        "E": "Per stage at 38x38 variants",
+        "F": "Per stage",
+        "G": "Per rule at 38x38",
+        "H": "Quiz Completed with box_size=38x38",
+        "I": null,
+        "J": "Every pad, liner and room variant must switch to 38x38"
+      },
+      {
+        "A": "SBX-029b",
+        "B": "Breed=Boxer (48x48 + 48x76 TALL), breeder selects 48x76 TALL",
+        "C": "TALL 48x76 solid",
+        "D": "TALL 48x76 windowed",
+        "E": "Per stage at 48x76 variants",
+        "F": "Per stage",
+        "G": "Per rule",
+        "H": "Quiz Completed with box_size=48x76 and panel_height=tall",
+        "I": null,
+        "J": "Height changes with the size for this group. Helper line must say so"
+      },
+      {
+        "A": "SBX-029c",
+        "B": "Breed=Beagle (single size)",
+        "C": "Box 28x28 solid",
+        "D": "Box 28x28 windowed",
+        "E": "Per stage",
+        "F": "Per stage",
+        "G": "Per rule",
+        "H": "Quiz Completed",
+        "I": null,
+        "J": "NO size chooser may appear for single-size breeds"
+      }
+    ],
+    "22 Negative tests": [
+      {
+        "A": "Case ID",
+        "B": "Scenario",
+        "C": "Expected behaviour",
+        "D": "Must NOT happen"
+      },
+      {
+        "A": "NEG-001",
+        "B": "A variant ID cannot be resolved",
+        "C": "Block the recommendation, show an error state, log and alert",
+        "D": "Never render a $0.00 price or an empty cart link"
+      },
+      {
+        "A": "NEG-002",
+        "B": "Recommended box variant is out of stock",
+        "C": "Show the out-of-stock badge and offer the next size up",
+        "D": "Never link to an unbuyable variant"
+      },
+      {
+        "A": "NEG-003",
+        "B": "Breeder selects 'Not listed'",
+        "C": "Route to the weight question",
+        "D": "Never show the word 'mixed'"
+      },
+      {
+        "A": "NEG-004",
+        "B": "Breeder abandons at Q3",
+        "C": "Quiz Abandoned fires with last_step_number=3",
+        "D": "Silent exit with no event"
+      },
+      {
+        "A": "NEG-005",
+        "B": "Invalid email at Q7",
+        "C": "Inline validation, do not submit",
+        "D": "Do not fire Quiz Completed"
+      },
+      {
+        "A": "NEG-006",
+        "B": "Breeder navigates back and changes breed",
+        "C": "Box size and all size-dependent variants recompute",
+        "D": "Stale variant IDs from the previous breed must not persist"
+      },
+      {
+        "A": "NEG-007",
+        "B": "Due date entered in the past",
+        "C": "Accept but flag - a past due date usually means the litter has arrived",
+        "D": "Do not schedule pre-birth reminders for a past date"
+      },
+      {
+        "A": "NEG-008",
+        "B": "Due date more than 63 days out",
+        "C": "Accept. Gestation is ~63 days so this may be a planned mating",
+        "D": "Do not reject"
+      },
+      {
+        "A": "NEG-009",
+        "B": "Breeder unticks every add-on",
+        "C": "Cart is box only. No bundle card",
+        "D": "Do not force a minimum cart"
+      },
+      {
+        "A": "NEG-010",
+        "B": "Price changes between page load and checkout",
+        "C": "Shopify price at checkout is authoritative",
+        "D": "Never block checkout on a price mismatch"
+      },
+      {
+        "A": "NEG-011",
+        "B": "Two browser tabs, different breeds",
+        "C": "Each session independent",
+        "D": "No cross-contamination of variant IDs"
+      },
+      {
+        "A": "NEG-012",
+        "B": "Quiz completed but email already exists in Klaviyo",
+        "C": "Update the profile with new answers",
+        "D": "Do not create a duplicate profile"
+      },
+      {
+        "A": "NEG-013",
+        "B": "Quiz completed with a new email address",
+        "C": "Profile created in Klaviyo AND subscribed to email marketing, with consent timestamp and source recorded",
+        "D": "A profile that exists but is not subscribed"
+      },
+      {
+        "A": "NEG-014",
+        "B": "Quiz completed with an email that already exists and is already subscribed",
+        "C": "Profile updated with the new answers. Subscription and original consent timestamp preserved",
+        "D": "Duplicate profile, or the original consent date overwritten"
+      },
+      {
+        "A": "NEG-015",
+        "B": "Quiz completed with an email that previously unsubscribed",
+        "C": "Answers update the profile. Subscription status is NOT silently restored",
+        "D": "Re-subscribing someone who opted out"
+      },
+      {
+        "A": "NEG-016",
+        "B": "Quiz completed - check the order of operations",
+        "C": "recommended_cart_url and all profile properties are present on the profile BEFORE the list add fires",
+        "D": "List add firing first, which lets the flow start with an empty cart URL"
+      },
+      {
+        "A": "NEG-017",
+        "B": "Same breeder retakes the quiz with different answers",
+        "C": "Existing profile updated with the new answers. No duplicate profile created",
+        "D": "A second profile, or the old answers persisting"
+      },
+      {
+        "A": "NEG-018",
+        "B": "Breeder who bought within 30 days retakes the quiz",
+        "C": "Added to the list but excluded from the flow by the profile filter",
+        "D": "Receiving the full follow-up sequence again after buying"
+      }
+    ],
+    "23 Definition of done": [
+      {
+        "A": "#",
+        "B": "Requirement",
+        "C": "How it is verified"
+      },
+      {
+        "A": "1",
+        "B": "All 20 core cases in tab 20 pass",
+        "C": "Manual run, one per case, screenshot of the results page"
+      },
+      {
+        "A": "2",
+        "B": "All cases in tab 21 pass",
+        "C": "Manual run"
+      },
+      {
+        "A": "3",
+        "B": "All negative cases in tab 22 behave as specified",
+        "C": "Manual run"
+      },
+      {
+        "A": "4",
+        "B": "Every event in tab 03 fires with correct properties",
+        "C": "Verified in Klaviyo, not in a preview"
+      },
+      {
+        "A": "5",
+        "B": "Every property in tab 04 appears on the PROFILE",
+        "C": "Open a real profile in Klaviyo and read the custom properties panel"
+      },
+      {
+        "A": "6",
+        "B": "Cart permalink loads the correct products at the correct quantities",
+        "C": "Click through from a real browser to Shopify checkout"
+      },
+      {
+        "A": "7",
+        "B": "No hardcoded prices anywhere in the build",
+        "C": "Code review"
+      },
+      {
+        "A": "8",
+        "B": "Recorded end-to-end walkthrough",
+        "C": "One take: quiz, results, card click, cart loads, events visible in Klaviyo"
+      }
+    ]
+  },
+  "Fab - Single Box Quiz": {
+    "00 Evidence required": [
+      {
+        "A": "#",
+        "B": "Deliverable",
+        "C": "Format",
+        "D": "Why"
+      },
+      {
+        "A": "1",
+        "B": "This workbook returned with the Result column filled",
+        "C": "PASS or FAIL on every row. Actual value typed in the notes column where it differs",
+        "D": "Primary artefact"
+      },
+      {
+        "A": "2",
+        "B": "One screenshot per test case",
+        "C": "PNG named by case ID. Full results page including the answers summary, box card, locked lines and shelf. One zip",
+        "D": "Proof of the result"
+      },
+      {
+        "A": "3",
+        "B": "All screenshots assembled into a PDF",
+        "C": "One case per page, case ID in the header, in order",
+        "D": "Audit trail"
+      },
+      {
+        "A": "4",
+        "B": "Klaviyo event export",
+        "C": "CSV filtered to the test email addresses",
+        "D": "Verifies event properties independently"
+      },
+      {
+        "A": "5",
+        "B": "Cart URL list",
+        "C": "One line per case ID with the full cart permalink",
+        "D": "Verifies variant IDs resolved"
+      },
+      {
+        "A": "6",
+        "B": "Negative case recordings",
+        "C": "Short recording per case in the negative tab only",
+        "D": "Journey cases cannot be shown in one frame"
+      },
+      {
+        "A": "BUILD REQUIREMENT: the results page must show a 'Your answers' summary line. Without it, one screenshot cannot prove a whole case."
+      }
+    ],
+    "01 Result matrix": [
+      {
+        "A": "Case ID",
+        "B": "Fab size",
+        "C": "Stage",
+        "D": "Experience",
+        "E": "LOCKED lines",
+        "F": "Expected TICKED",
+        "G": "Expected UNTICKED",
+        "H": "Third card",
+        "I": "Seconds notice",
+        "J": "Stock state",
+        "K": "Result",
+        "L": "Notes"
+      },
+      {
+        "A": "FAB-001",
+        "B": "3x3",
+        "C": "Preparing",
+        "D": "First litter",
+        "E": "Fab Box 3x3 + Rail System 3x3",
+        "F": "Heat Combo, Gray Pad",
+        "G": "Whelping Kit, Corner Seat",
+        "H": "Stack Kit only if she jumps",
+        "I": "SECONDS",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-002",
+        "B": "3x3",
+        "C": "Preparing",
+        "D": "1-2 litters",
+        "E": "Fab Box 3x3 + Rail System 3x3",
+        "F": "Heat Combo, Gray Pad",
+        "G": "Whelping Kit, Corner Seat",
+        "H": "Stack Kit only if she jumps",
+        "I": "SECONDS",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-003",
+        "B": "3x3",
+        "C": "Preparing",
+        "D": "3-5 litters",
+        "E": "Fab Box 3x3 + Rail System 3x3",
+        "F": "Gray Pad",
+        "G": "Whelping Kit, Corner Seat",
+        "H": "Stack Kit only if she jumps",
+        "I": "SECONDS",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-004",
+        "B": "3x3",
+        "C": "Preparing",
+        "D": "6+ litters",
+        "E": "Fab Box 3x3 + Rail System 3x3",
+        "F": "NONE beyond locked lines",
+        "G": "Whelping Kit, Corner Seat",
+        "H": "Stack Kit only if she jumps",
+        "I": "SECONDS",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-005",
+        "B": "3x3",
+        "C": "Due in 7 days",
+        "D": "First litter",
+        "E": "Fab Box 3x3 + Rail System 3x3",
+        "F": "Heat Combo, Gray Pad x2",
+        "G": "Whelping Kit, Corner Seat",
+        "H": "Stack Kit only if she jumps",
+        "I": "SECONDS",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-006",
+        "B": "3x3",
+        "C": "Due in 7 days",
+        "D": "1-2 litters",
+        "E": "Fab Box 3x3 + Rail System 3x3",
+        "F": "Heat Combo, Gray Pad x2",
+        "G": "Whelping Kit, Corner Seat",
+        "H": "Stack Kit only if she jumps",
+        "I": "SECONDS",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-007",
+        "B": "3x3",
+        "C": "Due in 7 days",
+        "D": "3-5 litters",
+        "E": "Fab Box 3x3 + Rail System 3x3",
+        "F": "Gray Pad x2",
+        "G": "Whelping Kit, Corner Seat",
+        "H": "Stack Kit only if she jumps",
+        "I": "SECONDS",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-008",
+        "B": "3x3",
+        "C": "Due in 7 days",
+        "D": "6+ litters",
+        "E": "Fab Box 3x3 + Rail System 3x3",
+        "F": "NONE beyond locked lines",
+        "G": "Whelping Kit, Corner Seat",
+        "H": "Stack Kit only if she jumps",
+        "I": "SECONDS",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-009",
+        "B": "3x3",
+        "C": "Born 0-3 days",
+        "D": "First litter",
+        "E": "Fab Box 3x3 + Rail System 3x3",
+        "F": "Heat Combo, Gray Pad x3",
+        "G": "Corner Rod, Mesh Cover",
+        "H": "Stack Kit only if she jumps",
+        "I": "SECONDS",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-010",
+        "B": "3x3",
+        "C": "Born 0-3 days",
+        "D": "1-2 litters",
+        "E": "Fab Box 3x3 + Rail System 3x3",
+        "F": "Heat Combo, Gray Pad x3",
+        "G": "Corner Rod, Mesh Cover",
+        "H": "Stack Kit only if she jumps",
+        "I": "SECONDS",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-011",
+        "B": "3x3",
+        "C": "Born 0-3 days",
+        "D": "3-5 litters",
+        "E": "Fab Box 3x3 + Rail System 3x3",
+        "F": "Gray Pad x3",
+        "G": "Corner Rod, Mesh Cover",
+        "H": "Stack Kit only if she jumps",
+        "I": "SECONDS",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-012",
+        "B": "3x3",
+        "C": "Born 0-3 days",
+        "D": "6+ litters",
+        "E": "Fab Box 3x3 + Rail System 3x3",
+        "F": "NONE beyond locked lines",
+        "G": "Corner Rod, Mesh Cover",
+        "H": "Stack Kit only if she jumps",
+        "I": "SECONDS",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-013",
+        "B": "3x3",
+        "C": "1-2 weeks",
+        "D": "First litter",
+        "E": "Fab Box 3x3 + Rail System 3x3",
+        "F": "Gray Pad x2",
+        "G": "Add-on Room, Mesh Cover, Stack Kit",
+        "H": "Stack Kit only if she jumps",
+        "I": "SECONDS",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-014",
+        "B": "3x3",
+        "C": "1-2 weeks",
+        "D": "1-2 litters",
+        "E": "Fab Box 3x3 + Rail System 3x3",
+        "F": "Gray Pad x2",
+        "G": "Add-on Room, Mesh Cover, Stack Kit",
+        "H": "Stack Kit only if she jumps",
+        "I": "SECONDS",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-015",
+        "B": "3x3",
+        "C": "1-2 weeks",
+        "D": "3-5 litters",
+        "E": "Fab Box 3x3 + Rail System 3x3",
+        "F": "Gray Pad x2",
+        "G": "Add-on Room, Mesh Cover, Stack Kit",
+        "H": "Stack Kit only if she jumps",
+        "I": "SECONDS",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-016",
+        "B": "3x3",
+        "C": "1-2 weeks",
+        "D": "6+ litters",
+        "E": "Fab Box 3x3 + Rail System 3x3",
+        "F": "NONE beyond locked lines",
+        "G": "Add-on Room, Mesh Cover, Stack Kit",
+        "H": "Stack Kit only if she jumps",
+        "I": "SECONDS",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-017",
+        "B": "3x3",
+        "C": "3+ weeks",
+        "D": "First litter",
+        "E": "Fab Box 3x3 + Rail System 3x3",
+        "F": "Add-on Room, Gray Pad x2",
+        "G": "Grommet Pads, Stack Kit",
+        "H": "Stack Kit only if she jumps",
+        "I": "SECONDS",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-018",
+        "B": "3x3",
+        "C": "3+ weeks",
+        "D": "1-2 litters",
+        "E": "Fab Box 3x3 + Rail System 3x3",
+        "F": "Add-on Room, Gray Pad x2",
+        "G": "Grommet Pads, Stack Kit",
+        "H": "Stack Kit only if she jumps",
+        "I": "SECONDS",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-019",
+        "B": "3x3",
+        "C": "3+ weeks",
+        "D": "3-5 litters",
+        "E": "Fab Box 3x3 + Rail System 3x3",
+        "F": "Gray Pad x2",
+        "G": "Grommet Pads, Stack Kit",
+        "H": "Stack Kit only if she jumps",
+        "I": "SECONDS",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-020",
+        "B": "3x3",
+        "C": "3+ weeks",
+        "D": "6+ litters",
+        "E": "Fab Box 3x3 + Rail System 3x3",
+        "F": "NONE beyond locked lines",
+        "G": "Grommet Pads, Stack Kit",
+        "H": "Stack Kit only if she jumps",
+        "I": "SECONDS",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-021",
+        "B": "4x4",
+        "C": "Preparing",
+        "D": "First litter",
+        "E": "Fab Box 4x4 + Rail System 4x4",
+        "F": "Heat Combo, Gray Pad",
+        "G": "Whelping Kit, Corner Seat",
+        "H": "Stack Kit only if she jumps",
+        "I": "-",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-022",
+        "B": "4x4",
+        "C": "Preparing",
+        "D": "1-2 litters",
+        "E": "Fab Box 4x4 + Rail System 4x4",
+        "F": "Heat Combo, Gray Pad",
+        "G": "Whelping Kit, Corner Seat",
+        "H": "Stack Kit only if she jumps",
+        "I": "-",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-023",
+        "B": "4x4",
+        "C": "Preparing",
+        "D": "3-5 litters",
+        "E": "Fab Box 4x4 + Rail System 4x4",
+        "F": "Gray Pad",
+        "G": "Whelping Kit, Corner Seat",
+        "H": "Stack Kit only if she jumps",
+        "I": "-",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-024",
+        "B": "4x4",
+        "C": "Preparing",
+        "D": "6+ litters",
+        "E": "Fab Box 4x4 + Rail System 4x4",
+        "F": "NONE beyond locked lines",
+        "G": "Whelping Kit, Corner Seat",
+        "H": "Stack Kit only if she jumps",
+        "I": "-",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-025",
+        "B": "4x4",
+        "C": "Due in 7 days",
+        "D": "First litter",
+        "E": "Fab Box 4x4 + Rail System 4x4",
+        "F": "Heat Combo, Gray Pad x2",
+        "G": "Whelping Kit, Corner Seat",
+        "H": "Stack Kit only if she jumps",
+        "I": "-",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-026",
+        "B": "4x4",
+        "C": "Due in 7 days",
+        "D": "1-2 litters",
+        "E": "Fab Box 4x4 + Rail System 4x4",
+        "F": "Heat Combo, Gray Pad x2",
+        "G": "Whelping Kit, Corner Seat",
+        "H": "Stack Kit only if she jumps",
+        "I": "-",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-027",
+        "B": "4x4",
+        "C": "Due in 7 days",
+        "D": "3-5 litters",
+        "E": "Fab Box 4x4 + Rail System 4x4",
+        "F": "Gray Pad x2",
+        "G": "Whelping Kit, Corner Seat",
+        "H": "Stack Kit only if she jumps",
+        "I": "-",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-028",
+        "B": "4x4",
+        "C": "Due in 7 days",
+        "D": "6+ litters",
+        "E": "Fab Box 4x4 + Rail System 4x4",
+        "F": "NONE beyond locked lines",
+        "G": "Whelping Kit, Corner Seat",
+        "H": "Stack Kit only if she jumps",
+        "I": "-",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-029",
+        "B": "4x4",
+        "C": "Born 0-3 days",
+        "D": "First litter",
+        "E": "Fab Box 4x4 + Rail System 4x4",
+        "F": "Heat Combo, Gray Pad x3",
+        "G": "Corner Rod, Mesh Cover",
+        "H": "Stack Kit only if she jumps",
+        "I": "-",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-030",
+        "B": "4x4",
+        "C": "Born 0-3 days",
+        "D": "1-2 litters",
+        "E": "Fab Box 4x4 + Rail System 4x4",
+        "F": "Heat Combo, Gray Pad x3",
+        "G": "Corner Rod, Mesh Cover",
+        "H": "Stack Kit only if she jumps",
+        "I": "-",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-031",
+        "B": "4x4",
+        "C": "Born 0-3 days",
+        "D": "3-5 litters",
+        "E": "Fab Box 4x4 + Rail System 4x4",
+        "F": "Gray Pad x3",
+        "G": "Corner Rod, Mesh Cover",
+        "H": "Stack Kit only if she jumps",
+        "I": "-",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-032",
+        "B": "4x4",
+        "C": "Born 0-3 days",
+        "D": "6+ litters",
+        "E": "Fab Box 4x4 + Rail System 4x4",
+        "F": "NONE beyond locked lines",
+        "G": "Corner Rod, Mesh Cover",
+        "H": "Stack Kit only if she jumps",
+        "I": "-",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-033",
+        "B": "4x4",
+        "C": "1-2 weeks",
+        "D": "First litter",
+        "E": "Fab Box 4x4 + Rail System 4x4",
+        "F": "Gray Pad x2",
+        "G": "Add-on Room, Mesh Cover, Stack Kit",
+        "H": "Stack Kit only if she jumps",
+        "I": "-",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-034",
+        "B": "4x4",
+        "C": "1-2 weeks",
+        "D": "1-2 litters",
+        "E": "Fab Box 4x4 + Rail System 4x4",
+        "F": "Gray Pad x2",
+        "G": "Add-on Room, Mesh Cover, Stack Kit",
+        "H": "Stack Kit only if she jumps",
+        "I": "-",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-035",
+        "B": "4x4",
+        "C": "1-2 weeks",
+        "D": "3-5 litters",
+        "E": "Fab Box 4x4 + Rail System 4x4",
+        "F": "Gray Pad x2",
+        "G": "Add-on Room, Mesh Cover, Stack Kit",
+        "H": "Stack Kit only if she jumps",
+        "I": "-",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-036",
+        "B": "4x4",
+        "C": "1-2 weeks",
+        "D": "6+ litters",
+        "E": "Fab Box 4x4 + Rail System 4x4",
+        "F": "NONE beyond locked lines",
+        "G": "Add-on Room, Mesh Cover, Stack Kit",
+        "H": "Stack Kit only if she jumps",
+        "I": "-",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-037",
+        "B": "4x4",
+        "C": "3+ weeks",
+        "D": "First litter",
+        "E": "Fab Box 4x4 + Rail System 4x4",
+        "F": "Add-on Room, Gray Pad x2",
+        "G": "Grommet Pads, Stack Kit",
+        "H": "Stack Kit only if she jumps",
+        "I": "-",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-038",
+        "B": "4x4",
+        "C": "3+ weeks",
+        "D": "1-2 litters",
+        "E": "Fab Box 4x4 + Rail System 4x4",
+        "F": "Add-on Room, Gray Pad x2",
+        "G": "Grommet Pads, Stack Kit",
+        "H": "Stack Kit only if she jumps",
+        "I": "-",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-039",
+        "B": "4x4",
+        "C": "3+ weeks",
+        "D": "3-5 litters",
+        "E": "Fab Box 4x4 + Rail System 4x4",
+        "F": "Gray Pad x2",
+        "G": "Grommet Pads, Stack Kit",
+        "H": "Stack Kit only if she jumps",
+        "I": "-",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-040",
+        "B": "4x4",
+        "C": "3+ weeks",
+        "D": "6+ litters",
+        "E": "Fab Box 4x4 + Rail System 4x4",
+        "F": "NONE beyond locked lines",
+        "G": "Grommet Pads, Stack Kit",
+        "H": "Stack Kit only if she jumps",
+        "I": "-",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-041",
+        "B": "4x6",
+        "C": "Preparing",
+        "D": "First litter",
+        "E": "Fab Box 4x6 + Rail System 4x6",
+        "F": "Heat Combo, Gray Pad",
+        "G": "Whelping Kit, Corner Seat",
+        "H": "Stack Kit only if she jumps",
+        "I": "SECONDS",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-042",
+        "B": "4x6",
+        "C": "Preparing",
+        "D": "1-2 litters",
+        "E": "Fab Box 4x6 + Rail System 4x6",
+        "F": "Heat Combo, Gray Pad",
+        "G": "Whelping Kit, Corner Seat",
+        "H": "Stack Kit only if she jumps",
+        "I": "SECONDS",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-043",
+        "B": "4x6",
+        "C": "Preparing",
+        "D": "3-5 litters",
+        "E": "Fab Box 4x6 + Rail System 4x6",
+        "F": "Gray Pad",
+        "G": "Whelping Kit, Corner Seat",
+        "H": "Stack Kit only if she jumps",
+        "I": "SECONDS",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-044",
+        "B": "4x6",
+        "C": "Preparing",
+        "D": "6+ litters",
+        "E": "Fab Box 4x6 + Rail System 4x6",
+        "F": "NONE beyond locked lines",
+        "G": "Whelping Kit, Corner Seat",
+        "H": "Stack Kit only if she jumps",
+        "I": "SECONDS",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-045",
+        "B": "4x6",
+        "C": "Due in 7 days",
+        "D": "First litter",
+        "E": "Fab Box 4x6 + Rail System 4x6",
+        "F": "Heat Combo, Gray Pad x2",
+        "G": "Whelping Kit, Corner Seat",
+        "H": "Stack Kit only if she jumps",
+        "I": "SECONDS",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-046",
+        "B": "4x6",
+        "C": "Due in 7 days",
+        "D": "1-2 litters",
+        "E": "Fab Box 4x6 + Rail System 4x6",
+        "F": "Heat Combo, Gray Pad x2",
+        "G": "Whelping Kit, Corner Seat",
+        "H": "Stack Kit only if she jumps",
+        "I": "SECONDS",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-047",
+        "B": "4x6",
+        "C": "Due in 7 days",
+        "D": "3-5 litters",
+        "E": "Fab Box 4x6 + Rail System 4x6",
+        "F": "Gray Pad x2",
+        "G": "Whelping Kit, Corner Seat",
+        "H": "Stack Kit only if she jumps",
+        "I": "SECONDS",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-048",
+        "B": "4x6",
+        "C": "Due in 7 days",
+        "D": "6+ litters",
+        "E": "Fab Box 4x6 + Rail System 4x6",
+        "F": "NONE beyond locked lines",
+        "G": "Whelping Kit, Corner Seat",
+        "H": "Stack Kit only if she jumps",
+        "I": "SECONDS",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-049",
+        "B": "4x6",
+        "C": "Born 0-3 days",
+        "D": "First litter",
+        "E": "Fab Box 4x6 + Rail System 4x6",
+        "F": "Heat Combo, Gray Pad x3",
+        "G": "Corner Rod, Mesh Cover",
+        "H": "Stack Kit only if she jumps",
+        "I": "SECONDS",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-050",
+        "B": "4x6",
+        "C": "Born 0-3 days",
+        "D": "1-2 litters",
+        "E": "Fab Box 4x6 + Rail System 4x6",
+        "F": "Heat Combo, Gray Pad x3",
+        "G": "Corner Rod, Mesh Cover",
+        "H": "Stack Kit only if she jumps",
+        "I": "SECONDS",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-051",
+        "B": "4x6",
+        "C": "Born 0-3 days",
+        "D": "3-5 litters",
+        "E": "Fab Box 4x6 + Rail System 4x6",
+        "F": "Gray Pad x3",
+        "G": "Corner Rod, Mesh Cover",
+        "H": "Stack Kit only if she jumps",
+        "I": "SECONDS",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-052",
+        "B": "4x6",
+        "C": "Born 0-3 days",
+        "D": "6+ litters",
+        "E": "Fab Box 4x6 + Rail System 4x6",
+        "F": "NONE beyond locked lines",
+        "G": "Corner Rod, Mesh Cover",
+        "H": "Stack Kit only if she jumps",
+        "I": "SECONDS",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-053",
+        "B": "4x6",
+        "C": "1-2 weeks",
+        "D": "First litter",
+        "E": "Fab Box 4x6 + Rail System 4x6",
+        "F": "Gray Pad x2",
+        "G": "Add-on Room, Mesh Cover, Stack Kit",
+        "H": "Stack Kit only if she jumps",
+        "I": "SECONDS",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-054",
+        "B": "4x6",
+        "C": "1-2 weeks",
+        "D": "1-2 litters",
+        "E": "Fab Box 4x6 + Rail System 4x6",
+        "F": "Gray Pad x2",
+        "G": "Add-on Room, Mesh Cover, Stack Kit",
+        "H": "Stack Kit only if she jumps",
+        "I": "SECONDS",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-055",
+        "B": "4x6",
+        "C": "1-2 weeks",
+        "D": "3-5 litters",
+        "E": "Fab Box 4x6 + Rail System 4x6",
+        "F": "Gray Pad x2",
+        "G": "Add-on Room, Mesh Cover, Stack Kit",
+        "H": "Stack Kit only if she jumps",
+        "I": "SECONDS",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-056",
+        "B": "4x6",
+        "C": "1-2 weeks",
+        "D": "6+ litters",
+        "E": "Fab Box 4x6 + Rail System 4x6",
+        "F": "NONE beyond locked lines",
+        "G": "Add-on Room, Mesh Cover, Stack Kit",
+        "H": "Stack Kit only if she jumps",
+        "I": "SECONDS",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-057",
+        "B": "4x6",
+        "C": "3+ weeks",
+        "D": "First litter",
+        "E": "Fab Box 4x6 + Rail System 4x6",
+        "F": "Add-on Room, Gray Pad x2",
+        "G": "Grommet Pads, Stack Kit",
+        "H": "Stack Kit only if she jumps",
+        "I": "SECONDS",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-058",
+        "B": "4x6",
+        "C": "3+ weeks",
+        "D": "1-2 litters",
+        "E": "Fab Box 4x6 + Rail System 4x6",
+        "F": "Add-on Room, Gray Pad x2",
+        "G": "Grommet Pads, Stack Kit",
+        "H": "Stack Kit only if she jumps",
+        "I": "SECONDS",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-059",
+        "B": "4x6",
+        "C": "3+ weeks",
+        "D": "3-5 litters",
+        "E": "Fab Box 4x6 + Rail System 4x6",
+        "F": "Gray Pad x2",
+        "G": "Grommet Pads, Stack Kit",
+        "H": "Stack Kit only if she jumps",
+        "I": "SECONDS",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-060",
+        "B": "4x6",
+        "C": "3+ weeks",
+        "D": "6+ litters",
+        "E": "Fab Box 4x6 + Rail System 4x6",
+        "F": "NONE beyond locked lines",
+        "G": "Grommet Pads, Stack Kit",
+        "H": "Stack Kit only if she jumps",
+        "I": "SECONDS",
+        "J": "In stock",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-061",
+        "B": "7x6",
+        "C": "Preparing",
+        "D": "First litter",
+        "E": "Fab Box 7x6 + Rail System 7x6",
+        "F": "Heat Combo, Gray Pad",
+        "G": "Whelping Kit, Corner Seat",
+        "H": "Stack Kit only if she jumps",
+        "I": "-",
+        "J": "SOLD OUT",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-062",
+        "B": "7x6",
+        "C": "Preparing",
+        "D": "1-2 litters",
+        "E": "Fab Box 7x6 + Rail System 7x6",
+        "F": "Heat Combo, Gray Pad",
+        "G": "Whelping Kit, Corner Seat",
+        "H": "Stack Kit only if she jumps",
+        "I": "-",
+        "J": "SOLD OUT",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-063",
+        "B": "7x6",
+        "C": "Preparing",
+        "D": "3-5 litters",
+        "E": "Fab Box 7x6 + Rail System 7x6",
+        "F": "Gray Pad",
+        "G": "Whelping Kit, Corner Seat",
+        "H": "Stack Kit only if she jumps",
+        "I": "-",
+        "J": "SOLD OUT",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-064",
+        "B": "7x6",
+        "C": "Preparing",
+        "D": "6+ litters",
+        "E": "Fab Box 7x6 + Rail System 7x6",
+        "F": "NONE beyond locked lines",
+        "G": "Whelping Kit, Corner Seat",
+        "H": "Stack Kit only if she jumps",
+        "I": "-",
+        "J": "SOLD OUT",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-065",
+        "B": "7x6",
+        "C": "Due in 7 days",
+        "D": "First litter",
+        "E": "Fab Box 7x6 + Rail System 7x6",
+        "F": "Heat Combo, Gray Pad x2",
+        "G": "Whelping Kit, Corner Seat",
+        "H": "Stack Kit only if she jumps",
+        "I": "-",
+        "J": "SOLD OUT",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-066",
+        "B": "7x6",
+        "C": "Due in 7 days",
+        "D": "1-2 litters",
+        "E": "Fab Box 7x6 + Rail System 7x6",
+        "F": "Heat Combo, Gray Pad x2",
+        "G": "Whelping Kit, Corner Seat",
+        "H": "Stack Kit only if she jumps",
+        "I": "-",
+        "J": "SOLD OUT",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-067",
+        "B": "7x6",
+        "C": "Due in 7 days",
+        "D": "3-5 litters",
+        "E": "Fab Box 7x6 + Rail System 7x6",
+        "F": "Gray Pad x2",
+        "G": "Whelping Kit, Corner Seat",
+        "H": "Stack Kit only if she jumps",
+        "I": "-",
+        "J": "SOLD OUT",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-068",
+        "B": "7x6",
+        "C": "Due in 7 days",
+        "D": "6+ litters",
+        "E": "Fab Box 7x6 + Rail System 7x6",
+        "F": "NONE beyond locked lines",
+        "G": "Whelping Kit, Corner Seat",
+        "H": "Stack Kit only if she jumps",
+        "I": "-",
+        "J": "SOLD OUT",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-069",
+        "B": "7x6",
+        "C": "Born 0-3 days",
+        "D": "First litter",
+        "E": "Fab Box 7x6 + Rail System 7x6",
+        "F": "Heat Combo, Gray Pad x3",
+        "G": "Corner Rod, Mesh Cover",
+        "H": "Stack Kit only if she jumps",
+        "I": "-",
+        "J": "SOLD OUT",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-070",
+        "B": "7x6",
+        "C": "Born 0-3 days",
+        "D": "1-2 litters",
+        "E": "Fab Box 7x6 + Rail System 7x6",
+        "F": "Heat Combo, Gray Pad x3",
+        "G": "Corner Rod, Mesh Cover",
+        "H": "Stack Kit only if she jumps",
+        "I": "-",
+        "J": "SOLD OUT",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-071",
+        "B": "7x6",
+        "C": "Born 0-3 days",
+        "D": "3-5 litters",
+        "E": "Fab Box 7x6 + Rail System 7x6",
+        "F": "Gray Pad x3",
+        "G": "Corner Rod, Mesh Cover",
+        "H": "Stack Kit only if she jumps",
+        "I": "-",
+        "J": "SOLD OUT",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-072",
+        "B": "7x6",
+        "C": "Born 0-3 days",
+        "D": "6+ litters",
+        "E": "Fab Box 7x6 + Rail System 7x6",
+        "F": "NONE beyond locked lines",
+        "G": "Corner Rod, Mesh Cover",
+        "H": "Stack Kit only if she jumps",
+        "I": "-",
+        "J": "SOLD OUT",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-073",
+        "B": "7x6",
+        "C": "1-2 weeks",
+        "D": "First litter",
+        "E": "Fab Box 7x6 + Rail System 7x6",
+        "F": "Gray Pad x2",
+        "G": "Add-on Room, Mesh Cover, Stack Kit",
+        "H": "Stack Kit only if she jumps",
+        "I": "-",
+        "J": "SOLD OUT",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-074",
+        "B": "7x6",
+        "C": "1-2 weeks",
+        "D": "1-2 litters",
+        "E": "Fab Box 7x6 + Rail System 7x6",
+        "F": "Gray Pad x2",
+        "G": "Add-on Room, Mesh Cover, Stack Kit",
+        "H": "Stack Kit only if she jumps",
+        "I": "-",
+        "J": "SOLD OUT",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-075",
+        "B": "7x6",
+        "C": "1-2 weeks",
+        "D": "3-5 litters",
+        "E": "Fab Box 7x6 + Rail System 7x6",
+        "F": "Gray Pad x2",
+        "G": "Add-on Room, Mesh Cover, Stack Kit",
+        "H": "Stack Kit only if she jumps",
+        "I": "-",
+        "J": "SOLD OUT",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-076",
+        "B": "7x6",
+        "C": "1-2 weeks",
+        "D": "6+ litters",
+        "E": "Fab Box 7x6 + Rail System 7x6",
+        "F": "NONE beyond locked lines",
+        "G": "Add-on Room, Mesh Cover, Stack Kit",
+        "H": "Stack Kit only if she jumps",
+        "I": "-",
+        "J": "SOLD OUT",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-077",
+        "B": "7x6",
+        "C": "3+ weeks",
+        "D": "First litter",
+        "E": "Fab Box 7x6 + Rail System 7x6",
+        "F": "Add-on Room, Gray Pad x2",
+        "G": "Grommet Pads, Stack Kit",
+        "H": "Stack Kit only if she jumps",
+        "I": "-",
+        "J": "SOLD OUT",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-078",
+        "B": "7x6",
+        "C": "3+ weeks",
+        "D": "1-2 litters",
+        "E": "Fab Box 7x6 + Rail System 7x6",
+        "F": "Add-on Room, Gray Pad x2",
+        "G": "Grommet Pads, Stack Kit",
+        "H": "Stack Kit only if she jumps",
+        "I": "-",
+        "J": "SOLD OUT",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-079",
+        "B": "7x6",
+        "C": "3+ weeks",
+        "D": "3-5 litters",
+        "E": "Fab Box 7x6 + Rail System 7x6",
+        "F": "Gray Pad x2",
+        "G": "Grommet Pads, Stack Kit",
+        "H": "Stack Kit only if she jumps",
+        "I": "-",
+        "J": "SOLD OUT",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "FAB-080",
+        "B": "7x6",
+        "C": "3+ weeks",
+        "D": "6+ litters",
+        "E": "Fab Box 7x6 + Rail System 7x6",
+        "F": "NONE beyond locked lines",
+        "G": "Grommet Pads, Stack Kit",
+        "H": "Stack Kit only if she jumps",
+        "I": "-",
+        "J": "SOLD OUT",
+        "K": null,
+        "L": null
+      },
+      {
+        "A": "80 cases: 4 Fab sizes x 5 stages x 4 experience levels. The 7x6 is included even though it is sold out."
+      },
+      {
+        "A": "Sold-out sizes are still recommended and still linked. Shopify blocks the purchase at checkout. Do not hide or skip them."
+      },
+      {
+        "A": "The box and rails are LOCKED in every case. If either can be unticked at any experience level, that case FAILS."
+      }
+    ],
+    "02 Behaviour tests": [
+      {
+        "A": "Case ID",
+        "B": "Scenario",
+        "C": "Expected",
+        "D": "Must NOT happen"
+      },
+      {
+        "A": "FAB-061",
+        "B": "Any case, breeder tries to untick the Rail System",
+        "C": "The control is not interactive. Rails cannot be removed",
+        "D": "Rails removable, producing an unsafe cart"
+      },
+      {
+        "A": "FAB-062",
+        "B": "Breeder selects a breed mapping to Fab 3x3",
+        "C": "Seconds disclosure shown before the add to cart button: non-returnable, minor powder coat damage",
+        "D": "Selling a non-returnable seconds box without disclosure"
+      },
+      {
+        "A": "FAB-063",
+        "B": "Breeder selects a breed mapping to Fab 4x4",
+        "C": "No seconds disclosure. Normal product",
+        "D": "A disclosure appearing where it does not apply"
+      },
+      {
+        "A": "FAB-064",
+        "B": "Breeder selects a breed mapping to Fab 4x6",
+        "C": "Seconds disclosure shown",
+        "D": "No disclosure"
+      },
+      {
+        "A": "FAB-065",
+        "B": "Breed maps to EZclassic 28x28 - no Fab equivalent",
+        "C": "3x3 offered as the minimum, with a line explaining it is the smallest Fab box",
+        "D": "Silently recommending a box far larger than the dam needs"
+      },
+      {
+        "A": "FAB-066",
+        "B": "Q4 answered Yes - she jumps",
+        "C": "Stack Kit surfaced as the third card. Mesh Cover pre-ticked",
+        "D": "No height option offered"
+      },
+      {
+        "A": "FAB-067",
+        "B": "Q4 answered No",
+        "C": "No third card. Mesh Cover shown unticked",
+        "D": "Stack Kit pushed at a breeder who does not need it"
+      },
+      {
+        "A": "FAB-068",
+        "B": "Experience 6+ at any stage",
+        "C": "Nothing pre-ticked beyond box and rails. Add-on Room leads the shelf",
+        "D": "Kit or heat pre-ticked for a professional"
+      },
+      {
+        "A": "FAB-069",
+        "B": "Breed maps to the 7x6 Whopper, which is sold out",
+        "C": "The 7x6 is still recommended and still linked. An out of stock badge is shown. Shopify blocks the purchase at checkout",
+        "D": "Hiding the size, skipping to a smaller box, or removing the link"
+      },
+      {
+        "A": "FAB-070",
+        "B": "Any completed quiz",
+        "C": "Card states FREE shipping and INDOOR ONLY",
+        "D": "Omitting indoor-only, which is a real constraint for barn setups"
+      },
+      {
+        "A": "FAB-071",
+        "B": "Bundle card logic runs",
+        "C": "No bundle card ever renders on this path",
+        "D": "An EZclassic bundle offered against a Fab cart"
+      }
+    ],
+    "03 Negative tests": [
+      {
+        "A": "Case ID",
+        "B": "Scenario",
+        "C": "Expected",
+        "D": "Must NOT happen"
+      },
+      {
+        "A": "FNEG-001",
+        "B": "A variant ID cannot be resolved",
+        "C": "Block the recommendation, show an error, log it",
+        "D": "A $0.00 price or an empty cart link"
+      },
+      {
+        "A": "FNEG-002",
+        "B": "Rail System variant missing for the selected size",
+        "C": "Block the entire recommendation",
+        "D": "A Fab cart without rails reaching checkout"
+      },
+      {
+        "A": "FNEG-003",
+        "B": "Breeder selects 'Not listed'",
+        "C": "Route to the weight question",
+        "D": "The word 'mixed' appearing"
+      },
+      {
+        "A": "FNEG-004",
+        "B": "Breeder abandons at Q3",
+        "C": "Quiz Abandoned fires with last_step_number",
+        "D": "Silent exit"
+      },
+      {
+        "A": "FNEG-005",
+        "B": "Invalid email at Q7",
+        "C": "Inline validation, no submit",
+        "D": "Quiz Completed firing"
+      },
+      {
+        "A": "FNEG-006",
+        "B": "Breeder goes back and changes breed",
+        "C": "Fab size and every size-dependent variant recompute",
+        "D": "Stale variant IDs persisting"
+      },
+      {
+        "A": "FNEG-007",
+        "B": "Quiz completed, new email",
+        "C": "Profile created AND subscribed, consent timestamp and source recorded",
+        "D": "A profile that is not subscribed"
+      },
+      {
+        "A": "FNEG-008",
+        "B": "Quiz completed, previously unsubscribed email",
+        "C": "Answers update, subscription NOT restored",
+        "D": "Silently re-subscribing an opt-out"
+      },
+      {
+        "A": "FNEG-009",
+        "B": "Profile write order",
+        "C": "All properties set BEFORE the list add fires",
+        "D": "List add first, flow starting with an empty cart URL"
+      },
+      {
+        "A": "FNEG-010",
+        "B": "Breeder retakes the quiz",
+        "C": "Existing profile updated, no duplicate",
+        "D": "A second profile"
+      }
+    ],
+    "04 Definition of done": [
+      {
+        "A": "#",
+        "B": "Requirement",
+        "C": "Verified by"
+      },
+      {
+        "A": "1",
+        "B": "All 80 result cases pass",
+        "C": "Manual run, screenshot per case"
+      },
+      {
+        "A": "2",
+        "B": "All behaviour cases pass",
+        "C": "Manual run"
+      },
+      {
+        "A": "3",
+        "B": "All negative cases behave as specified",
+        "C": "Manual run"
+      },
+      {
+        "A": "4",
+        "B": "Rails cannot be removed at any experience level or stage",
+        "C": "Attempt it on every one of the 60 cases"
+      },
+      {
+        "A": "5",
+        "B": "Seconds disclosure appears on 3x3 and 4x6, never on 4x4",
+        "C": "Spot check all three sizes"
+      },
+      {
+        "A": "6",
+        "B": "No bundle card renders anywhere on this path",
+        "C": "Spot check"
+      },
+      {
+        "A": "7",
+        "B": "Every event fires with correct properties",
+        "C": "Confirmed in Klaviyo, not a preview"
+      },
+      {
+        "A": "8",
+        "B": "Every profile property appears on a real Klaviyo profile",
+        "C": "Open a profile and read the custom properties panel"
+      },
+      {
+        "A": "9",
+        "B": "Every cart URL opens the correct products",
+        "C": "Click through to Shopify checkout"
+      },
+      {
+        "A": "10",
+        "B": "All six deliverables received and accepted",
+        "C": "See tab 00"
+      }
+    ]
+  },
+  "Gift A Breeder Quiz": {
+    "00 Evidence required": [
+      {
+        "A": "#",
+        "B": "Deliverable",
+        "C": "Format"
+      },
+      {
+        "A": "1",
+        "B": "This workbook returned with the Result column filled",
+        "C": "PASS or FAIL on every row. Actual value in the notes column where it differs"
+      },
+      {
+        "A": "2",
+        "B": "One screenshot per test case",
+        "C": "PNG named by case ID. Full screen including the sticky cart summary. One zip"
+      },
+      {
+        "A": "3",
+        "B": "All screenshots assembled into a PDF",
+        "C": "One case per page, case ID in the header, in order"
+      },
+      {
+        "A": "4",
+        "B": "Klaviyo event export",
+        "C": "CSV covering every event in the schema"
+      },
+      {
+        "A": "5",
+        "B": "Cart URL list",
+        "C": "One line per case ID with the full cart permalink"
+      },
+      {
+        "A": "6",
+        "B": "Negative case recordings",
+        "C": "Short recording per case in the negative tab only"
+      }
+    ],
+    "01 Gift cards": [
+      {
+        "A": "Case ID",
+        "B": "Action",
+        "C": "Expected line",
+        "D": "Price",
+        "E": "Events",
+        "F": "Result",
+        "G": "Notes"
+      },
+      {
+        "A": "GFT-001",
+        "B": "Tap $50",
+        "C": "Gift Card $50.00 USD (GiftCard50) added",
+        "D": "50",
+        "E": "gift_card_added {denomination}",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "GFT-002",
+        "B": "Tap $70",
+        "C": "Gift Card $70.00 USD (GiftCard70) added",
+        "D": "70",
+        "E": "gift_card_added {denomination}",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "GFT-003",
+        "B": "Tap $100",
+        "C": "Gift Card $100.00 USD (GiftCard100) added",
+        "D": "100",
+        "E": "gift_card_added {denomination}",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "GFT-004",
+        "B": "Tap $150",
+        "C": "Gift Card $150.00 USD (GiftCard150) added",
+        "D": "150",
+        "E": "gift_card_added {denomination}",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "GFT-005",
+        "B": "Tap $200",
+        "C": "Gift Card $200.00 USD (GiftCard200) added",
+        "D": "200",
+        "E": "gift_card_added {denomination}",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "GFT-006",
+        "B": "Tap $250",
+        "C": "Gift Card $250.00 USD (GiftCard250) added",
+        "D": "250",
+        "E": "gift_card_added {denomination}",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "GFT-007",
+        "B": "Tap $300",
+        "C": "Gift Card $300.00 USD (GiftCard300) added",
+        "D": "300",
+        "E": "gift_card_added {denomination}",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "GFT-008",
+        "B": "Tap $400",
+        "C": "Gift Card $400.00 USD (GiftCard400) added",
+        "D": "400",
+        "E": "gift_card_added {denomination}",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "GFT-009",
+        "B": "Tap $500",
+        "C": "Gift Card $500.00 USD (GiftCard500) added",
+        "D": "500",
+        "E": "gift_card_added {denomination}",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "Nine cases. Physical gifts must stay visible throughout. There is no results gate on this lane."
+      }
+    ],
+    "02 Physical gifts": [
+      {
+        "A": "Case ID",
+        "B": "Selection",
+        "C": "Expected pad",
+        "D": "SKU",
+        "E": "Price",
+        "F": "Result",
+        "G": "Notes"
+      },
+      {
+        "A": "GFT-010",
+        "B": "Whelping Kit - no size needed",
+        "C": "Whelping Kit",
+        "D": "WhelpKit",
+        "E": "119.99",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "GFT-011",
+        "B": "EZclassic 28x28",
+        "C": "Quick Dry 29.5x29.5 2-Pack",
+        "D": "2Qd2929",
+        "E": "27.99",
+        "F": null,
+        "G": "UNREACHABLE TODAY - size chips do not render"
+      },
+      {
+        "A": "GFT-012",
+        "B": "EZclassic 38x38",
+        "C": "Quick Dry 40x40 2-Pack",
+        "D": "2Qd3939",
+        "E": "42.99",
+        "F": null,
+        "G": "UNREACHABLE TODAY - size chips do not render"
+      },
+      {
+        "A": "GFT-013",
+        "B": "EZclassic 48x48",
+        "C": "Quick Dry 50.5x50.5 2-Pack",
+        "D": "2Qd5050",
+        "E": "54.99",
+        "F": null,
+        "G": "UNREACHABLE TODAY - size chips do not render"
+      },
+      {
+        "A": "GFT-014",
+        "B": "EZclassic 48x76",
+        "C": "Quick Dry 50.5x80.5 SINGLE pack",
+        "D": "Qd5080",
+        "E": "44.99",
+        "F": null,
+        "G": "UNREACHABLE TODAY - size chips do not render"
+      },
+      {
+        "A": "GFT-015",
+        "B": "Fab 3x3",
+        "C": "Gray Paw 37.25x37.25",
+        "D": "Am3x3",
+        "E": "17.99",
+        "F": null,
+        "G": "UNREACHABLE TODAY - size chips do not render"
+      },
+      {
+        "A": "GFT-016",
+        "B": "Fab 4x4",
+        "C": "Gray Paw 48.5x48.5",
+        "D": "Am4x4",
+        "E": "25.99",
+        "F": null,
+        "G": "UNREACHABLE TODAY - size chips do not render"
+      },
+      {
+        "A": "GFT-017",
+        "B": "Fab 4x6",
+        "C": "Gray Paw 48.5x73",
+        "D": "Am4x6",
+        "E": "38.99",
+        "F": null,
+        "G": "UNREACHABLE TODAY - size chips do not render"
+      },
+      {
+        "A": "Seven of these eight cases cannot be run today. The size arrays are missing from the catalog branch, so no size chip renders."
+      },
+      {
+        "A": "The 48x76 Quick Dry is a SINGLE pack. If the UI labels it as a 2-pack, that case FAILS."
+      }
+    ],
+    "03 Behaviour": [
+      {
+        "A": "Case ID",
+        "B": "Scenario",
+        "C": "Expected",
+        "D": "Must NOT happen"
+      },
+      {
+        "A": "GFT-018",
+        "B": "Open /gift with no selections",
+        "C": "Gift cards visible and largest. Physical gifts below. Sticky cart hidden",
+        "D": "A question, a gate or an email field"
+      },
+      {
+        "A": "GFT-019",
+        "B": "Select a size without adding the pad",
+        "C": "The matching pad displays. Cart stays empty",
+        "D": "The pad adding itself"
+      },
+      {
+        "A": "GFT-020",
+        "B": "Change the selected size before adding",
+        "C": "The displayed pad swaps to the new size",
+        "D": "The old pad remaining"
+      },
+      {
+        "A": "GFT-021",
+        "B": "Change the size after adding a pad",
+        "C": "The first pad stays in the cart. The displayed pad swaps",
+        "D": "The cart pad being replaced"
+      },
+      {
+        "A": "GFT-022",
+        "B": "Tap the same gift card twice",
+        "C": "ONE line at quantity 2",
+        "D": "Two separate lines"
+      },
+      {
+        "A": "GFT-023",
+        "B": "Tap the Whelping Kit twice",
+        "C": "ONE line at quantity 2",
+        "D": "Two separate lines"
+      },
+      {
+        "A": "GFT-024",
+        "B": "Use the quantity stepper to reduce to zero",
+        "C": "The line is removed",
+        "D": "A line at quantity 0"
+      },
+      {
+        "A": "GFT-025",
+        "B": "Mixed cart: card, kit and pad",
+        "C": "Three lines, correct count and total",
+        "D": "A miscounted total"
+      },
+      {
+        "A": "GFT-026",
+        "B": "Reload the page after adding",
+        "C": "Cart persists",
+        "D": "The cart emptying"
+      },
+      {
+        "A": "GFT-027",
+        "B": "Reach checkout",
+        "C": "Shopify cart opens with the correct products and quantities",
+        "D": "A dead summary with nowhere to go"
+      },
+      {
+        "A": "GFT-028",
+        "B": "Complete any add flow",
+        "C": "No email request. No profile created",
+        "D": "Any profiling of the gift buyer"
+      },
+      {
+        "A": "GFT-029",
+        "B": "Add any item",
+        "C": "No free gift appears",
+        "D": "The free-gift rule firing on a lane with no box"
+      },
+      {
+        "A": "GFT-030",
+        "B": "A gift card or the Whelping Kit is unavailable",
+        "C": "It does not render, or renders with fallback copy",
+        "D": "An unbuyable item reaching the cart"
+      }
+    ],
+    "04 Negative tests": [
+      {
+        "A": "Case ID",
+        "B": "Scenario",
+        "C": "Expected",
+        "D": "Must NOT happen"
+      },
+      {
+        "A": "GNEG-001",
+        "B": "A SKU has no variant ID",
+        "C": "Block checkout, name the item, log it",
+        "D": "A partial cart reaching Shopify"
+      },
+      {
+        "A": "GNEG-002",
+        "B": "Attempt an add with a null SKU",
+        "C": "Cart unchanged, warning logged",
+        "D": "A phantom line"
+      },
+      {
+        "A": "GNEG-003",
+        "B": "A matched pad status is not active",
+        "C": "Fallback copy shown, Add hidden",
+        "D": "An inactive pad being added"
+      },
+      {
+        "A": "GNEG-004",
+        "B": "A price fails to fetch",
+        "C": "Render without a price, disable Add",
+        "D": "$0.00"
+      },
+      {
+        "A": "GNEG-005",
+        "B": "Exit with items in the cart",
+        "C": "Gift Abandoned fires with item_count and cart_value",
+        "D": "Silent exit"
+      },
+      {
+        "A": "GNEG-006",
+        "B": "Size chips render but the pad map is missing an entry",
+        "C": "Fallback copy, no broken card",
+        "D": "An empty product card"
+      },
+      {
+        "A": "GNEG-007",
+        "B": "Price changes between load and checkout",
+        "C": "Shopify price is authoritative",
+        "D": "Blocking checkout"
+      },
+      {
+        "A": "GNEG-008",
+        "B": "Two tabs open",
+        "C": "Each session independent",
+        "D": "Carts merging"
+      }
+    ],
+    "05 Definition of done": [
+      {
+        "A": "#",
+        "B": "Requirement",
+        "C": "Verified by"
+      },
+      {
+        "A": "1",
+        "B": "All 9 gift card cases pass",
+        "C": "Manual run"
+      },
+      {
+        "A": "2",
+        "B": "All 8 physical gift cases pass",
+        "C": "Manual run. Seven of them cannot run today"
+      },
+      {
+        "A": "3",
+        "B": "All 13 behaviour cases pass",
+        "C": "Manual run"
+      },
+      {
+        "A": "4",
+        "B": "All 8 negative cases behave as specified",
+        "C": "Manual run"
+      },
+      {
+        "A": "5",
+        "B": "gift_size_chip appears in Klaviyo",
+        "C": "Its first ever appearance confirms the size arrays landed"
+      },
+      {
+        "A": "6",
+        "B": "Every event reaches Klaviyo",
+        "C": "Non-zero counts in the metrics list. Console logs do not count"
+      },
+      {
+        "A": "7",
+        "B": "A real gift card order completes end to end",
+        "C": "Place one test order and confirm the card is issued"
+      },
+      {
+        "A": "8",
+        "B": "NO email is requested anywhere",
+        "C": "Inspect every screen. This is a requirement, not an omission"
+      },
+      {
+        "A": "9",
+        "B": "All six deliverables received",
+        "C": "See tab 00"
+      },
+      {
+        "A": "Item 8 is a requirement. If someone adds an email field to this lane, that is a regression, not an improvement."
+      }
+    ]
+  },
+  "Restock & Repare Quiz": {
+    "00 Evidence required": [
+      {
+        "A": "#",
+        "B": "Deliverable",
+        "C": "Format"
+      },
+      {
+        "A": "1",
+        "B": "This workbook returned with the Result column filled",
+        "C": "PASS or FAIL on every row. Actual value in the notes column where it differs"
+      },
+      {
+        "A": "2",
+        "B": "One screenshot per test case",
+        "C": "PNG named by case ID. Shelf fully visible including the cart total. One zip"
+      },
+      {
+        "A": "3",
+        "B": "All screenshots assembled into a PDF",
+        "C": "One case per page, case ID in the header, in order"
+      },
+      {
+        "A": "4",
+        "B": "Klaviyo event export",
+        "C": "CSV filtered to the test email addresses, covering every event in the schema"
+      },
+      {
+        "A": "5",
+        "B": "Cart URL list",
+        "C": "One line per case ID with the full cart permalink"
+      },
+      {
+        "A": "6",
+        "B": "Negative case recordings",
+        "C": "Short recording per case in the negative tab only"
+      }
+    ],
+    "01 Shelf resolution": [
+      {
+        "A": "Case ID",
+        "B": "Config",
+        "C": "Tab",
+        "D": "Expected rows",
+        "E": "Gate checks",
+        "F": "Result",
+        "G": "Notes"
+      },
+      {
+        "A": "RST-001",
+        "B": "EZclassic 28x28",
+        "C": "Refills",
+        "D": "Matched pads (all types for EZclassic, gray only for Fab), liner, combo liner where it exists, universal bulbs, hook coins for EZclassic",
+        "E": "Footprint resolves the correct pad and liner sizes",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "RST-002",
+        "B": "EZclassic 28x28",
+        "C": "Parts",
+        "D": "Posts and caps, panels, rails and connectors, doors and feeding, everything else - all at the correct height",
+        "E": "Standard and tall are mutually exclusive. Footprint resolves the rail part",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "RST-003",
+        "B": "EZclassic 38x38",
+        "C": "Refills",
+        "D": "Matched pads (all types for EZclassic, gray only for Fab), liner, combo liner where it exists, universal bulbs, hook coins for EZclassic",
+        "E": "Footprint resolves the correct pad and liner sizes",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "RST-004",
+        "B": "EZclassic 38x38",
+        "C": "Parts",
+        "D": "Posts and caps, panels, rails and connectors, doors and feeding, everything else - all at the correct height",
+        "E": "Standard and tall are mutually exclusive. Footprint resolves the rail part",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "RST-005",
+        "B": "EZclassic 48x48",
+        "C": "Refills",
+        "D": "Matched pads (all types for EZclassic, gray only for Fab), liner, combo liner where it exists, universal bulbs, hook coins for EZclassic",
+        "E": "Footprint resolves the correct pad and liner sizes",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "RST-006",
+        "B": "EZclassic 48x48",
+        "C": "Parts",
+        "D": "Posts and caps, panels, rails and connectors, doors and feeding, everything else - all at the correct height",
+        "E": "Standard and tall are mutually exclusive. Footprint resolves the rail part",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "RST-007",
+        "B": "EZclassic TALL 38x38",
+        "C": "Refills",
+        "D": "Matched pads (all types for EZclassic, gray only for Fab), liner, combo liner where it exists, universal bulbs, hook coins for EZclassic",
+        "E": "Footprint resolves the correct pad and liner sizes",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "RST-008",
+        "B": "EZclassic TALL 38x38",
+        "C": "Parts",
+        "D": "Posts and caps, panels, rails and connectors, doors and feeding, everything else - all at the correct height",
+        "E": "Standard and tall are mutually exclusive. Footprint resolves the rail part",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "RST-009",
+        "B": "EZclassic TALL 48x48",
+        "C": "Refills",
+        "D": "Matched pads (all types for EZclassic, gray only for Fab), liner, combo liner where it exists, universal bulbs, hook coins for EZclassic",
+        "E": "Footprint resolves the correct pad and liner sizes",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "RST-010",
+        "B": "EZclassic TALL 48x48",
+        "C": "Parts",
+        "D": "Posts and caps, panels, rails and connectors, doors and feeding, everything else - all at the correct height",
+        "E": "Standard and tall are mutually exclusive. Footprint resolves the rail part",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "RST-011",
+        "B": "EZclassic TALL 48x76",
+        "C": "Refills",
+        "D": "Matched pads (all types for EZclassic, gray only for Fab), liner, combo liner where it exists, universal bulbs, hook coins for EZclassic",
+        "E": "Footprint resolves the correct pad and liner sizes",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "RST-012",
+        "B": "EZclassic TALL 48x76",
+        "C": "Parts",
+        "D": "Posts and caps, panels, rails and connectors, doors and feeding, everything else - all at the correct height",
+        "E": "Standard and tall are mutually exclusive. Footprint resolves the rail part",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "RST-013",
+        "B": "Fab 3x3",
+        "C": "Refills",
+        "D": "Matched gray pad, liner, universal bulbs. Room rows only after Yes",
+        "E": "Footprint resolves the correct pad and liner sizes",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "RST-014",
+        "B": "Fab 3x3",
+        "C": "Parts",
+        "D": "Posts, panels at the correct fab_panel width, door, braces, hardware packs, rod, legs, liners, mesh cover",
+        "E": "3x3 sees 3ft panels only. 4x4 and 4x6 see 4ft only. 7x6 sees a support link instead of panels",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "RST-015",
+        "B": "Fab 4x4",
+        "C": "Refills",
+        "D": "Matched gray pad, liner, universal bulbs. Room rows only after Yes",
+        "E": "Footprint resolves the correct pad and liner sizes",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "RST-016",
+        "B": "Fab 4x4",
+        "C": "Parts",
+        "D": "Posts, panels at the correct fab_panel width, door, braces, hardware packs, rod, legs, liners, mesh cover",
+        "E": "3x3 sees 3ft panels only. 4x4 and 4x6 see 4ft only. 7x6 sees a support link instead of panels",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "RST-017",
+        "B": "Fab 4x6",
+        "C": "Refills",
+        "D": "Matched gray pad, liner, universal bulbs. Room rows only after Yes",
+        "E": "Footprint resolves the correct pad and liner sizes",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "RST-018",
+        "B": "Fab 4x6",
+        "C": "Parts",
+        "D": "Posts, panels at the correct fab_panel width, door, braces, hardware packs, rod, legs, liners, mesh cover",
+        "E": "3x3 sees 3ft panels only. 4x4 and 4x6 see 4ft only. 7x6 sees a support link instead of panels",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "RST-019",
+        "B": "Fab 7x6 Whopper",
+        "C": "Refills",
+        "D": "Matched gray pad, liner, universal bulbs. Room rows only after Yes",
+        "E": "Footprint resolves the correct pad and liner sizes",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "RST-020",
+        "B": "Fab 7x6 Whopper",
+        "C": "Parts",
+        "D": "Posts, panels at the correct fab_panel width, door, braces, hardware packs, rod, legs, liners, mesh cover",
+        "E": "3x3 sees 3ft panels only. 4x4 and 4x6 see 4ft only. 7x6 sees a support link instead of panels",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "20 cases: 10 owner configurations x 2 tabs. TALL 28x28 has been removed - it is not a real product."
+      },
+      {
+        "A": "These preserve the existing gating logic. If any of these fail, the rebuild has broken something that already worked."
+      }
+    ],
+    "02 New behaviour": [
+      {
+        "A": "Case ID",
+        "B": "Scenario",
+        "C": "Expected",
+        "D": "Must NOT happen"
+      },
+      {
+        "A": "RST-021",
+        "B": "Land on the lane",
+        "C": "Step 1 asks what brings them here. Restock Started fires",
+        "D": "Going straight to a box picker"
+      },
+      {
+        "A": "RST-022",
+        "B": "Answer 'Running low on pads'",
+        "C": "Picker appears. Refills opens first after the box resolves",
+        "D": "Parts opening first"
+      },
+      {
+        "A": "RST-023",
+        "B": "Answer 'Something broke'",
+        "C": "Picker appears. Parts opens first after the box resolves",
+        "D": "Refills opening first"
+      },
+      {
+        "A": "RST-024",
+        "B": "Answer 'Adding to my setup'",
+        "C": "Routed to the Upgrade quiz. Intent Selected fires with adding_on",
+        "D": "Staying in the restock lane"
+      },
+      {
+        "A": "RST-025",
+        "B": "After step 1, switch tabs manually",
+        "C": "Both tabs remain available at all times",
+        "D": "Being locked into the tab step 1 chose"
+      },
+      {
+        "A": "RST-026",
+        "B": "Open the picker",
+        "C": "EZclassic TALL shows 38x38, 48x48, 48x76 only",
+        "D": "TALL 28x28 appearing anywhere"
+      },
+      {
+        "A": "RST-027",
+        "B": "Add items, then try to check out",
+        "C": "Step 4 appears asking for an email before checkout",
+        "D": "Reaching Shopify with no email captured"
+      },
+      {
+        "A": "RST-028",
+        "B": "Step 4, submit email with reminder opted in",
+        "C": "Profile created and subscribed. reminder_optin true. Restock Email Captured fires",
+        "D": "A profile that is not subscribed"
+      },
+      {
+        "A": "RST-029",
+        "B": "Step 4, submit email with reminder NOT opted in",
+        "C": "Profile created and subscribed. reminder_optin false",
+        "D": "Opting them in silently"
+      },
+      {
+        "A": "RST-030",
+        "B": "Step 4 reached with an empty cart",
+        "C": "Step 4 does not appear at all",
+        "D": "Asking for an email before they have chosen anything"
+      },
+      {
+        "A": "RST-031",
+        "B": "Checkout after step 4",
+        "C": "Shopify cart opens with the correct products and quantities",
+        "D": "A cart that is empty, partial or wrong"
+      },
+      {
+        "A": "RST-032",
+        "B": "Fab 4x4, answer Yes to rooms",
+        "C": "Room rows render, deduplicated by SKU",
+        "D": "The same bungee SKU appearing twice"
+      },
+      {
+        "A": "RST-033",
+        "B": "Fab 7x6, open Parts",
+        "C": "Panels replaced with a support link. whopper_panel_contact fires on click",
+        "D": "A panels section with no products"
+      },
+      {
+        "A": "RST-034",
+        "B": "Change box after adding items",
+        "C": "Cart is preserved. A label shows items span more than one box",
+        "D": "The cart clearing silently"
+      },
+      {
+        "A": "RST-035",
+        "B": "A row is sold out",
+        "C": "Stock badge shown. Add control disabled",
+        "D": "A sold-out item entering the cart"
+      },
+      {
+        "A": "RST-036",
+        "B": "Known customer with box_size on their profile",
+        "C": "Picker skipped. 'Shopping for your EZclassic 38x38' with a Change box link",
+        "D": "Asking a known customer what they own"
+      },
+      {
+        "A": "RST-036 is optional for the first release but the flow must be built so it can be added without rework."
+      }
+    ],
+    "03 Negative tests": [
+      {
+        "A": "Case ID",
+        "B": "Scenario",
+        "C": "Expected",
+        "D": "Must NOT happen"
+      },
+      {
+        "A": "RNEG-001",
+        "B": "A SKU has no Shopify variant ID",
+        "C": "Block checkout. Show an error naming the item. Log it",
+        "D": "A partial cart reaching Shopify"
+      },
+      {
+        "A": "RNEG-002",
+        "B": "Any price fails to fetch",
+        "C": "Show the row without a price and disable Add",
+        "D": "Rendering $0.00"
+      },
+      {
+        "A": "RNEG-003",
+        "B": "Quantity stepper pressed down repeatedly",
+        "C": "Stays at 1",
+        "D": "Reaching 0 or negative"
+      },
+      {
+        "A": "RNEG-004",
+        "B": "Same SKU added twice at quantity 2",
+        "C": "Cart holds 4",
+        "D": "Two separate lines of 2"
+      },
+      {
+        "A": "RNEG-005",
+        "B": "Exit with items in the cart and no email",
+        "C": "Restock Abandoned fires with item_count and cart_value",
+        "D": "Silent exit"
+      },
+      {
+        "A": "RNEG-006",
+        "B": "Invalid email at step 4",
+        "C": "Inline validation. No submit",
+        "D": "Restock Email Captured firing"
+      },
+      {
+        "A": "RNEG-007",
+        "B": "Email already exists in Klaviyo",
+        "C": "Profile updated. No duplicate. Original consent timestamp preserved",
+        "D": "A second profile"
+      },
+      {
+        "A": "RNEG-008",
+        "B": "Email previously unsubscribed",
+        "C": "Profile updated. Subscription NOT restored",
+        "D": "Silently re-subscribing an opt-out"
+      },
+      {
+        "A": "RNEG-009",
+        "B": "Profile write order",
+        "C": "All properties set BEFORE any list add",
+        "D": "List add first, flow reading empty properties"
+      },
+      {
+        "A": "RNEG-010",
+        "B": "Back navigation to change the box",
+        "C": "Shelf recomputes. Cart preserved",
+        "D": "Stale variant IDs from the previous box"
+      },
+      {
+        "A": "RNEG-011",
+        "B": "Price changes between load and checkout",
+        "C": "Shopify price is authoritative",
+        "D": "Blocking checkout on a mismatch"
+      },
+      {
+        "A": "RNEG-012",
+        "B": "Two tabs open, different boxes",
+        "C": "Each session independent",
+        "D": "Cross-contamination of variant IDs"
+      }
+    ],
+    "04 Definition of done": [
+      {
+        "A": "#",
+        "B": "Requirement",
+        "C": "Verified by"
+      },
+      {
+        "A": "1",
+        "B": "All 20 shelf resolution cases pass",
+        "C": "Manual run against the rebuilt lane. These already work today - they must still work"
+      },
+      {
+        "A": "2",
+        "B": "All 16 new behaviour cases pass",
+        "C": "Manual run"
+      },
+      {
+        "A": "3",
+        "B": "All 12 negative cases behave as specified",
+        "C": "Manual run"
+      },
+      {
+        "A": "4",
+        "B": "Every event reaches Klaviyo",
+        "C": "Open the Klaviyo metrics list and confirm a non-zero count. Console logs do not count"
+      },
+      {
+        "A": "5",
+        "B": "Every profile property appears on a real Klaviyo profile",
+        "C": "Open a profile and read the custom properties panel"
+      },
+      {
+        "A": "6",
+        "B": "Checkout completes with the correct products",
+        "C": "Place one real test order end to end"
+      },
+      {
+        "A": "7",
+        "B": "TALL 28x28 does not appear anywhere",
+        "C": "Inspect the picker"
+      },
+      {
+        "A": "8",
+        "B": "No price is read from compatibility.json",
+        "C": "Code review"
+      },
+      {
+        "A": "9",
+        "B": "All six deliverables received",
+        "C": "See tab 00"
+      }
+    ]
+  },
+  "Upgrade My Setup Quiz": {
+    "00 Evidence required": [
+      {
+        "A": "#",
+        "B": "Deliverable",
+        "C": "Format"
+      },
+      {
+        "A": "1",
+        "B": "This workbook returned with the Result column filled",
+        "C": "PASS or FAIL on every row. Actual value in the notes column where it differs"
+      },
+      {
+        "A": "2",
+        "B": "One screenshot per test case",
+        "C": "PNG named by case ID. Full result screen including the savings line where one is shown. One zip"
+      },
+      {
+        "A": "3",
+        "B": "All screenshots assembled into a PDF",
+        "C": "One case per page, case ID in the header, in order"
+      },
+      {
+        "A": "4",
+        "B": "Klaviyo event export",
+        "C": "CSV filtered to the test email addresses, covering every event in the schema"
+      },
+      {
+        "A": "5",
+        "B": "Cart URL list",
+        "C": "One line per case ID with the full cart permalink"
+      },
+      {
+        "A": "6",
+        "B": "Negative case recordings",
+        "C": "Short recording per case in the negative tab only"
+      }
+    ],
+    "01 Size path": [
+      {
+        "A": "Case ID",
+        "B": "Owned box",
+        "C": "Breed entered",
+        "D": "Target size",
+        "E": "Expected outcome",
+        "F": "Savings line",
+        "G": "Result",
+        "H": "Notes"
+      },
+      {
+        "A": "UPG-001",
+        "B": "EZclassic 28x28 STD solid",
+        "C": "Beagle",
+        "D": "28x28",
+        "E": "Reassurance card: her box already fits. CTA to restock. reassurance_shown fires",
+        "F": "n/a",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-002",
+        "B": "EZclassic 28x28 STD solid",
+        "C": "Brittany",
+        "D": "38x38",
+        "E": "Size-Up Kit card",
+        "F": "REQUIRED",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-003",
+        "B": "EZclassic 28x28 STD solid",
+        "C": "Golden Retriever",
+        "D": "48x48",
+        "E": "Size-Up Kit card",
+        "F": "REQUIRED",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-004",
+        "B": "EZclassic 28x28 STD solid",
+        "C": "Great Dane",
+        "D": "48x76",
+        "E": "XL chooser renders, entry=upgrade. No shelf, no cart",
+        "F": "n/a",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-005",
+        "B": "EZclassic 28x28 STD windowed",
+        "C": "Beagle",
+        "D": "28x28",
+        "E": "Reassurance card: her box already fits. CTA to restock. reassurance_shown fires",
+        "F": "n/a",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-006",
+        "B": "EZclassic 28x28 STD windowed",
+        "C": "Brittany",
+        "D": "38x38",
+        "E": "Size-Up Kit card",
+        "F": "REQUIRED",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-007",
+        "B": "EZclassic 28x28 STD windowed",
+        "C": "Golden Retriever",
+        "D": "48x48",
+        "E": "Size-Up Kit card",
+        "F": "REQUIRED",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-008",
+        "B": "EZclassic 28x28 STD windowed",
+        "C": "Great Dane",
+        "D": "48x76",
+        "E": "XL chooser renders, entry=upgrade. No shelf, no cart",
+        "F": "n/a",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-009",
+        "B": "EZclassic 38x38 STD solid",
+        "C": "Beagle",
+        "D": "28x28",
+        "E": "Reassurance card: her box already fits. CTA to restock. reassurance_shown fires",
+        "F": "n/a",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-010",
+        "B": "EZclassic 38x38 STD solid",
+        "C": "Brittany",
+        "D": "38x38",
+        "E": "Reassurance card: her box already fits. CTA to restock. reassurance_shown fires",
+        "F": "n/a",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-011",
+        "B": "EZclassic 38x38 STD solid",
+        "C": "Golden Retriever",
+        "D": "48x48",
+        "E": "Size-Up Kit card",
+        "F": "REQUIRED",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-012",
+        "B": "EZclassic 38x38 STD solid",
+        "C": "Great Dane",
+        "D": "48x76",
+        "E": "XL chooser renders, entry=upgrade. No shelf, no cart",
+        "F": "n/a",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-013",
+        "B": "EZclassic 38x38 STD windowed",
+        "C": "Beagle",
+        "D": "28x28",
+        "E": "Reassurance card: her box already fits. CTA to restock. reassurance_shown fires",
+        "F": "n/a",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-014",
+        "B": "EZclassic 38x38 STD windowed",
+        "C": "Brittany",
+        "D": "38x38",
+        "E": "Reassurance card: her box already fits. CTA to restock. reassurance_shown fires",
+        "F": "n/a",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-015",
+        "B": "EZclassic 38x38 STD windowed",
+        "C": "Golden Retriever",
+        "D": "48x48",
+        "E": "Size-Up Kit card",
+        "F": "REQUIRED",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-016",
+        "B": "EZclassic 38x38 STD windowed",
+        "C": "Great Dane",
+        "D": "48x76",
+        "E": "XL chooser renders, entry=upgrade. No shelf, no cart",
+        "F": "n/a",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-017",
+        "B": "EZclassic 48x48 STD solid",
+        "C": "Beagle",
+        "D": "28x28",
+        "E": "Reassurance card: her box already fits. CTA to restock. reassurance_shown fires",
+        "F": "n/a",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-018",
+        "B": "EZclassic 48x48 STD solid",
+        "C": "Brittany",
+        "D": "38x38",
+        "E": "Reassurance card: her box already fits. CTA to restock. reassurance_shown fires",
+        "F": "n/a",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-019",
+        "B": "EZclassic 48x48 STD solid",
+        "C": "Golden Retriever",
+        "D": "48x48",
+        "E": "Reassurance card: her box already fits. CTA to restock. reassurance_shown fires",
+        "F": "n/a",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-020",
+        "B": "EZclassic 48x48 STD solid",
+        "C": "Great Dane",
+        "D": "48x76",
+        "E": "XL chooser renders, entry=upgrade. No shelf, no cart",
+        "F": "n/a",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-021",
+        "B": "EZclassic 48x48 STD windowed",
+        "C": "Beagle",
+        "D": "28x28",
+        "E": "Reassurance card: her box already fits. CTA to restock. reassurance_shown fires",
+        "F": "n/a",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-022",
+        "B": "EZclassic 48x48 STD windowed",
+        "C": "Brittany",
+        "D": "38x38",
+        "E": "Reassurance card: her box already fits. CTA to restock. reassurance_shown fires",
+        "F": "n/a",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-023",
+        "B": "EZclassic 48x48 STD windowed",
+        "C": "Golden Retriever",
+        "D": "48x48",
+        "E": "Reassurance card: her box already fits. CTA to restock. reassurance_shown fires",
+        "F": "n/a",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-024",
+        "B": "EZclassic 48x48 STD windowed",
+        "C": "Great Dane",
+        "D": "48x76",
+        "E": "XL chooser renders, entry=upgrade. No shelf, no cart",
+        "F": "n/a",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-025",
+        "B": "EZclassic TALL 38x38 solid",
+        "C": "Beagle",
+        "D": "28x28",
+        "E": "Reassurance card: her box already fits. CTA to restock. reassurance_shown fires",
+        "F": "n/a",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-026",
+        "B": "EZclassic TALL 38x38 solid",
+        "C": "Brittany",
+        "D": "38x38",
+        "E": "Reassurance card: her box already fits. CTA to restock. reassurance_shown fires",
+        "F": "n/a",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-027",
+        "B": "EZclassic TALL 38x38 solid",
+        "C": "Golden Retriever",
+        "D": "48x48",
+        "E": "Size-Up Kit card - MUST BE PURCHASABLE after fix 1",
+        "F": "REQUIRED",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-028",
+        "B": "EZclassic TALL 38x38 solid",
+        "C": "Great Dane",
+        "D": "48x76",
+        "E": "XL chooser renders, entry=upgrade. No shelf, no cart",
+        "F": "n/a",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-029",
+        "B": "EZclassic TALL 38x38 windowed",
+        "C": "Beagle",
+        "D": "28x28",
+        "E": "Reassurance card: her box already fits. CTA to restock. reassurance_shown fires",
+        "F": "n/a",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-030",
+        "B": "EZclassic TALL 38x38 windowed",
+        "C": "Brittany",
+        "D": "38x38",
+        "E": "Reassurance card: her box already fits. CTA to restock. reassurance_shown fires",
+        "F": "n/a",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-031",
+        "B": "EZclassic TALL 38x38 windowed",
+        "C": "Golden Retriever",
+        "D": "48x48",
+        "E": "Size-Up Kit card - MUST BE PURCHASABLE after fix 1",
+        "F": "REQUIRED",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-032",
+        "B": "EZclassic TALL 38x38 windowed",
+        "C": "Great Dane",
+        "D": "48x76",
+        "E": "XL chooser renders, entry=upgrade. No shelf, no cart",
+        "F": "n/a",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-033",
+        "B": "EZclassic TALL 48x48 solid",
+        "C": "Beagle",
+        "D": "28x28",
+        "E": "Reassurance card: her box already fits. CTA to restock. reassurance_shown fires",
+        "F": "n/a",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-034",
+        "B": "EZclassic TALL 48x48 solid",
+        "C": "Brittany",
+        "D": "38x38",
+        "E": "Reassurance card: her box already fits. CTA to restock. reassurance_shown fires",
+        "F": "n/a",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-035",
+        "B": "EZclassic TALL 48x48 solid",
+        "C": "Golden Retriever",
+        "D": "48x48",
+        "E": "Reassurance card: her box already fits. CTA to restock. reassurance_shown fires",
+        "F": "n/a",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-036",
+        "B": "EZclassic TALL 48x48 solid",
+        "C": "Great Dane",
+        "D": "48x76",
+        "E": "XL chooser renders, entry=upgrade. No shelf, no cart",
+        "F": "n/a",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-037",
+        "B": "EZclassic TALL 48x48 windowed",
+        "C": "Beagle",
+        "D": "28x28",
+        "E": "Reassurance card: her box already fits. CTA to restock. reassurance_shown fires",
+        "F": "n/a",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-038",
+        "B": "EZclassic TALL 48x48 windowed",
+        "C": "Brittany",
+        "D": "38x38",
+        "E": "Reassurance card: her box already fits. CTA to restock. reassurance_shown fires",
+        "F": "n/a",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-039",
+        "B": "EZclassic TALL 48x48 windowed",
+        "C": "Golden Retriever",
+        "D": "48x48",
+        "E": "Reassurance card: her box already fits. CTA to restock. reassurance_shown fires",
+        "F": "n/a",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-040",
+        "B": "EZclassic TALL 48x48 windowed",
+        "C": "Great Dane",
+        "D": "48x76",
+        "E": "XL chooser renders, entry=upgrade. No shelf, no cart",
+        "F": "n/a",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-041",
+        "B": "EZclassic TALL 48x76 solid",
+        "C": "Beagle",
+        "D": "28x28",
+        "E": "Reassurance card: her box already fits. CTA to restock. reassurance_shown fires",
+        "F": "n/a",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-042",
+        "B": "EZclassic TALL 48x76 solid",
+        "C": "Brittany",
+        "D": "38x38",
+        "E": "Reassurance card: her box already fits. CTA to restock. reassurance_shown fires",
+        "F": "n/a",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-043",
+        "B": "EZclassic TALL 48x76 solid",
+        "C": "Golden Retriever",
+        "D": "48x48",
+        "E": "Reassurance card: her box already fits. CTA to restock. reassurance_shown fires",
+        "F": "n/a",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-044",
+        "B": "EZclassic TALL 48x76 solid",
+        "C": "Great Dane",
+        "D": "48x76",
+        "E": "XL chooser renders, entry=upgrade. No shelf, no cart",
+        "F": "n/a",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-045",
+        "B": "EZclassic TALL 48x76 windowed",
+        "C": "Beagle",
+        "D": "28x28",
+        "E": "Reassurance card: her box already fits. CTA to restock. reassurance_shown fires",
+        "F": "n/a",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-046",
+        "B": "EZclassic TALL 48x76 windowed",
+        "C": "Brittany",
+        "D": "38x38",
+        "E": "Reassurance card: her box already fits. CTA to restock. reassurance_shown fires",
+        "F": "n/a",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-047",
+        "B": "EZclassic TALL 48x76 windowed",
+        "C": "Golden Retriever",
+        "D": "48x48",
+        "E": "Reassurance card: her box already fits. CTA to restock. reassurance_shown fires",
+        "F": "n/a",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-048",
+        "B": "EZclassic TALL 48x76 windowed",
+        "C": "Great Dane",
+        "D": "48x76",
+        "E": "XL chooser renders, entry=upgrade. No shelf, no cart",
+        "F": "n/a",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-049",
+        "B": "Fab 3x3",
+        "C": "Beagle",
+        "D": "3x3",
+        "E": "Reassurance card: her box already fits. CTA to restock",
+        "F": "n/a",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-050",
+        "B": "Fab 3x3",
+        "C": "Brittany",
+        "D": "3x3",
+        "E": "Reassurance card: her box already fits. CTA to restock",
+        "F": "n/a",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-051",
+        "B": "Fab 3x3",
+        "C": "Golden Retriever",
+        "D": "4x4",
+        "E": "Next-box card. Fab rails auto-added per C2",
+        "F": "n/a",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-052",
+        "B": "Fab 3x3",
+        "C": "Great Dane",
+        "D": "4x6",
+        "E": "XL chooser renders",
+        "F": "n/a",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-053",
+        "B": "Fab 4x4",
+        "C": "Beagle",
+        "D": "3x3",
+        "E": "Reassurance card: her box already fits. CTA to restock",
+        "F": "n/a",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-054",
+        "B": "Fab 4x4",
+        "C": "Brittany",
+        "D": "3x3",
+        "E": "Reassurance card: her box already fits. CTA to restock",
+        "F": "n/a",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-055",
+        "B": "Fab 4x4",
+        "C": "Golden Retriever",
+        "D": "4x4",
+        "E": "Reassurance card: her box already fits. CTA to restock",
+        "F": "n/a",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-056",
+        "B": "Fab 4x4",
+        "C": "Great Dane",
+        "D": "4x6",
+        "E": "XL chooser renders",
+        "F": "n/a",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-057",
+        "B": "Fab 4x6",
+        "C": "Beagle",
+        "D": "3x3",
+        "E": "Reassurance card: her box already fits. CTA to restock",
+        "F": "n/a",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-058",
+        "B": "Fab 4x6",
+        "C": "Brittany",
+        "D": "3x3",
+        "E": "Reassurance card: her box already fits. CTA to restock",
+        "F": "n/a",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-059",
+        "B": "Fab 4x6",
+        "C": "Golden Retriever",
+        "D": "4x4",
+        "E": "Reassurance card: her box already fits. CTA to restock",
+        "F": "n/a",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-060",
+        "B": "Fab 4x6",
+        "C": "Great Dane",
+        "D": "4x6",
+        "E": "XL chooser renders",
+        "F": "n/a",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-061",
+        "B": "Fab 7x6 Whopper",
+        "C": "Beagle",
+        "D": "3x3",
+        "E": "Reassurance card: her box already fits. CTA to restock",
+        "F": "n/a",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-062",
+        "B": "Fab 7x6 Whopper",
+        "C": "Brittany",
+        "D": "3x3",
+        "E": "Reassurance card: her box already fits. CTA to restock",
+        "F": "n/a",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-063",
+        "B": "Fab 7x6 Whopper",
+        "C": "Golden Retriever",
+        "D": "4x4",
+        "E": "Reassurance card: her box already fits. CTA to restock",
+        "F": "n/a",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "UPG-064",
+        "B": "Fab 7x6 Whopper",
+        "C": "Great Dane",
+        "D": "4x6",
+        "E": "XL chooser renders",
+        "F": "n/a",
+        "G": null,
+        "H": null
+      },
+      {
+        "A": "64 cases: 16 owned configurations x 4 breeds. TALL 28x28 removed - it is not a real product."
+      },
+      {
+        "A": "Every case marked MUST BE PURCHASABLE is a TALL Size-Up Kit that is cart-blocked today. If any of them still shows 'SKU coming soon', fix 1 has not landed."
+      },
+      {
+        "A": "Every Size-Up Kit case must show the honest savings line: kit price against the new-box price, with the saving stated."
+      }
+    ],
+    "02 Space path": [
+      {
+        "A": "Case ID",
+        "B": "Owned box",
+        "C": "Litter size",
+        "D": "Expected shelf lead",
+        "E": "Pre-selected",
+        "F": "Result",
+        "G": "Notes"
+      },
+      {
+        "A": "UPS-001",
+        "B": "EZclassic 28x28 STD solid",
+        "C": "1-3",
+        "D": "One add-on room leads",
+        "E": "Add-on room",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-002",
+        "B": "EZclassic 28x28 STD solid",
+        "C": "4-6",
+        "D": "One add-on room leads",
+        "E": "Add-on room",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-003",
+        "B": "EZclassic 28x28 STD solid",
+        "C": "7-9",
+        "D": "Add-on room and mess hall both lead",
+        "E": "Add-on room, mess hall",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-004",
+        "B": "EZclassic 28x28 STD solid",
+        "C": "10+",
+        "D": "Facilities room leads for EZclassic, two rooms for Fab",
+        "E": "Facilities room or two rooms",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-005",
+        "B": "EZclassic 28x28 STD windowed",
+        "C": "1-3",
+        "D": "One add-on room leads",
+        "E": "Add-on room",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-006",
+        "B": "EZclassic 28x28 STD windowed",
+        "C": "4-6",
+        "D": "One add-on room leads",
+        "E": "Add-on room",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-007",
+        "B": "EZclassic 28x28 STD windowed",
+        "C": "7-9",
+        "D": "Add-on room and mess hall both lead",
+        "E": "Add-on room, mess hall",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-008",
+        "B": "EZclassic 28x28 STD windowed",
+        "C": "10+",
+        "D": "Facilities room leads for EZclassic, two rooms for Fab",
+        "E": "Facilities room or two rooms",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-009",
+        "B": "EZclassic 38x38 STD solid",
+        "C": "1-3",
+        "D": "One add-on room leads",
+        "E": "Add-on room",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-010",
+        "B": "EZclassic 38x38 STD solid",
+        "C": "4-6",
+        "D": "One add-on room leads",
+        "E": "Add-on room",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-011",
+        "B": "EZclassic 38x38 STD solid",
+        "C": "7-9",
+        "D": "Add-on room and mess hall both lead",
+        "E": "Add-on room, mess hall",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-012",
+        "B": "EZclassic 38x38 STD solid",
+        "C": "10+",
+        "D": "Facilities room leads for EZclassic, two rooms for Fab",
+        "E": "Facilities room or two rooms",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-013",
+        "B": "EZclassic 38x38 STD windowed",
+        "C": "1-3",
+        "D": "One add-on room leads",
+        "E": "Add-on room",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-014",
+        "B": "EZclassic 38x38 STD windowed",
+        "C": "4-6",
+        "D": "One add-on room leads",
+        "E": "Add-on room",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-015",
+        "B": "EZclassic 38x38 STD windowed",
+        "C": "7-9",
+        "D": "Add-on room and mess hall both lead",
+        "E": "Add-on room, mess hall",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-016",
+        "B": "EZclassic 38x38 STD windowed",
+        "C": "10+",
+        "D": "Facilities room leads for EZclassic, two rooms for Fab",
+        "E": "Facilities room or two rooms",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-017",
+        "B": "EZclassic 48x48 STD solid",
+        "C": "1-3",
+        "D": "One add-on room leads",
+        "E": "Add-on room",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-018",
+        "B": "EZclassic 48x48 STD solid",
+        "C": "4-6",
+        "D": "One add-on room leads",
+        "E": "Add-on room",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-019",
+        "B": "EZclassic 48x48 STD solid",
+        "C": "7-9",
+        "D": "Add-on room and mess hall both lead",
+        "E": "Add-on room, mess hall",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-020",
+        "B": "EZclassic 48x48 STD solid",
+        "C": "10+",
+        "D": "Facilities room leads for EZclassic, two rooms for Fab",
+        "E": "Facilities room or two rooms",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-021",
+        "B": "EZclassic 48x48 STD windowed",
+        "C": "1-3",
+        "D": "One add-on room leads",
+        "E": "Add-on room",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-022",
+        "B": "EZclassic 48x48 STD windowed",
+        "C": "4-6",
+        "D": "One add-on room leads",
+        "E": "Add-on room",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-023",
+        "B": "EZclassic 48x48 STD windowed",
+        "C": "7-9",
+        "D": "Add-on room and mess hall both lead",
+        "E": "Add-on room, mess hall",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-024",
+        "B": "EZclassic 48x48 STD windowed",
+        "C": "10+",
+        "D": "Facilities room leads for EZclassic, two rooms for Fab",
+        "E": "Facilities room or two rooms",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-025",
+        "B": "EZclassic TALL 38x38 solid",
+        "C": "1-3",
+        "D": "One add-on room leads",
+        "E": "Add-on room",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-026",
+        "B": "EZclassic TALL 38x38 solid",
+        "C": "4-6",
+        "D": "One add-on room leads",
+        "E": "Add-on room",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-027",
+        "B": "EZclassic TALL 38x38 solid",
+        "C": "7-9",
+        "D": "Add-on room and mess hall both lead",
+        "E": "Add-on room, mess hall",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-028",
+        "B": "EZclassic TALL 38x38 solid",
+        "C": "10+",
+        "D": "Facilities room leads for EZclassic, two rooms for Fab",
+        "E": "Facilities room or two rooms",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-029",
+        "B": "EZclassic TALL 38x38 windowed",
+        "C": "1-3",
+        "D": "One add-on room leads",
+        "E": "Add-on room",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-030",
+        "B": "EZclassic TALL 38x38 windowed",
+        "C": "4-6",
+        "D": "One add-on room leads",
+        "E": "Add-on room",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-031",
+        "B": "EZclassic TALL 38x38 windowed",
+        "C": "7-9",
+        "D": "Add-on room and mess hall both lead",
+        "E": "Add-on room, mess hall",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-032",
+        "B": "EZclassic TALL 38x38 windowed",
+        "C": "10+",
+        "D": "Facilities room leads for EZclassic, two rooms for Fab",
+        "E": "Facilities room or two rooms",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-033",
+        "B": "EZclassic TALL 48x48 solid",
+        "C": "1-3",
+        "D": "One add-on room leads",
+        "E": "Add-on room",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-034",
+        "B": "EZclassic TALL 48x48 solid",
+        "C": "4-6",
+        "D": "One add-on room leads",
+        "E": "Add-on room",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-035",
+        "B": "EZclassic TALL 48x48 solid",
+        "C": "7-9",
+        "D": "Add-on room and mess hall both lead",
+        "E": "Add-on room, mess hall",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-036",
+        "B": "EZclassic TALL 48x48 solid",
+        "C": "10+",
+        "D": "Facilities room leads for EZclassic, two rooms for Fab",
+        "E": "Facilities room or two rooms",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-037",
+        "B": "EZclassic TALL 48x48 windowed",
+        "C": "1-3",
+        "D": "One add-on room leads",
+        "E": "Add-on room",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-038",
+        "B": "EZclassic TALL 48x48 windowed",
+        "C": "4-6",
+        "D": "One add-on room leads",
+        "E": "Add-on room",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-039",
+        "B": "EZclassic TALL 48x48 windowed",
+        "C": "7-9",
+        "D": "Add-on room and mess hall both lead",
+        "E": "Add-on room, mess hall",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-040",
+        "B": "EZclassic TALL 48x48 windowed",
+        "C": "10+",
+        "D": "Facilities room leads for EZclassic, two rooms for Fab",
+        "E": "Facilities room or two rooms",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-041",
+        "B": "EZclassic TALL 48x76 solid",
+        "C": "1-3",
+        "D": "One add-on room leads",
+        "E": "Add-on room",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-042",
+        "B": "EZclassic TALL 48x76 solid",
+        "C": "4-6",
+        "D": "One add-on room leads",
+        "E": "Add-on room",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-043",
+        "B": "EZclassic TALL 48x76 solid",
+        "C": "7-9",
+        "D": "Add-on room and mess hall both lead",
+        "E": "Add-on room, mess hall",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-044",
+        "B": "EZclassic TALL 48x76 solid",
+        "C": "10+",
+        "D": "Facilities room leads for EZclassic, two rooms for Fab",
+        "E": "Facilities room or two rooms",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-045",
+        "B": "EZclassic TALL 48x76 windowed",
+        "C": "1-3",
+        "D": "One add-on room leads",
+        "E": "Add-on room",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-046",
+        "B": "EZclassic TALL 48x76 windowed",
+        "C": "4-6",
+        "D": "One add-on room leads",
+        "E": "Add-on room",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-047",
+        "B": "EZclassic TALL 48x76 windowed",
+        "C": "7-9",
+        "D": "Add-on room and mess hall both lead",
+        "E": "Add-on room, mess hall",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-048",
+        "B": "EZclassic TALL 48x76 windowed",
+        "C": "10+",
+        "D": "Facilities room leads for EZclassic, two rooms for Fab",
+        "E": "Facilities room or two rooms",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-049",
+        "B": "Fab 3x3",
+        "C": "1-3",
+        "D": "One add-on room leads",
+        "E": "Add-on room",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-050",
+        "B": "Fab 3x3",
+        "C": "4-6",
+        "D": "One add-on room leads",
+        "E": "Add-on room",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-051",
+        "B": "Fab 3x3",
+        "C": "7-9",
+        "D": "Add-on room and mess hall both lead",
+        "E": "Add-on room, mess hall",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-052",
+        "B": "Fab 3x3",
+        "C": "10+",
+        "D": "Facilities room leads for EZclassic, two rooms for Fab",
+        "E": "Facilities room or two rooms",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-053",
+        "B": "Fab 4x4",
+        "C": "1-3",
+        "D": "One add-on room leads",
+        "E": "Add-on room",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-054",
+        "B": "Fab 4x4",
+        "C": "4-6",
+        "D": "One add-on room leads",
+        "E": "Add-on room",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-055",
+        "B": "Fab 4x4",
+        "C": "7-9",
+        "D": "Add-on room and mess hall both lead",
+        "E": "Add-on room, mess hall",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-056",
+        "B": "Fab 4x4",
+        "C": "10+",
+        "D": "Facilities room leads for EZclassic, two rooms for Fab",
+        "E": "Facilities room or two rooms",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-057",
+        "B": "Fab 4x6",
+        "C": "1-3",
+        "D": "One add-on room leads",
+        "E": "Add-on room",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-058",
+        "B": "Fab 4x6",
+        "C": "4-6",
+        "D": "One add-on room leads",
+        "E": "Add-on room",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-059",
+        "B": "Fab 4x6",
+        "C": "7-9",
+        "D": "Add-on room and mess hall both lead",
+        "E": "Add-on room, mess hall",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-060",
+        "B": "Fab 4x6",
+        "C": "10+",
+        "D": "Facilities room leads for EZclassic, two rooms for Fab",
+        "E": "Facilities room or two rooms",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-061",
+        "B": "Fab 7x6 Whopper",
+        "C": "1-3",
+        "D": "One add-on room leads",
+        "E": "Add-on room",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-062",
+        "B": "Fab 7x6 Whopper",
+        "C": "4-6",
+        "D": "One add-on room leads",
+        "E": "Add-on room",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-063",
+        "B": "Fab 7x6 Whopper",
+        "C": "7-9",
+        "D": "Add-on room and mess hall both lead",
+        "E": "Add-on room, mess hall",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "UPS-064",
+        "B": "Fab 7x6 Whopper",
+        "C": "10+",
+        "D": "Facilities room leads for EZclassic, two rooms for Fab",
+        "E": "Facilities room or two rooms",
+        "F": null,
+        "G": null
+      },
+      {
+        "A": "64 cases: 16 owned configurations x 4 litter size bands. The litter size question is new."
+      },
+      {
+        "A": "Shelf CONTENTS do not change. Only which item leads and which are pre-selected."
+      },
+      {
+        "A": "The facilities room keeps its potty and care room framing. It is not presented as a second whelping area."
+      }
+    ],
+    "03 Program path": [
+      {
+        "A": "Case ID",
+        "B": "Owned box",
+        "C": "Quantity",
+        "D": "Expected",
+        "E": "Result",
+        "F": "Notes"
+      },
+      {
+        "A": "UPP-001",
+        "B": "EZclassic 28x28 STD solid",
+        "C": "2",
+        "D": "Two cards: 'Another one like yours' at real price, AND 'A different size' opening the size chooser. Second Whelping Area package where all components exist, with a message naming what is missing where they do not",
+        "E": null,
+        "F": null
+      },
+      {
+        "A": "UPP-002",
+        "B": "EZclassic 28x28 STD solid",
+        "C": "3+",
+        "D": "Whale escape card leads, routing to support with owned_box and qty. Self-serve multi-quantity cart remains fully available below it",
+        "E": null,
+        "F": null
+      },
+      {
+        "A": "UPP-003",
+        "B": "EZclassic 28x28 STD windowed",
+        "C": "2",
+        "D": "Two cards: 'Another one like yours' at real price, AND 'A different size' opening the size chooser. Second Whelping Area package where all components exist, with a message naming what is missing where they do not",
+        "E": null,
+        "F": null
+      },
+      {
+        "A": "UPP-004",
+        "B": "EZclassic 28x28 STD windowed",
+        "C": "3+",
+        "D": "Whale escape card leads, routing to support with owned_box and qty. Self-serve multi-quantity cart remains fully available below it",
+        "E": null,
+        "F": null
+      },
+      {
+        "A": "UPP-005",
+        "B": "EZclassic 38x38 STD solid",
+        "C": "2",
+        "D": "Two cards: 'Another one like yours' at real price, AND 'A different size' opening the size chooser. Second Whelping Area package where all components exist, with a message naming what is missing where they do not",
+        "E": null,
+        "F": null
+      },
+      {
+        "A": "UPP-006",
+        "B": "EZclassic 38x38 STD solid",
+        "C": "3+",
+        "D": "Whale escape card leads, routing to support with owned_box and qty. Self-serve multi-quantity cart remains fully available below it",
+        "E": null,
+        "F": null
+      },
+      {
+        "A": "UPP-007",
+        "B": "EZclassic 38x38 STD windowed",
+        "C": "2",
+        "D": "Two cards: 'Another one like yours' at real price, AND 'A different size' opening the size chooser. Second Whelping Area package where all components exist, with a message naming what is missing where they do not",
+        "E": null,
+        "F": null
+      },
+      {
+        "A": "UPP-008",
+        "B": "EZclassic 38x38 STD windowed",
+        "C": "3+",
+        "D": "Whale escape card leads, routing to support with owned_box and qty. Self-serve multi-quantity cart remains fully available below it",
+        "E": null,
+        "F": null
+      },
+      {
+        "A": "UPP-009",
+        "B": "EZclassic 48x48 STD solid",
+        "C": "2",
+        "D": "Two cards: 'Another one like yours' at real price, AND 'A different size' opening the size chooser. Second Whelping Area package where all components exist, with a message naming what is missing where they do not",
+        "E": null,
+        "F": null
+      },
+      {
+        "A": "UPP-010",
+        "B": "EZclassic 48x48 STD solid",
+        "C": "3+",
+        "D": "Whale escape card leads, routing to support with owned_box and qty. Self-serve multi-quantity cart remains fully available below it",
+        "E": null,
+        "F": null
+      },
+      {
+        "A": "UPP-011",
+        "B": "EZclassic 48x48 STD windowed",
+        "C": "2",
+        "D": "Two cards: 'Another one like yours' at real price, AND 'A different size' opening the size chooser. Second Whelping Area package where all components exist, with a message naming what is missing where they do not",
+        "E": null,
+        "F": null
+      },
+      {
+        "A": "UPP-012",
+        "B": "EZclassic 48x48 STD windowed",
+        "C": "3+",
+        "D": "Whale escape card leads, routing to support with owned_box and qty. Self-serve multi-quantity cart remains fully available below it",
+        "E": null,
+        "F": null
+      },
+      {
+        "A": "UPP-013",
+        "B": "EZclassic TALL 38x38 solid",
+        "C": "2",
+        "D": "Two cards: 'Another one like yours' at real price, AND 'A different size' opening the size chooser. Second Whelping Area package where all components exist, with a message naming what is missing where they do not",
+        "E": null,
+        "F": null
+      },
+      {
+        "A": "UPP-014",
+        "B": "EZclassic TALL 38x38 solid",
+        "C": "3+",
+        "D": "Whale escape card leads, routing to support with owned_box and qty. Self-serve multi-quantity cart remains fully available below it",
+        "E": null,
+        "F": null
+      },
+      {
+        "A": "UPP-015",
+        "B": "EZclassic TALL 38x38 windowed",
+        "C": "2",
+        "D": "Two cards: 'Another one like yours' at real price, AND 'A different size' opening the size chooser. Second Whelping Area package where all components exist, with a message naming what is missing where they do not",
+        "E": null,
+        "F": null
+      },
+      {
+        "A": "UPP-016",
+        "B": "EZclassic TALL 38x38 windowed",
+        "C": "3+",
+        "D": "Whale escape card leads, routing to support with owned_box and qty. Self-serve multi-quantity cart remains fully available below it",
+        "E": null,
+        "F": null
+      },
+      {
+        "A": "UPP-017",
+        "B": "EZclassic TALL 48x48 solid",
+        "C": "2",
+        "D": "Two cards: 'Another one like yours' at real price, AND 'A different size' opening the size chooser. Second Whelping Area package where all components exist, with a message naming what is missing where they do not",
+        "E": null,
+        "F": null
+      },
+      {
+        "A": "UPP-018",
+        "B": "EZclassic TALL 48x48 solid",
+        "C": "3+",
+        "D": "Whale escape card leads, routing to support with owned_box and qty. Self-serve multi-quantity cart remains fully available below it",
+        "E": null,
+        "F": null
+      },
+      {
+        "A": "UPP-019",
+        "B": "EZclassic TALL 48x48 windowed",
+        "C": "2",
+        "D": "Two cards: 'Another one like yours' at real price, AND 'A different size' opening the size chooser. Second Whelping Area package where all components exist, with a message naming what is missing where they do not",
+        "E": null,
+        "F": null
+      },
+      {
+        "A": "UPP-020",
+        "B": "EZclassic TALL 48x48 windowed",
+        "C": "3+",
+        "D": "Whale escape card leads, routing to support with owned_box and qty. Self-serve multi-quantity cart remains fully available below it",
+        "E": null,
+        "F": null
+      },
+      {
+        "A": "UPP-021",
+        "B": "EZclassic TALL 48x76 solid",
+        "C": "2",
+        "D": "Two cards: 'Another one like yours' at real price, AND 'A different size' opening the size chooser. Second Whelping Area package where all components exist, with a message naming what is missing where they do not",
+        "E": null,
+        "F": null
+      },
+      {
+        "A": "UPP-022",
+        "B": "EZclassic TALL 48x76 solid",
+        "C": "3+",
+        "D": "Whale escape card leads, routing to support with owned_box and qty. Self-serve multi-quantity cart remains fully available below it",
+        "E": null,
+        "F": null
+      },
+      {
+        "A": "UPP-023",
+        "B": "EZclassic TALL 48x76 windowed",
+        "C": "2",
+        "D": "Two cards: 'Another one like yours' at real price, AND 'A different size' opening the size chooser. Second Whelping Area package where all components exist, with a message naming what is missing where they do not",
+        "E": null,
+        "F": null
+      },
+      {
+        "A": "UPP-024",
+        "B": "EZclassic TALL 48x76 windowed",
+        "C": "3+",
+        "D": "Whale escape card leads, routing to support with owned_box and qty. Self-serve multi-quantity cart remains fully available below it",
+        "E": null,
+        "F": null
+      },
+      {
+        "A": "UPP-025",
+        "B": "Fab 3x3",
+        "C": "2",
+        "D": "'Another box' with rails auto-added, plus 'A different size' and a daisy-chain note. No stack exists at this size",
+        "E": null,
+        "F": null
+      },
+      {
+        "A": "UPP-026",
+        "B": "Fab 3x3",
+        "C": "3+",
+        "D": "Whale escape card leads, routing to support with owned_box and qty. Self-serve multi-quantity cart remains fully available below it",
+        "E": null,
+        "F": null
+      },
+      {
+        "A": "UPP-027",
+        "B": "Fab 4x4",
+        "C": "2",
+        "D": "'Another box' as the primary card with rails auto-added, plus 'A different size'. Stack kit offered as an optional height toggle only",
+        "E": null,
+        "F": null
+      },
+      {
+        "A": "UPP-028",
+        "B": "Fab 4x4",
+        "C": "3+",
+        "D": "Whale escape card leads, routing to support with owned_box and qty. Self-serve multi-quantity cart remains fully available below it",
+        "E": null,
+        "F": null
+      },
+      {
+        "A": "UPP-029",
+        "B": "Fab 4x6",
+        "C": "2",
+        "D": "'Another box' as the primary card with rails auto-added, plus 'A different size'. Stack kit offered as an optional height toggle only",
+        "E": null,
+        "F": null
+      },
+      {
+        "A": "UPP-030",
+        "B": "Fab 4x6",
+        "C": "3+",
+        "D": "Whale escape card leads, routing to support with owned_box and qty. Self-serve multi-quantity cart remains fully available below it",
+        "E": null,
+        "F": null
+      },
+      {
+        "A": "UPP-031",
+        "B": "Fab 7x6 Whopper",
+        "C": "2",
+        "D": "'Another box' with rails auto-added, plus 'A different size' and a daisy-chain note. No stack exists at this size",
+        "E": null,
+        "F": null
+      },
+      {
+        "A": "UPP-032",
+        "B": "Fab 7x6 Whopper",
+        "C": "3+",
+        "D": "Whale escape card leads, routing to support with owned_box and qty. Self-serve multi-quantity cart remains fully available below it",
+        "E": null,
+        "F": null
+      },
+      {
+        "A": "32 cases: 16 owned configurations x 2 quantities. The 'A different size' card is new."
+      }
+    ],
+    "04 New behaviour": [
+      {
+        "A": "Case ID",
+        "B": "Scenario",
+        "C": "Expected",
+        "D": "Must NOT happen"
+      },
+      {
+        "A": "UPB-001",
+        "B": "Open the picker",
+        "C": "EZclassic TALL offers 38x38, 48x48, 48x76 only",
+        "D": "TALL 28x28 appearing"
+      },
+      {
+        "A": "UPB-002",
+        "B": "Size path, enter a breed",
+        "C": "Target size and height resolve from the 177-breed table",
+        "D": "Being asked to estimate a weight band"
+      },
+      {
+        "A": "UPB-003",
+        "B": "Size path, breed not listed",
+        "C": "Weight band fallback appears, four bands as today",
+        "D": "A dead end"
+      },
+      {
+        "A": "UPB-004",
+        "B": "Size path, breed locked to 48x76",
+        "C": "XL chooser renders, entry=upgrade",
+        "D": "A self-serve shelf for a giant dam"
+      },
+      {
+        "A": "UPB-005",
+        "B": "Any TALL Size-Up Kit renders",
+        "C": "Purchasable, adds to cart, included in the total. sizeup_blocked does NOT fire",
+        "D": "'SKU coming soon' or exclusion from the total"
+      },
+      {
+        "A": "UPB-006",
+        "B": "Space path selected",
+        "C": "Litter size question appears before the shelf",
+        "D": "Going straight to the shelf"
+      },
+      {
+        "A": "UPB-007",
+        "B": "Space path, 10+ puppies",
+        "C": "Facilities room leads for EZclassic",
+        "D": "A single add-on room leading"
+      },
+      {
+        "A": "UPB-008",
+        "B": "Program path qty=2",
+        "C": "Both 'Another one like yours' and 'A different size' appear",
+        "D": "Only the duplicate offered"
+      },
+      {
+        "A": "UPB-009",
+        "B": "Second Whelping Area package missing a component",
+        "C": "A message names what is missing",
+        "D": "Silent disappearance"
+      },
+      {
+        "A": "UPB-010",
+        "B": "Any add to cart",
+        "C": "variant_id present on the event",
+        "D": "SKU only"
+      },
+      {
+        "A": "UPB-011",
+        "B": "Reach checkout",
+        "C": "Email step appears first, then Shopify checkout with the correct products",
+        "D": "No email captured, or no checkout at all"
+      },
+      {
+        "A": "UPB-012",
+        "B": "Reassurance card renders",
+        "C": "reassurance_shown fires with owned and target footprints",
+        "D": "No event, making the behaviour unmeasurable"
+      },
+      {
+        "A": "UPB-013",
+        "B": "Known customer with box_size on profile",
+        "C": "Picker skipped, 'Growing your EZclassic 38x38' with a Change box link",
+        "D": "Asking a known owner what they own"
+      },
+      {
+        "A": "UPB-014",
+        "B": "A row has no stock data",
+        "C": "Stock badge shown once real data exists. Sold-out rows cannot be added",
+        "D": "A sold-out item entering the cart"
+      },
+      {
+        "A": "UPB-015",
+        "B": "Navigate to the old XL results screen",
+        "C": "It does not exist",
+        "D": "Dead code reachable by accident"
+      }
+    ],
+    "05 Negative tests": [
+      {
+        "A": "Case ID",
+        "B": "Scenario",
+        "C": "Expected",
+        "D": "Must NOT happen"
+      },
+      {
+        "A": "UNEG-001",
+        "B": "A SKU has no variant ID",
+        "C": "Block checkout, name the item, log it",
+        "D": "A partial cart reaching Shopify"
+      },
+      {
+        "A": "UNEG-002",
+        "B": "A price fails to fetch",
+        "C": "Row renders without a price, Add disabled",
+        "D": "$0.00"
+      },
+      {
+        "A": "UNEG-003",
+        "B": "Size-Up Kit in the cart, breeder opens a pad",
+        "C": "C13 suppresses all pad and liner offers",
+        "D": "Selling a pad the kit already contains"
+      },
+      {
+        "A": "UNEG-004",
+        "B": "Fab box added without rails",
+        "C": "C2 auto-adds the matching rail system",
+        "D": "A Fab box in the cart with no rails"
+      },
+      {
+        "A": "UNEG-005",
+        "B": "Fab 3x3, space path",
+        "C": "Daisy-chain locked per C7. Single room option only",
+        "D": "Offering a daisy-chain that is not supported"
+      },
+      {
+        "A": "UNEG-006",
+        "B": "Exit with items and no email",
+        "C": "Upgrade Abandoned fires with item_count and cart_value",
+        "D": "Silent exit"
+      },
+      {
+        "A": "UNEG-007",
+        "B": "Invalid email",
+        "C": "Inline validation, no submit",
+        "D": "Upgrade Email Captured firing"
+      },
+      {
+        "A": "UNEG-008",
+        "B": "Email already in Klaviyo",
+        "C": "Profile updated, no duplicate, original consent timestamp preserved",
+        "D": "A second profile"
+      },
+      {
+        "A": "UNEG-009",
+        "B": "Email previously unsubscribed",
+        "C": "Answers update, subscription NOT restored",
+        "D": "Silently re-subscribing an opt-out"
+      },
+      {
+        "A": "UNEG-010",
+        "B": "Profile write order",
+        "C": "Properties set BEFORE any list add",
+        "D": "List add first"
+      },
+      {
+        "A": "UNEG-011",
+        "B": "Back navigation to change the owned box",
+        "C": "Shelf and targets recompute",
+        "D": "Stale variant IDs from the previous box"
+      },
+      {
+        "A": "UNEG-012",
+        "B": "Price changes before checkout",
+        "C": "Shopify price is authoritative",
+        "D": "Blocking checkout on a mismatch"
+      }
+    ],
+    "06 Definition of done": [
+      {
+        "A": "#",
+        "B": "Requirement",
+        "C": "Verified by"
+      },
+      {
+        "A": "1",
+        "B": "All 64 size path cases pass",
+        "C": "Manual run"
+      },
+      {
+        "A": "2",
+        "B": "All 64 space path cases pass",
+        "C": "Manual run"
+      },
+      {
+        "A": "3",
+        "B": "All 32 program path cases pass",
+        "C": "Manual run"
+      },
+      {
+        "A": "4",
+        "B": "All 15 new behaviour cases pass",
+        "C": "Manual run"
+      },
+      {
+        "A": "5",
+        "B": "All 12 negative cases behave as specified",
+        "C": "Manual run"
+      },
+      {
+        "A": "6",
+        "B": "sizeup_blocked fires ZERO times across the whole test set",
+        "C": "Klaviyo event export. This is the acceptance metric for fix 1"
+      },
+      {
+        "A": "7",
+        "B": "Every event reaches Klaviyo",
+        "C": "Non-zero counts in the Klaviyo metrics list. Console logs do not count"
+      },
+      {
+        "A": "8",
+        "B": "Every profile property appears on a real Klaviyo profile",
+        "C": "Open a profile and read the custom properties panel"
+      },
+      {
+        "A": "9",
+        "B": "A real order completes end to end",
+        "C": "Place one test order"
+      },
+      {
+        "A": "10",
+        "B": "TALL 28x28 appears nowhere",
+        "C": "Inspect the picker"
+      },
+      {
+        "A": "11",
+        "B": "All six deliverables received",
+        "C": "See tab 00"
+      }
+    ]
+  }
+}

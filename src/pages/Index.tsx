@@ -1,15 +1,36 @@
 ﻿import { Link, useLocation, useSearchParams } from "react-router-dom";
-import { ArrowRight, House, PackagePlus } from "lucide-react";
+import { ArrowRight, Gift, House, PackagePlus, RefreshCcw, Box, Wrench } from "lucide-react";
 import EZWhelpQuiz from "@/components/EZWhelpQuiz";
+import SingleBoxQuiz from "@/components/quiz-lanes/SingleBoxQuiz";
+import GiftQuiz from "@/components/quiz-lanes/GiftQuiz";
+import RestockQuiz from "@/components/quiz-lanes/RestockQuiz";
+import UpgradeQuiz from "@/components/quiz-lanes/UpgradeQuiz";
 import PuppyScene from "@/components/PuppyScene";
 import "@/quiz-layout.css";
+import "@/quiz-lanes.css";
 
 export default function Index() {
   const [params] = useSearchParams();
   const location = useLocation();
   const path = params.get("path");
-  const showQuiz = location.pathname === "/quiz" || path === "new" || path === "existing";
-  const initialPath = path === "existing" ? "existing" : "new";
+  const quiz = params.get("quiz");
+  const showQuiz = location.pathname === "/quiz" || path === "new" || path === "existing" || Boolean(quiz);
+  const initialPath = path === "existing" || quiz === "restock" || quiz === "upgrade" ? "existing" : "new";
+  const choices = [
+    { label: "Build a new setup", items: [
+      { title: "Build My Perfect Bundle", subtitle: "Complete setup, sized to your mama", to: "/quiz?path=new", icon: PackagePlus, tone: "peach" },
+      { title: "EZclassic Single Box quiz", subtitle: "One EZclassic box", to: "/quiz?quiz=ezclassic", icon: Box, tone: "sage" },
+      { title: "Fab System Single Box quiz", subtitle: "One Fab System box", to: "/quiz?quiz=fab", icon: Box, tone: "green" },
+    ] },
+    { label: "I already own a box", items: [
+      { title: "I Already Have an EZWhelp Box", subtitle: "Add-ons that fit it", to: "/quiz?path=existing", icon: House, tone: "sage" },
+      { title: "Restock & repair", subtitle: "Pads, liners, parts", to: "/quiz?quiz=restock", icon: RefreshCcw, tone: "peach" },
+      { title: "Upgrade my setup", subtitle: "Bigger mama or more litters", to: "/quiz?quiz=upgrade", icon: Wrench, tone: "peach" },
+    ] },
+    { label: "Gifting", items: [
+      { title: "Gift a breeder", subtitle: "Gift cards and gift-ready pieces", to: "/quiz?quiz=gift", icon: Gift, tone: "sage" },
+    ] },
+  ];
   return (
     <main className="quiz-page">
       <svg className="quiz-paw-pattern" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
@@ -18,7 +39,7 @@ export default function Index() {
       </svg>
       {showQuiz ? (
         <section className="quiz-page-content" aria-label="Find your whelping setup">
-          <EZWhelpQuiz key={initialPath} initialPath={initialPath} />
+          {quiz === "fab" || quiz === "ezclassic" ? <SingleBoxQuiz key={quiz} system={quiz} /> : quiz === "gift" ? <GiftQuiz /> : quiz === "restock" ? <RestockQuiz /> : quiz === "upgrade" ? <UpgradeQuiz /> : <EZWhelpQuiz key={initialPath} initialPath={initialPath} />}
         </section>
       ) : (
         <section className="quiz-home">
@@ -26,18 +47,18 @@ export default function Index() {
           <h1>Whelping <span>Made Easy</span></h1>
           <p>Pick where you want to start.</p>
           <div className="quiz-home-paths">
-            <span className="quiz-home-label">Build a new setup</span>
-            <Link to="/quiz?path=new" className="quiz-home-link">
-              <PackagePlus aria-hidden="true" />
-              <span><strong>Build My Perfect Bundle</strong><small>Complete setup, sized to your mama</small></span>
-              <ArrowRight aria-hidden="true" />
-            </Link>
-            <span className="quiz-home-label">I already own a box</span>
-            <Link to="/quiz?path=existing" className="quiz-home-link">
-              <House aria-hidden="true" />
-              <span><strong>I Already Have an EZWhelp Box</strong><small>Add-ons that fit it</small></span>
-              <ArrowRight aria-hidden="true" />
-            </Link>
+            {choices.map((group) => (
+              <div className="quiz-home-group" key={group.label}>
+                <span className="quiz-home-label">{group.label}</span>
+                {group.items.map(({ title, subtitle, to, icon: Icon, tone }) => (
+                  <Link to={to} className="quiz-home-link" key={title}>
+                    <Icon className={`quiz-home-icon quiz-home-icon-${tone}`} aria-hidden="true" />
+                    <span><strong>{title}</strong><small>{subtitle}</small></span>
+                    <ArrowRight aria-hidden="true" />
+                  </Link>
+                ))}
+              </div>
+            ))}
           </div>
           <a className="quiz-support" href="mailto:support@ezwhelp.com">Need a hand? support@ezwhelp.com</a>
         </section>
