@@ -9,7 +9,7 @@ import GiftQuiz from '@/components/quiz-lanes/GiftQuiz';
 import UpgradeQuiz from '@/components/quiz-lanes/UpgradeQuiz';
 
 vi.mock('@/components/PuppyScene',()=>({default:()=> <video data-testid="shared-video"/>}));
-vi.mock('@/lib/quiz-lanes/client',()=>({track:vi.fn(),useLaneEvents:vi.fn(),submitProfile:vi.fn().mockResolvedValue(undefined),useLiveProducts:(keys:string[])=>({live:Object.fromEntries(keys.flatMap(key=>{const p=product(key);return p?[[key,{...p,price:10000,available:true}]]:[];})),loading:false,retry:vi.fn()})}));
+vi.mock('@/lib/quiz-lanes/client',()=>({track:vi.fn(),useLaneEvents:vi.fn(),useRecommendation:vi.fn(),useShownEvent:vi.fn(),submitProfile:vi.fn().mockResolvedValue(undefined),useLiveProducts:(keys:string[])=>({live:Object.fromEntries(keys.flatMap(key=>{const p=product(key);return p?[[key,{...p,price:10000,available:true}]]:[];})),loading:false,retry:vi.fn()})}));
 afterEach(()=>{cleanup();localStorage.clear();});
 const owner:Owner={system:'fab',size:'4x4',height:'standard',windowed:false};
 const answers:Answers={breed:'Labrador Retriever',weight:'',experience:'first',stage:'preparing',jumps:false,windowed:false,date:'2026-10-04',litter:'4_6',email:'test@example.com'};
@@ -36,6 +36,8 @@ describe('shared quiz layout and navigation',()=>{
   });
   it.each(['fab','ezclassic'] as const)('%s progresses and goes back with answers preserved',system=>{
     render(<MemoryRouter><SingleBoxQuiz system={system}/></MemoryRouter>);
+    expect(screen.queryByRole('region',{name:'Breed suggestions'})).not.toBeInTheDocument();
+    fireEvent.change(screen.getByRole('searchbox',{name:'Search her breed'}),{target:{value:'labrador'}});
     fireEvent.click(screen.getByRole('button',{name:'Labrador Retriever'}));
     expect(screen.getByRole('heading',{name:'Litters raised'})).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button',{name:'First'}));

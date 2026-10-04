@@ -26,8 +26,9 @@ export function Cart({lane,lines,live,setLines,email,properties={},content='reco
   const lockedRail=(key:string)=>lines.some(r=>{const p=product(r.key);if(!p||p.handle!=='fab-system-whelping-box'&&p.handle!=='fab-system-whopper-box-7x6')return false;return ['3x3','4x4','4x6','7x6'].some(s=>r.key===`fab${s}`&&key===`FS_Rail${s}`);});
   const checkout=async(skipProfile=false)=>{
     setError('');if(!lines.length||!url)return;
-    if((lane==='restock'||lane==='upgrade')&&!emailStep){setEmailStep(true);return;}
-    if(emailStep&&!/^\S+@\S+\.\S+$/.test(address)){setError('Enter a valid email address.');return;}
+    track(lane,'add_to_cart_click',{item_count:quantity});
+    if((lane==='restock'||lane==='upgrade')&&!emailStep){setEmailStep(true);track(lane,'email_capture_click');return;}
+    if(emailStep&&!/^\S+@\S+\.\S+$/.test(address.trim())){setError('Enter a valid email address.');return;}
     setBusy(true);
     try{
       // Re-resolve every selected item; never redirect with a partial or stale cart.
@@ -36,8 +37,9 @@ export function Cart({lane,lines,live,setLines,email,properties={},content='reco
       for(const row of lines){const p=product(row.key)!;const v=loaded.find(x=>x.handle===p.handle)?.variants.find(v=>v.id===p.variantId);fresh[row.key]={...p,price:v?.price??null,available:v?.available===true};}
       const problems=validateCart(lines,fresh);if(problems.length)throw Error(problems.join(' '));
       const target=cartUrl(lines,fresh,lane,content);if(!target)throw Error('Please review your selections.');
-      if(emailStep&&!skipProfile){try{await submitProfile(lane,address,{...properties,recommended_cart_url:target,email_consent:true,consent_timestamp:new Date().toISOString(),consent_source:lane,...(lane==='restock'?{reminder_optin:reminder,last_restock_date:new Date().toISOString(),last_restock_skus:lines.map(r=>product(r.key)?.sku)}:{})});track(lane,lane==='restock'?'Restock Email Captured':'Upgrade Email Captured',{email_consent:true,reminder_optin:reminder},address);}catch{setProfileFailed(true);throw Error('We could not save your email for follow-up. Retry, or continue to checkout without email follow-up.');}}
-      track(lane,'Added to Cart',{variant_ids:lines.map(r=>fresh[r.key].variantId),quantities:lines.map(r=>r.quantity),cart_value:lines.reduce((s,r)=>s+fresh[r.key].price!*r.quantity,0)/100},email||address);
+      if((emailStep||email)&&!skipProfile){try{await submitProfile(lane,email||address,{...properties,recommended_cart_url:target,email_consent:true,consent_timestamp:new Date().toISOString(),consent_source:lane,...(lane==='restock'?{reminder_optin:reminder,last_restock_date:new Date().toISOString().slice(0,10),last_restock_skus:lines.map(r=>product(r.key)?.sku).filter(Boolean).join(',')}:{})});track(lane,lane==='restock'?'Restock Email Captured':lane==='upgrade'?'Upgrade Email Captured':'email_my_build',{email_consent:true,reminder_optin:reminder},address);}catch{setProfileFailed(true);throw Error('We could not save your email for follow-up. Retry, or continue to checkout without email follow-up.');}}
+      const recorded=await track(lane,'Added to Cart',{variant_ids:lines.map(r=>fresh[r.key].variantId),quantities:lines.map(r=>r.quantity),cart_value:lines.reduce((s,r)=>s+fresh[r.key].price!*r.quantity,0)/100},email||address);
+      if(!recorded)throw Error('We could not save your cart. Please retry checkout.');
       onCheckout?.();window.location.assign(target);
     }catch(e){setError(e instanceof Error?e.message:'Checkout is unavailable. Please retry.');}finally{setBusy(false);}
   };
@@ -46,6 +48,6 @@ export function Cart({lane,lines,live,setLines,email,properties={},content='reco
     {emailStep&&lines.length>0&&<section className="lane-email"><h2>Where should we send your order?</h2><label htmlFor="checkout-email">Your email</label><input id="checkout-email" type="email" autoComplete="email" value={address} onChange={e=>setAddress(e.target.value)}/>{lane==='restock'&&<label className="lane-check"><input type="checkbox" checked={reminder} onChange={e=>setReminder(e.target.checked)}/>Remind me when I'm due for more pads</label>}<p>{consentCopy}</p></section>}
     {error&&<div className="lane-notice" role="alert">{error}{profileFailed&&<button disabled={busy} onClick={()=>void checkout(true)}>Continue without email follow-up</button>}</div>}
     {lines.length>0&&errors.length>0&&<div className="lane-notice" role="status">{errors.map(message=><p key={message}>{message}</p>)}<p><a href="mailto:customer_service@ezwhelp.com">Contact customer service for help with this setup.</a></p></div>}
-    <footer className="lane-cart"><div><strong>{quantity?`${quantity} item${quantity===1?'':'s'}`:'Your cart is empty'}</strong><span>{quantity?(known?money(total):'Confirming prices…'):'Choose something to get started'}</span></div>{setLines&&<button onClick={()=>setOpen(!open)} disabled={!lines.length}>{open?'Hide cart':'Review cart'}</button>}<button className="lane-primary" disabled={!url||busy} onClick={()=>void checkout()}>{busy?'Checking…':'Go to checkout'}</button></footer>
+    <footer className="lane-cart"><div><strong>{quantity?`${quantity} item${quantity===1?'':'s'}`:'Your cart is empty'}</strong><span>{quantity?(known?money(total):'Confirming prices…'):'Choose something to get started'}</span></div>{setLines&&<button onClick={()=>{setOpen(!open);if(!open)track(lane,'cart_open',{item_count:quantity});}} disabled={!lines.length}>{open?'Hide cart':'Review cart'}</button>}<button className="lane-primary" disabled={!url||busy} onClick={()=>void checkout()}>{busy?'Checking…':'Go to checkout'}</button></footer>
   </>;
 }

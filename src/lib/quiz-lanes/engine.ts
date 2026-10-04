@@ -1,4 +1,5 @@
 import data from './reference-data.json';
+import { identity } from './identity';
 
 export type Lane = 'ezclassic' | 'fab' | 'gift' | 'restock' | 'upgrade';
 export type System = 'ezclassic' | 'fab';
@@ -6,7 +7,7 @@ export type Stage = 'preparing' | 'due_7' | 'born_0_3' | 'week_1_2' | 'week_3_pl
 export type Size = '28x28' | '38x38' | '48x48' | '48x76' | '3x3' | '4x4' | '4x6' | '7x6';
 export type Litter = '1_3' | '4_6' | '7_9' | '10_plus';
 export interface Owner { system: System; size: Size; height: 'standard' | 'tall'; windowed: boolean; rooms?: boolean }
-export interface Answers { breed: string; weight: string; experience: string; stage: Stage; jumps: boolean; windowed: boolean; date: string; litter: Litter; email: string }
+export interface Answers { breed: string; breed_free_text?: string; weight: string; experience: string; stage: Stage; jumps: boolean; windowed: boolean; date: string; litter: Litter; email: string }
 export interface Product { key: string; sku: string | null; variantId: string; handle: string; title: string; variant: string; image: string }
 export interface Offer { key: string; quantity: number; selected: boolean; category: string; locked?: boolean; note?: string }
 export interface LiveProduct extends Product { price: number | null; available: boolean; error?: string }
@@ -170,7 +171,7 @@ export function validateCart(cart:CartLine[],live:Record<string,LiveProduct>):st
 export function cartUrl(cart:CartLine[],live:Record<string,LiveProduct>,lane:Lane,content='recommended'):string|null {
   if(!cart.length||validateCart(cart,live).length)return null;
   const ids=new Map<string,number>();cart.forEach(r=>ids.set(live[r.key].variantId,(ids.get(live[r.key].variantId)||0)+r.quantity));
-  return `https://www.ezwhelp.com/cart/${[...ids].map(([id,q])=>`${id}:${q}`).join(',')}?${new URLSearchParams({utm_source:'quiz',utm_medium:['gift','restock','upgrade'].includes(lane)?lane:'recommendation',utm_campaign:campaigns[lane],utm_content:content})}`;
+  return `https://www.ezwhelp.com/cart/${[...ids].map(([id,q])=>`${id}:${q}`).join(',')}?${new URLSearchParams({'attributes[attempt_id]':identity(lane).attempt_id,utm_source:'quiz',utm_medium:['gift','restock','upgrade'].includes(lane)?lane:'recommendation',utm_campaign:campaigns[lane],utm_content:content})}`;
 }
 
 const bundleContents:Record<string,Record<string,number>>={

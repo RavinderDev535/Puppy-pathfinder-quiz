@@ -1,11 +1,12 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { boxKey, defaultLitter, footprint, litterLabels, Litter, mergeCart, Offer, Owner, ownerLabel, product, requiredBox, Size, sizeUpgrade, spaceShelf, validSizes, weightLabels } from '@/lib/quiz-lanes/engine';
-import { track, useLaneEvents, useLiveProducts } from '@/lib/quiz-lanes/client';
+import { track, useLaneEvents, useLiveProducts, useRecommendation, useShownEvent } from '@/lib/quiz-lanes/client';
 import { Cart, normalizeFabRails, useCart } from './Cart';
 import { BreedPicker, Choices, money, OwnerPicker, OwnerSummary, ProductRow, Shell } from './Shared';
 
 export default function UpgradeQuiz(){
+  const [breedFreeText,setBreedFreeText]=useState('');
   const [owner,setOwner]=useState<Owner|null>(null);const [path,setPath]=useState('');const [step,setStep]=useState('owner');const [breed,setBreed]=useState('');const [weight,setWeight]=useState('');const [litter,setLitter]=useState<Litter>('4_6');const [areas,setAreas]=useState(2);const [different,setDifferent]=useState(false);const [nextSize,setNextSize]=useState<Size|null>(null);const [cart,setCart]=useCart('upgrade');const [changes,setChanges]=useState<Record<string,{selected?:boolean;quantity?:number}>>({});const [error,setError]=useState('');const [done,setDone]=useState(false);
   const target=owner&&path==='size'?sizeUpgrade(owner,breed,weight):null;
   const newOwner=owner?{...owner,size:nextSize||owner.size}:null;
@@ -25,26 +26,32 @@ export default function UpgradeQuiz(){
   const compareKey=owner&&target?.kind==='kit'?boxKey({...owner,size:target.target!}):null;
   const {live,loading,retry}=useLiveProducts([...rows.map(r=>r.key),...cart.map(r=>r.key),...(compareKey?[compareKey]:[])]);
   useLaneEvents('upgrade',{last_step:step,upgrade_path:path,item_count:cart.length},done);
-  const chooseOwner=(o:Owner)=>{setOwner(o);setChanges({});setNextSize(null);setStep('path');track('upgrade','picker_select',{...o,footprint:o.size});};
-  const choosePath=(value:string)=>{setPath(value);setChanges({});setError('');setStep(value==='size'?'breed':value==='space'?'litter':'areas');track('upgrade','upgrade_path',{path:value});};
-  const chooseBreed=(value:string)=>{setBreed(value);setWeight('');setChanges({});setStep(value==='not_listed'?'weight':'results');if(value!=='not_listed')track('upgrade','new_dam_breed',{breed:value});};
+  useRecommendation('upgrade',step==='results'&&!loading,rows,live,{upgrade_path:path,breed,breed_free_text:breedFreeText},cart);
+  useShownEvent('upgrade','reassurance_shown',step==='results'&&target?.kind==='reassurance',{owned_footprint:owner?.size,target_footprint:target?.target});
+  useShownEvent('upgrade','sizeup_shown',step==='results'&&target?.kind==='kit',{target_footprint:target?.target});
+  useShownEvent('upgrade','size_up_shown',step==='results'&&target?.kind==='box',{target_footprint:target?.target});
+  useShownEvent('upgrade','sizeup_blocked',step==='results'&&target?.kind==='xl',{owned_footprint:owner?.size});
+  useShownEvent('upgrade','whale_escape_shown',step==='results'&&path==='program'&&areas>=3,{program_qty:areas});
+  const chooseOwner=(o:Owner)=>{setOwner(o);setChanges({});setNextSize(null);setStep('path');track('upgrade','picker_select',{...o,footprint:o.size});track('upgrade','Quiz Step Completed',{step_name:'owner',step_number:1,answer:o});};
+  const choosePath=(value:string)=>{setPath(value);setChanges({});setError('');setStep(value==='size'?'breed':value==='space'?'litter':'areas');track('upgrade','upgrade_path',{path:value});track('upgrade','Quiz Step Completed',{step_name:'path',step_number:2,answer:value});};
+  const chooseBreed=(value:string,freeText='')=>{setBreedFreeText(freeText);setBreed(value);track('upgrade','Quiz Step Completed',{step_name:'breed',step_number:3,answer:value,breed_free_text:freeText});setWeight('');setChanges({});setStep(value==='not_listed'?'weight':'results');if(value!=='not_listed')track('upgrade','new_dam_breed',{breed:value});};
   const back=()=>{setError('');setStep(step==='path'?'owner':step==='weight'?'breed':step==='results'?path==='size'?'breed':path==='space'?'litter':'areas':'path');};
   if(step==='owner'||!owner)return <Shell lane="upgrade"><OwnerPicker initial={owner||undefined} onSelect={chooseOwner}/></Shell>;
   if(step!=='results')return <Shell lane="upgrade" back={back} progress={step==='path'?.3:.65}>
     {step==='path'&&<><h2>What's growing?</h2><Choices options={{size:'A bigger mama is coming',space:'Bigger litters, we need room',program:'More litters at once'}} value={path} onChange={choosePath}/></>}
     {step==='breed'&&<><h2>Her breed</h2><BreedPicker value={breed} onSelect={chooseBreed}/></>}
-    {step==='weight'&&<><h2>Her weight</h2><Choices options={weightLabels} value={weight} onChange={v=>{setWeight(v);setStep('results');track('upgrade','new_dam_band',{band:v});}}/></>}
-    {step==='litter'&&<><h2>How many puppies?</h2><Choices options={litterLabels} value={litter} onChange={v=>{setLitter(v as Litter);setChanges({});setStep('results');track('upgrade','litter_size_selected',{band:v});}}/></>}
-    {step==='areas'&&<><h2>How many areas?</h2><Choices options={{'2':'Two whelping areas','3':'Three whelping areas','4':'Four whelping areas'}} value={String(areas)} onChange={v=>{setAreas(Number(v));setStep('results');setChanges({});}}/></>}
+    {step==='weight'&&<><h2>Her weight</h2><Choices options={weightLabels} value={weight} onChange={v=>{setWeight(v);track('upgrade','Quiz Step Completed',{step_name:'weight',step_number:4,answer:v});setStep('results');track('upgrade','new_dam_band',{band:v});}}/></>}
+    {step==='litter'&&<><h2>How many puppies?</h2><Choices options={litterLabels} value={litter} onChange={v=>{setLitter(v as Litter);track('upgrade','Quiz Step Completed',{step_name:'litter',step_number:3,answer:v});setChanges({});setStep('results');track('upgrade','litter_size_selected',{band:v});}}/></>}
+    {step==='areas'&&<><h2>How many areas?</h2><Choices options={{'2':'Two whelping areas','3':'Three whelping areas','4':'Four whelping areas'}} value={String(areas)} onChange={v=>{setAreas(Number(v));track('upgrade','Quiz Step Completed',{step_name:'areas',step_number:3,answer:Number(v)});setStep('results');setChanges({});}}/></>}
   </Shell>;
-  if(target?.kind==='reassurance')return <Shell lane="upgrade" back={back}><h2>Her box already fits</h2><p>Your {ownerLabel(owner)} already covers the recommended {target.target} size for {breed==='not_listed'?'her weight':breed}.</p><Link className="lane-primary" to="/quiz?quiz=restock" onClick={()=>track('upgrade','reassurance_shown',{owned_footprint:owner.size,target_footprint:target.target})}>Restock your setup</Link></Shell>;
-  if(target?.kind==='xl')return <Shell lane="upgrade" back={back}><h2>Plan her XL setup</h2><p>She needs an XL setup. Explore the 48x76 EZclassic with 28-inch panels, or ask us to plan the space with you.</p>{[false,true].map(windowed=>{const p=product(boxKey({system:'ezclassic',size:'48x76',height:'tall',windowed}));return p&&<a key={p.key} className="lane-fallback" href={`https://www.ezwhelp.com/products/${p.handle}?variant=${p.variantId}&entry=upgrade`}>{windowed?'Windowed':'Solid'} XL 48x76 box</a>;})}<a className="lane-primary" href="mailto:customer_service@ezwhelp.com?subject=XL%20setup%20planning">Plan with our team</a></Shell>;
+  if(target?.kind==='reassurance')return <Shell lane="upgrade" back={back}><h2>Her box already fits</h2><p>Your {ownerLabel(owner)} already covers the recommended {target.target} size for {breed==='not_listed'?'her weight':breed}.</p><Link className="lane-primary" to="/quiz?quiz=restock" >Restock your setup</Link></Shell>;
+  if(target?.kind==='xl')return <Shell lane="upgrade" back={back}><h2>Plan her XL setup</h2><p>She needs an XL setup. Explore the 48x76 EZclassic with 28-inch panels, or ask us to plan the space with you.</p>{[false,true].map(windowed=>{const p=product(boxKey({system:'ezclassic',size:'48x76',height:'tall',windowed}));return p&&<a key={p.key} className="lane-fallback" href={`https://www.ezwhelp.com/products/${p.handle}?variant=${p.variantId}&entry=upgrade`}>{windowed?'Windowed':'Solid'} XL 48x76 box</a>;})}<a className="lane-primary" onClick={()=>track('upgrade','xl_support_routed')} href="mailto:customer_service@ezwhelp.com?subject=XL%20setup%20planning">Plan with our team</a></Shell>;
   const selected=rows.filter(r=>r.selected);const cannotAdd=selected.length===0||selected.some(r=>!live[r.key]?.available||!live[r.key]?.price);
   const add=()=>{
     if(cannotAdd)return;let next=cart;
     if(selected.some(r=>r.category==='sizeup'))next=next.filter(r=>!/pad|liner/i.test(product(r.key)?.title||''));
     for(const r of selected)next=mergeCart(next,{key:r.key,quantity:r.quantity,owner:ownerLabel(owner)});
-    setCart(normalizeFabRails(next));track('upgrade',path==='program'?'another_box_added':'add_to_cart_click',{same_size:!different,sku:selected.map(r=>r.key),variant_id:selected.map(r=>live[r.key].variantId),qty:selected.map(r=>r.quantity)});setError('Added to your cart.');
+    setCart(normalizeFabRails(next));track('upgrade',path==='program'?'another_box_added':'add_to_cart_click',{same_size:!different,sku:selected.map(r=>product(r.key)?.sku).filter(Boolean),variant_id:selected.map(r=>live[r.key].variantId),qty:selected.map(r=>r.quantity)});setError('Added to your cart.');
   };
   const missing=rows.filter(r=>!product(r.key));
   return <Shell lane="upgrade" wide back={back}><h1>{path==='size'&&target?.kind==='kit'?"You don't need a new box, grow this one.":path==='space'?'Room for growing puppies':'Grow your program'}</h1><OwnerSummary owner={owner} change={()=>setStep('owner')}/>
@@ -55,6 +62,6 @@ export default function UpgradeQuiz(){
     {missing.length>0&&<p className="lane-notice">Some parts of this setup could not be resolved: {missing.map(r=>r.key).join(', ')}. Contact customer service.</p>}
     {rows.map(row=><ProductRow key={row.key} offer={row} live={live[row.key]} selected={row.selected} onToggle={row.locked?undefined:()=>setChanges({...changes,[row.key]:{...changes[row.key],selected:!row.selected}})} onQuantity={row.locked?undefined:quantity=>setChanges({...changes,[row.key]:{...changes[row.key],quantity}})}/>)}
     <button className="lane-primary" disabled={cannotAdd} onClick={add}>Add selected items</button>{error&&<p role="status">{error}</p>}<button className="lane-link" disabled={loading} onClick={retry}>Refresh availability</button>
-    <Cart lane="upgrade" lines={cart} live={live} setLines={setCart} content={path==='size'?(target?.kind==='kit'?'sizeup':'newbox'):path} properties={{box_system:owner.system,box_size:owner.size,panel_height:owner.height,windowed:owner.windowed,upgrade_path:path,new_dam_breed:breed,target_box_size:target?.target||nextSize||owner.size,litter_size_band:litter,program_qty:areas}} onCheckout={()=>setDone(true)}/>
+    <Cart lane="upgrade" lines={cart} live={live} setLines={setCart} content={path==='size'?(target?.kind==='kit'?'sizeup':'newbox'):path} properties={{box_system:owner.system,box_size:owner.size,has_box:true,...(owner.system==='ezclassic'?{panel_height:owner.height,windowed:owner.windowed}:{has_addon_rooms:!!owner.rooms}),upgrade_path:path,...(path==='size'?{breed,breed_unresolved:breed==='not_listed',breed_free_text:breedFreeText,size_band:weight}:{}),target_box_size:target?.target||nextSize||owner.size,...(path==='space'?{litter_size_band:litter}:{}),...(path==='program'?{program_qty:areas}:{})}} onCheckout={()=>setDone(true)}/>
   </Shell>;
 }

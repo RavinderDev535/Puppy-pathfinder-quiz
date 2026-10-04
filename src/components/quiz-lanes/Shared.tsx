@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from 'react';
+import { useId, useRef, useState, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Check, RotateCcw, Search, LockKeyhole } from 'lucide-react';
 import PuppyScene from '@/components/PuppyScene';
@@ -11,10 +11,29 @@ export function Shell({lane,children,back,restart,progress,wide=false}:{lane:Lan
   return <section className={`reference-quiz-card lane-shell ${wide?'lane-wide':''}`}><div className="reference-quiz-panel lane-panel"><p className="lane-eyebrow">{titles[lane]}</p><div className="storybook-question-content lane-content">{children}</div><div className="quiz-navigation lane-navigation">{progress!==undefined&&<div className="lane-progress" role="progressbar" aria-label="Quiz progress" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(progress*100)}><div style={{width:`${progress*100}%`}}/></div>}<nav className="reference-quiz-nav">{back?<button className="reference-back" onClick={back}><ArrowLeft size={16}/>Back</button>:<Link className="reference-back" to="/">All quizzes</Link>}<div className="reference-nav-right"><Link className="reference-home" to="/">⌂ Home</Link>{restart&&<button className="reference-restart" onClick={restart}>Restart</button>}</div></nav></div><div className="quiz-brand flex justify-center mt-1 md:mt-7 pb-0 md:pb-4"><a href="https://www.ezwhelp.com/" target="_blank" rel="noopener noreferrer"><img src={ezwhelpLogo} alt="EZWhelp" className="h-7 md:h-9 object-contain opacity-35"/></a></div></div><aside className="reference-scene-slot lane-scene"><PuppyScene/></aside></section>;
 }
 export function Choices({options,value,onChange}:{options:Record<string,string>;value?:string;onChange:(key:string)=>void}) {return <div className="lane-choices">{Object.entries(options).map(([key,label])=><button className={`duo-option ${key===value?'duo-option-selected':''}`} key={key} type="button" aria-pressed={key===value} onClick={()=>onChange(key)}><div className="font-display">{label}</div><Check size={18} aria-hidden="true" className={key===value?'':'invisible'}/></button>)}</div>;}
-export function BreedPicker({value,onSelect}:{value:string;onSelect:(value:string)=>void}){
+export function BreedPicker({value,onSelect}:{value:string;onSelect:(value:string,freeText?:string)=>void}){
+  const id=useId();
+  const results=useRef<HTMLDivElement>(null);
   const [query,setQuery]=useState(value==='not_listed'?'':value);
-  const matches=breeds.filter(b=>b.name.toLowerCase().includes(query.trim().toLowerCase()));
-  return <div><label htmlFor="lane-breed">Search her breed</label><div className="lane-search"><Search size={18}/><input id="lane-breed" autoComplete="off" type="search" placeholder="Start typing the breed" value={query} onChange={e=>setQuery(e.target.value)}/></div><div className="lane-breeds" aria-label="Breeds">{matches.map(b=><button type="button" key={b.name} onClick={()=>onSelect(b.name)}>{b.name}</button>)}{!matches.length&&<p>No matching breed. Choose the weight option below.</p>}</div><button className="lane-fallback" type="button" onClick={()=>onSelect('not_listed')}><strong>My breed is not listed</strong><small>Pick her weight range instead</small></button></div>;
+  const [open,setOpen]=useState(false);
+  const search=query.trim().toLowerCase();
+  const matches=search?breeds.filter(b=>b.name.toLowerCase().includes(search)):[];
+  const showResults=open&&!!search;
+  return <div className="lane-breed-picker" onBlur={e=>{if(!e.currentTarget.contains(e.relatedTarget))setOpen(false);}} onKeyDown={e=>{if(e.key==='Escape'){setOpen(false);e.currentTarget.querySelector('input')?.focus();}}}>
+    <label htmlFor={id}>Search her breed</label>
+    <div className="lane-search">
+      <Search size={18} aria-hidden="true"/>
+      <input id={id} autoComplete="off" type="search" placeholder="Start typing the breed" value={query}
+        aria-controls={showResults?`${id}-results`:undefined}
+        onChange={e=>{setQuery(e.target.value);setOpen(true);}}
+        onKeyDown={e=>{if(e.key==='ArrowDown'&&search){e.preventDefault();setOpen(true);requestAnimationFrame(()=>results.current?.querySelector('button')?.focus());}}}/>
+    </div>
+    {showResults&&<div ref={results} id={`${id}-results`} className="lane-breeds" role="region" aria-label="Breed suggestions">
+      {matches.map(b=><button type="button" key={b.name} onClick={()=>{setQuery(b.name);setOpen(false);onSelect(b.name);}}>{b.name}<ArrowLeft size={16} aria-hidden="true"/></button>)}
+      {!matches.length&&<p role="status">No matching breed. Choose the weight option below.</p>}
+    </div>}
+    <button className="lane-fallback" type="button" onClick={()=>{setOpen(false);onSelect('not_listed',query);}}><strong>My breed is not listed</strong><small>Pick her weight range instead</small></button>
+  </div>;
 }
 export function OwnerPicker({initial,onSelect}:{initial?:Owner;onSelect:(owner:Owner)=>void}){
   const [kind,setKind]=useState(initial?initial.system==='fab'?'fab':initial.height:'');

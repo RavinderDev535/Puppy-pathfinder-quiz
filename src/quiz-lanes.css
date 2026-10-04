@@ -22,11 +22,18 @@
 .lane-shell form .lane-primary { display:flex; margin:20px auto 8px;min-width:140px; }
 .lane-link { min-height:48px;text-decoration:underline;align-self:flex-start;font-size:13px;color:var(--story-helper); }
 .lane-shell a:not(.lane-primary) { text-underline-offset:3px; }
-.lane-search { display:flex;align-items:center;gap:8px; }
-.lane-search svg { flex-shrink:0; }
-.lane-breeds { max-height:220px; overflow:auto; margin-top:8px; border:1px solid #d8c3a5; border-radius:12px; background:#fffaf2; }
-.lane-breeds button { display:block;width:100%;text-align:left;padding:12px 14px;min-height:48px;font-size:14px; }
-.lane-breeds button:hover { background:#f5e5cb; }
+.lane-breed-picker { width:100%;min-width:0; }
+.lane-breed-picker > label { display:block;margin-bottom:8px; }
+.lane-search { display:flex;align-items:center;gap:10px;width:100%;min-width:0;padding:0 14px;border:2px solid var(--story-wood-edge);border-radius:14px;background:var(--story-cream); }
+.lane-search svg { flex-shrink:0;color:var(--story-helper); }
+.lane-search:focus-within { outline:2px solid var(--story-coral);outline-offset:2px; }
+.lane-shell .lane-search input { flex:1;min-width:0;padding:12px 0;border:0 !important;border-radius:0;background:transparent;box-shadow:none; }
+.quiz-page .lane-shell .lane-search input:focus-visible { outline:none; }
+.lane-breeds { width:100%;max-height:240px;overflow-y:auto;overscroll-behavior:contain;margin-top:10px;padding:4px;border:1px solid #d8c3a5;border-radius:12px;background:#fffaf2;box-shadow:0 6px 16px #4a2e160d; }
+.lane-breeds button { display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;text-align:left;padding:12px;min-height:48px;border-radius:8px;font-size:14px;line-height:1.4;overflow-wrap:anywhere; }
+.lane-breeds button > svg { flex-shrink:0;transform:rotate(180deg);color:var(--story-helper); }
+.lane-breeds button:hover,.lane-breeds button:focus-visible { background:#f5e5cb; }
+.lane-breeds p { padding:12px;font-size:14px;line-height:1.5;color:var(--story-helper); }
 .lane-fallback { display:block;width:100%;padding:16px;border:2px solid #8a5a32;border-radius:14px;background:#fff8eb;text-align:left;margin:14px 0;min-height:56px; }
 .lane-fallback small,.lane-cart span { display:block;margin-top:4px; }
 .lane-chips,.lane-tabs { display:flex;flex-wrap:wrap;gap:8px;margin:14px 0; }

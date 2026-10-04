@@ -1,9 +1,11 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Answers, bestBundle, bornStage, boxKey, bundleCandidates, cartUrl, dateProperties, defaultLitter, experienceLabels, footprint, Lane, litterLabels, localToday, Offer, Owner, ownerLabel, product, requiredBox, resolveBreed, resolveFab, singleShelf, Size, stageLabels, weightLabels } from '@/lib/quiz-lanes/engine';
-import { submitProfile, track, useLaneEvents, useLiveProducts } from '@/lib/quiz-lanes/client';
+import { submitProfile, track, useLaneEvents, useLiveProducts, useRecommendation, useShownEvent } from '@/lib/quiz-lanes/client';
 import { Cart } from './Cart';
 import { BreedPicker, Choices, consentCopy, money, ProductRow, Shell } from './Shared';
+
+import { resetLaneAttempt } from '@/lib/quiz-lanes/identity';
 
 type SystemLane='fab'|'ezclassic';
 const empty:Answers={breed:'',weight:'',experience:'',stage:'preparing',jumps:false,windowed:false,date:'',litter:'4_6',email:''};
@@ -11,19 +13,20 @@ export default function SingleBoxQuiz({system}:{system:SystemLane}){
   const [a,setA]=useState<Answers>(empty);const [step,setStep]=useState('breed');const [history,setHistory]=useState<string[]>([]);const [error,setError]=useState('');const [completedAt,setCompletedAt]=useState('');
   const fields=['breed',...(a.breed==='not_listed'?['weight']:[]),'experience','stage',system==='fab'?'jumps':'windowed','date','litter','email'];
   useLaneEvents(system,{last_step:step,step_number:history.length+1,system},step==='results');
-  const advance=(value:unknown)=>{
+  const stepStarted=useRef(Date.now());
+  const advance=(value:unknown,freeText?:string)=>{
     setError('');let next={...a,[step]:value} as Answers;
-    if(step==='breed'){next={...next,weight:'',litter:defaultLitter(String(value),'')};}
+    if(step==='breed'){next={...next,breed_free_text:freeText,weight:'',litter:defaultLitter(String(value),'')};}
     if(step==='weight')next.litter=defaultLitter('not_listed',String(value));
     if(step==='stage'&&value!==a.stage)next.date='';
     if(step==='date'){try{dateProperties(a.stage,String(value));}catch(e){setError((e as Error).message);return;}}
     if(step==='email'&&!/^\S+@\S+\.\S+$/.test(String(value))){setError('Enter a valid email address.');return;}
-    setA(next);track(system,'Quiz Step Completed',{step_name:step,step_number:history.length+1,answer:step==='email'?'provided':value,system});
+    setA(next);track(system,'Quiz Step Completed',{step_name:step,step_number:history.length+1,answer:step==='email'?'provided':value,...(step==='breed'&&freeText?{breed_free_text:freeText}:{}),ms_spent:Date.now()-stepStarted.current,system});stepStarted.current=Date.now();if(step==='litter')track(system,'litter_size_selected',{band:value});
     const order=['breed',...(next.breed==='not_listed'?['weight']:[]),'experience','stage',system==='fab'?'jumps':'windowed','date','litter','email','results'];
     setHistory([...history,step]);setStep(order[order.indexOf(step)+1]);if(step==='email')setCompletedAt(new Date().toISOString());
   };
   const back=()=>{setStep(history[history.length-1]);setHistory(history.slice(0,-1));setError('');};
-  const restart=()=>{setA({...empty});setStep('breed');setHistory([]);setError('');setCompletedAt('');};
+  const restart=()=>{resetLaneAttempt(system);setA({...empty});setStep('breed');setHistory([]);setError('');setCompletedAt('');};
   if(step==='results')return <SingleResults key={JSON.stringify(a)} system={system} a={a} completedAt={completedAt} back={back} restart={restart}/>;
   const heading:Record<string,string>={breed:'Her breed',weight:'Her weight',experience:'Litters raised',stage:'Where you are',jumps:'Does she jump?',windowed:'Windowed panels?',date:bornStage(a.stage)?'Date of birth':'Due date',litter:'Litter size',email:'Your email'};
   return <Shell lane={system} back={history.length?back:undefined} restart={restart} progress={(fields.indexOf(step)+1)/fields.length}><h2 id="single-question">{heading[step]}</h2><p className="lane-muted">{step==='breed'?'We size everything around her.':'Choose the option that fits best.'}</p>
@@ -54,11 +57,13 @@ function SingleResults({system,a,completedAt,back,restart}:{system:SystemLane;a:
   const lines=bundle?[{key:bundle,quantity:1}]:offers.filter(r=>r.selected).map(({key,quantity})=>({key,quantity}));
   const url=cartUrl(lines,live,system,bundle?'bundle':windowed===a.windowed?'recommended':'alternative');
   const dates=dateProperties(a.stage,a.date);
-  const properties={...dates,box_system:system,box_size:size,panel_height:owner.height==='tall'?28:system==='fab'?21.4:18,breed:a.breed,experience:a.experience,stage:a.stage,litter_size_band:a.litter,jumps:a.jumps,source:system,email_consent:true,consent_timestamp:completedAt,consent_source:system,recommended_cart_url:url};
+  const properties={...dates,box_system:system,box_size:size,...(system==='ezclassic'?{panel_height:owner.height,windowed}:{has_addon_rooms:false}),breed:a.breed,breed_unresolved:a.breed==='not_listed',breed_free_text:a.breed_free_text,size_band:a.weight,is_xl:size==='48x76',experience:a.experience,stage:a.stage,litter_size_band:a.litter,jumps:a.jumps,source:system,email_consent:true,consent_timestamp:completedAt,consent_source:system,recommended_cart_url:url};
   const profileSent=useRef(false);
   const send=()=>{setProfileError('');void submitProfile(system,a.email,properties).catch(e=>setProfileError(e.message));};
-  useEffect(()=>{if(loading||profileSent.current)return;profileSent.current=true;track(system,'Quiz Completed',properties,a.email);send();},[loading]);
-  const setOffer=(row:Offer,update:{selected?:boolean;quantity?:number})=>{setBundle(null);setChanges(old=>({...old,[row.key]:{...old[row.key],...update}}));};
+  useRecommendation(system,!loading,[...offers,...alternatives.map(key=>({key,quantity:1})),...(bundle?[{key:bundle,quantity:1}]:[])],live,properties,lines);
+  useShownEvent(system,'bundle_match_shown',!!suggestion&&!bundle,{bundle_name:suggestion?.name});
+  useEffect(()=>{if(loading||profileSent.current||!url)return;profileSent.current=true;send();},[loading,url]);
+  const setOffer=(row:Offer,update:{selected?:boolean;quantity?:number})=>{track(system,'toggle_change',{sku:product(row.key)?.sku,variant_id:product(row.key)?.variantId,...update});setBundle(null);setChanges(old=>({...old,[row.key]:{...old[row.key],...update}}));};
   const seconds=system==='fab'&&(size==='3x3'||size==='4x6');
   return <Shell lane={system} wide back={back} restart={restart}><h1>Your {system==='fab'?'Fab':'EZclassic'} setup</h1><p className="lane-summary">{a.breed==='not_listed'?weightLabels[a.weight]:a.breed} · {experienceLabels[a.experience]} litters · {stageLabels[a.stage]} · {system==='fab'?(a.jumps?'May jump':'Does not jump'):(a.windowed?'Windowed panels':'Solid panels')} · {bornStage(a.stage)?'Born':'Due'} {a.date} · {litterLabels[a.litter]} puppies</p>{dates.go_home_date&&<p>Go-home date: {dates.go_home_date}</p>}
     {system==='ezclassic'&&choices.length>1&&<section><h2>Choose her size</h2><div className="lane-chips">{choices.map(s=><button key={s} aria-pressed={s===size} onClick={()=>{setSize(s);setChanges({});setBundle(null);}}>{s}{s===choices[0]?' · Best fit':''}</button>)}</div><p className="lane-muted">Best fit for most {a.breed}. Pick the larger size for a bigger mama or litter.{choices.includes('48x76')?' The TALL 48x76 has 28-inch panels.':''}</p></section>}
@@ -67,7 +72,7 @@ function SingleResults({system,a,completedAt,back,restart}:{system:SystemLane;a:
     {system==='fab'&&<><ProductRow offer={locked[1]} live={live[locked[1].key]}/><p className="lane-muted">Fab rails are sold separately and are required. They create the protective gap around the mother and puppies. Box and rails cannot be removed from this setup.</p></>}
     <h2>Suggested add-ons</h2>{shelf.map(row=><ProductRow key={row.key} offer={row} live={live[row.key]} selected={row.selected} onToggle={()=>setOffer(row,{selected:!row.selected})} onQuantity={quantity=>setOffer(row,{quantity})}/>)}
     {system==='fab'&&a.jumps&&<section className="lane-suggestion"><h2>She may get out</h2><p>Fab walls are 21.4 inches. A compatible Stack Kit adds a second tier.</p>{stackOffer?<ProductRow offer={stackOffer} live={live[stackOffer.key]} selected={changes[stackOffer.key]?.selected||false} onToggle={()=>setOffer(stackOffer,{selected:!changes[stackOffer.key]?.selected})}/>:<p>No Stack Kit is available for {size}. <a href="mailto:customer_service@ezwhelp.com">Contact us about containment options.</a></p>}</section>}
-    {system==='ezclassic'&&suggestion&&!bundle&&<section className="lane-suggestion"><h2>{suggestion.difference<0?'Better value':'More included'}</h2><p>The {suggestion.name.replace('_',' ')} includes everything selected for {money(suggestion.price)}. {suggestion.difference<0?`Save ${money(-suggestion.difference)}.`:`${money(suggestion.difference)} more, with extras: ${suggestion.extras.join(', ')}.`}</p><button className="lane-primary" onClick={()=>{setBundle(suggestion.key);track(system,'Card Clicked',{selected_card:'bundle',bundle_name:suggestion.name});}}>Choose this bundle</button></section>}
+    {system==='ezclassic'&&suggestion&&!bundle&&<section className="lane-suggestion"><h2>{suggestion.difference<0?'Better value':'More included'}</h2><p>The {suggestion.name.replace('_',' ')} includes everything selected for {money(suggestion.price)}. {suggestion.difference<0?`Save ${money(-suggestion.difference)}.`:`${money(suggestion.difference)} more, with extras: ${suggestion.extras.join(', ')}.`}</p><button className="lane-primary" onClick={()=>{setBundle(suggestion.key);track(system,'Card Clicked',{selected_card:'bundle',bundle_name:suggestion.name});track(system,'bundle_match_accepted',{bundle_name:suggestion.name});}}>Choose this bundle</button></section>}
     {bundle&&<div className="lane-notice">Selected bundle: {product(bundle)?.title}. <button onClick={()=>setBundle(null)}>Return to individual items</button></div>}
     {profileError&&<p className="lane-notice" role="status">{profileError} <button onClick={send}>Retry saving email</button></p>}
     <button className="lane-link" disabled={loading} onClick={retry}>Refresh availability</button>
