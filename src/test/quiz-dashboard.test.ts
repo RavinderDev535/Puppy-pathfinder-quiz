@@ -25,6 +25,29 @@ function setup(env:Record<string,string>={},request=vi.fn(async()=>({data:{id:'p
   return {store,api,post,request};
 }
 describe('dashboard persistence and integration boundaries',()=>{
+  it('protects the dashboard snapshot and exports all five lanes without consent lookup internals',async()=>{
+    const {store,api,post}=setup({QUIZ_DASHBOARD_TOKEN:'private-test-token'});
+    for(const lane of ['ezclassic','fab','restock','upgrade','gift']) {
+      const e=input(lane);await post('events',e);store.update(e.attempt_id,{observation_json:JSON.stringify({private:'consent lookup'})});
+    }
+    async function snapshot(token?:string){
+      let status=0,data:Record<string,unknown>={};
+      await api({method:'GET',url:'/api/quiz-lanes/dashboard-snapshot',headers:{authorization:token}},
+        {writeHead:(code:number)=>{status=code;},end:(value:string)=>{data=JSON.parse(value);}});
+      return {status,data};
+    }
+    expect((await snapshot()).status).toBe(401);
+    expect((await snapshot('Bearer wrong')).status).toBe(401);
+    const result=await snapshot('Bearer private-test-token');expect(result.status).toBe(200);
+    expect(result.data.attempts).toHaveLength(5);
+    expect(JSON.stringify(result.data)).not.toContain('observation_json');
+    expect(result.data.coverage).toMatchObject({orders:false,checkout:false,store_totals:false,lead_status:false});
+  });
+  it('keeps snapshot access disabled until its server-only credential is configured',async()=>{
+    const {api}=setup();let status=0;
+    await api({method:'GET',url:'/api/quiz-lanes/dashboard-snapshot',headers:{}},{writeHead:(code:number)=>{status=code;},end:()=>{}});
+    expect(status).toBe(503);
+  });
   it.each(['ezclassic','fab','restock','upgrade','gift'])('persists %s without Klaviyo credentials',async lane=>{
     const {store,post}=setup();const event=input(lane);
     expect((await post('events',event)).status).toBe(202);

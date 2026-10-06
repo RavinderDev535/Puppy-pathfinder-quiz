@@ -15,4 +15,4 @@ http.createServer(async(req,res)=>{
   const mime={'.html':'text/html','.js':'text/javascript','.css':'text/css','.png':'image/png','.webp':'image/webp','.mp4':'video/mp4','.svg':'image/svg+xml','.ico':'image/x-icon'};
   try{const content=await readFile(file);res.setHeader('Content-Type',mime[path.extname(file)]||'application/octet-stream');res.end(content);}
   catch{if(path.extname(pathname)){res.writeHead(404);res.end();}else{res.setHeader('Content-Type','text/html');res.end(await readFile(path.join(root,'index.html')));}}
-}).listen(Number(process.env.PORT||8080),'127.0.0.1',()=>console.log('Quiz app running on port '+(process.env.PORT||8080)));
+}).listen(Number(process.env.PORT||8080),process.env.HOST||'0.0.0.0',()=>console.log('Quiz app running on port '+(process.env.PORT||8080)));

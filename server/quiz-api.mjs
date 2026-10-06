@@ -1,5 +1,7 @@
 ﻿import { randomUUID } from 'node:crypto';
 import { createRequire } from 'node:module';
+import { createHash, timingSafeEqual } from 'node:crypto';
+import { dashboardSnapshot } from './dashboard-snapshot.mjs';
 import { createQuizStore } from './quiz-store.mjs';
 import { normalizeProfile, saveProfile } from './quiz-profile.mjs';
 export { saveProfile } from './quiz-profile.mjs';
@@ -87,6 +89,14 @@ export function createQuizApi(env=process.env, dependencies={}){
     const url=new URL(req.url,'http://localhost');
     if(!url.pathname.startsWith('/api/quiz-lanes/'))return false;
     try{
+      if(url.pathname==='/api/quiz-lanes/dashboard-snapshot'){
+        if(req.method!=='GET'){json(res,405,{error:'Method not allowed'});return true;}
+        if(!env.QUIZ_DASHBOARD_TOKEN){json(res,503,{error:'Dashboard connection is not configured'});return true;}
+        const supplied=req.headers.authorization||'';
+        const hash=value=>createHash('sha256').update(value).digest();
+        if(!timingSafeEqual(hash(supplied),hash(`Bearer ${env.QUIZ_DASHBOARD_TOKEN}`))){json(res,401,{error:'Unauthorized'});return true;}
+        json(res,200,dashboardSnapshot(store()));return true;
+      }
       if(url.pathname==='/api/quiz-lanes/status'&&req.method==='GET') {json(res,200,{email:!!(env.KLAVIYO_PRIVATE_API_KEY&&env.KLAVIYO_LIST_ID&&env.KLAVIYO_MASTER_LIST_ID),analytics:true});return true;}
       if(url.pathname.startsWith('/api/quiz-lanes/products/')&&req.method==='GET'){
         const handle=url.pathname.split('/').pop();if(!handles.has(handle)){json(res,404,{error:'Unknown product'});return true;}

@@ -45,6 +45,13 @@ dashboard's private backend, or add an authenticated server-to-server reader
 when its code is available. Never publish this export in `public/` or `dist/`.
 No dashboard ingestion URL has been guessed or configured.
 
+The supplied dashboard now has a protected reader for
+`GET /api/quiz-lanes/dashboard-snapshot`. Set `QUIZ_DASHBOARD_TOKEN` on this
+quiz server and the dashboard server, plus `QUIZ_SNAPSHOT_URL` on the dashboard.
+The endpoint and command-line export include explicit source coverage; Shopify
+orders and Klaviyo status history remain unavailable until ingested. See the
+dashboard repository's `docs/live-dashboard.md` for runtime configuration.
+
 ## Join keys and completion
 
 All five lanes send `attempt_id`, `session_id`, timestamp and lane on every
@@ -139,27 +146,35 @@ Master Architecture explicitly replaces those with event-triggered flows. Both
 lists are populated, with event delivery after properties/list requests. Configure
 actual flows in Klaviyo using that architecture.
 
-## Remaining external work
+## Deployment handoff
 
-These items cannot be verified from this quiz repository:
+The dashboard now reads this private endpoint and merges it with the original
+two quiz lanes from the Railway/Neon API. Deploy the quiz app as a Node 22.13+
+or newer service using `npm run build` and `npm start`. On Railway, bind a
+persistent volume at `/data`, set `QUIZ_DB_PATH=/data/quiz.sqlite`, and set a
+strong `QUIZ_DASHBOARD_TOKEN`. The server binds to `0.0.0.0` and Railway's
+`PORT`. Use the service's HTTPS domain for dashboard `QUIZ_SNAPSHOT_URL` and,
+when the quiz frontend is hosted separately, its `VITE_API_URL`.
 
-1. Connect the separate dashboard backend to these records and its older two
-   lanes; remove demo generators on every page and reconcile its 19 metrics.
-2. Set dashboard launch time to **25 May 2026 at 7am**, using the store's intended
-   timezone (not specified in these documents).
-3. Implement authenticated Shopify checkout/order ingestion and store totals.
-   The quiz records a cart click, never fabricates `Checkout Started` or a purchase.
-   Attribute orders by attempt ID first, email second; exclude unmatched orders.
-4. Read Klaviyo unsubscribe/bounce/complaint status for net-new-lead and lead-quality
-   metrics. `is_new_lead` alone is not net new leads.
-5. Configure Klaviyo lists, flows and credentials on the deployment. Verify each
-   non-Gift profile in Klaviyo and open an actual follow-up email to test its URL.
-6. Place an authorized Shopify test order to confirm the cart attribute reaches
-   the order. No live subscription, message, deployment or order was performed here.
+Set the same `QUIZ_DASHBOARD_TOKEN` as a server-only variable on the dashboard.
+Set `LEGACY_SNAPSHOT_URL` to
+`https://testserverjs-production-4bd0.up.railway.app/api/internal/dashboard-snapshot`.
+That endpoint uses the existing admin JWT; it does not need a second shared
+secret. The dashboard's `VITE_API_BASE_URL` is already the existing Railway
+origin.
 
-The supplied acceptance workbooks request live exports, screenshots, recordings
-and metric reconciliation. Local automated checks do not constitute that live
-sign-off. Setup for these five lanes must deploy before new records can appear.
+The Railway export can provide captured path1/path2 attempts, funnel events,
+and paid order IDs. Its existing database has no complete store-wide order
+history or unsubscribe/bounce/complaint history, so store-share and net-new-lead
+status figures remain unavailable. Klaviyo newness appears only where the
+recorded profile/subscription fields establish it; other rows remain unknown.
+The separate SQLite endpoint marks Shopify orders and Klaviyo status history
+unavailable until those data sources are actually ingested.
+
+The remaining live acceptance work is to deploy both code changes, configure
+the service variables and persistent volume, confirm the launch timezone, then
+compare dashboard totals against authorized Shopify and Klaviyo records. Do not
+claim test-order or live-profile sign-off until those checks are performed.
 
 API references checked: [Klaviyo profile import](https://developers.klaviyo.com/en/reference/create_or_update_profile),
 [Klaviyo events](https://developers.klaviyo.com/en/reference/create_event),
