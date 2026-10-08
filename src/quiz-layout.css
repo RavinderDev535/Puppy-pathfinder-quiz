@@ -78,16 +78,7 @@
 .fab-scene-slot { max-width: 760px; justify-self: center; align-self: center; }
 .fab-scene-slot .quiz-puppy-scene { box-shadow: 0 12px 32px #4a2e1614; }
 .quiz-puppy-scene { position: relative; width: 100%; aspect-ratio: 16 / 9; margin: 0; overflow: hidden; border-radius: 24px; background: var(--story-cream); }
-.quiz-puppy-scene > img, .quiz-puppy-scene > video { display: block; width: 100%; height: auto; object-fit: contain; }
-.quiz-puppy-scene > .quiz-puppy-poster { position: absolute; inset: 0; height: 100%; }
-/* Play the entire frame, including the adult dogs. The poster is only a fallback. */
-.quiz-puppy-scene > .quiz-puppy-motion {
-  position: relative;
-  opacity: 0;
-}
-.quiz-puppy-scene > .quiz-puppy-motion-ready { opacity: 1; }
-.quiz-scene-control { position: absolute; right: 12px; bottom: 12px; display: grid; place-items: center; width: 40px; height: 40px; border: 1px solid #ffffff80; border-radius: 50%; background: #2d2316cc; color: white; cursor: pointer; }
-.quiz-scene-control:hover { background: #2d2316; }
+.quiz-puppy-scene > img, .quiz-puppy-scene > video { display: block; width: 100%; height: 100%; object-fit: cover; }
 .quiz-page :is(button, a, input):focus-visible { outline: 3px solid var(--story-coral); outline-offset: 3px; }
 .reference-quiz-card .storybook-field { max-width: 380px; margin: 14px auto 0; }
 .reference-quiz-card input { background: var(--story-cream); color: var(--story-ink); border: 2px solid var(--story-wood-edge) !important; border-radius: 14px; }

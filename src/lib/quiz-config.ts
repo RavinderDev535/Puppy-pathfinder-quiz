@@ -34,7 +34,7 @@ export const newCustomerDataSteps: QuizStep[] = [
     subtitle: "Not sure? You can skip this step.",
     type: "date",
     optional: true,
-    showIf: (data: any) => data.timeline === "preparing",
+    showIf: (data: any) => data.timeline === "preparing" || data.timeline === "due_7_days",
   },
   {
     id: "breed",
@@ -211,10 +211,14 @@ export const existingCustomerBoxSteps: QuizStep[] = [
   },
   {
     id: "dueDate",
-    question: "Do you know your due date?",
-    subtitle: "Optional — helps us time helpful reminders.",
+    question: "What is your due date?",
     type: "date",
-    optional: true,
     showIf: (data: any) => data.stage === "preparing",
+  },
+  {
+    id: "dob",
+    question: "What is your litter's date of birth?",
+    type: "date",
+    showIf: (data: any) => !!data.stage && data.stage !== "preparing",
   },
 ];

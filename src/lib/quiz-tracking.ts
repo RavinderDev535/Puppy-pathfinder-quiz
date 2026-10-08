@@ -28,7 +28,8 @@ type EventType =
   | "step_completed"
   | "quiz_completed"
   | "added_to_cart"
-  | "checkout_started";
+  | "checkout_started"
+  | "card_clicked";
 
 type PathKey = "path1" | "path2";
 
@@ -231,4 +232,9 @@ export function resetTracking(): void {
  */
 export function getAttemptId(): string {
   return getSessionId();
+}
+
+export function trackBundleCard(bundle: string, cardPosition: 'recommended' | 'alternative', email?: string) {
+  dispatch({session_id:getSessionId(),event_type:'card_clicked',path:'path1',
+    ...(email ? {email} : {}),event_data:{bundle_name:bundle,card_position:cardPosition,attempt_id:getSessionId()}});
 }

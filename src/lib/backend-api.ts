@@ -71,6 +71,8 @@ export async function submitPath1(payload: Path1Payload): Promise<Path1Response>
 // ===== Path 2: Existing Customer =====
 
 export interface Path2Payload {
+  dob?: string | null;
+  go_home_date?: string | null;
   email: string;
   breed: string;
   box_size: string;

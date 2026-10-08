@@ -54,6 +54,7 @@ export interface AddOn {
 
 // Existing customer data
 export interface ExistingCustomerData {
+  dob?: string | null;
   breed: string;
   damSize: "under_16" | "16_40" | "40_90" | "over_90" | null;
   experience: "first" | "1_2" | "3_5" | "6_plus" | "kennel" | null;

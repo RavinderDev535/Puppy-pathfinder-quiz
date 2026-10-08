@@ -1,3 +1,4 @@
+import { trackBundleCard } from '@/lib/quiz-tracking';
 import React, { useState, useCallback, useMemo, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import PuppyScene from "@/components/PuppyScene";
@@ -666,11 +667,14 @@ const QuestionCard: React.FC<{
       <div className="storybook-field max-w-xs mx-auto">
         <Input
           type="date"
-          min={new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 10)}
+          max={step.id === "dob" ? new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 10) : undefined}
+          aria-invalid={step.id === "dob" && !!dateValue && dateValue > new Date().toLocaleDateString("en-CA")}
           value={dateValue || ""}
           onChange={(e) => onDateChange?.(e.target.value)}
           className="text-center text-base md:text-lg h-12 md:h-14 rounded-2xl border-2 font-bold focus:border-primary bg-card"
         />
+        {dateValue && step.id === "dob" && dateValue > new Date(Date.now()-new Date().getTimezoneOffset()*60000).toISOString().slice(0,10) && <p role="alert">Date of birth cannot be in the future.</p>}
+        {dateValue && step.id === "dueDate" && dateValue < new Date(Date.now()-new Date().getTimezoneOffset()*60000).toISOString().slice(0,10) && <p>This due date is in the past.</p>}
       </div>
     )}
 
@@ -752,6 +756,7 @@ const EZWhelpQuiz: React.FC<{ initialPath?: CustomerType; onQuizStarted?: (start
   // Backend API state
   const [apiLoading, setApiLoading] = useState(false);
   // apiError state removed: page always renders from local fallback, banner was misleading. Errors log via console.error.
+  const [selectedAlternative, setSelectedAlternative] = useState(false);
   const [path1Result, setPath1Result] = useState<Path1Response | null>(null);
   const [path2Result, setPath2Result] = useState<Path2Response | null>(null);
 
@@ -944,7 +949,8 @@ const EZWhelpQuiz: React.FC<{ initialPath?: CustomerType; onQuizStarted?: (start
             updated.hasWindow = window as any;
             break;
           }
-          case "stage": updated.stage = value as any; break;
+          case "stage": updated.stage = value as any; updated.dueDate = null; updated.dob = null; break;
+          case "dob": updated.dob = value || null; updated.dueDate = null; break;
           case "dueDate": updated.dueDate = value || null; break;
         }
         return updated;
@@ -963,6 +969,8 @@ const handleNext = useCallback((overrideVal?: string) => {
   const val = overrideVal ?? (isText ? textValue : isDate ? dateValue : isBreed ? breedValue : currentQuizStep.type === "email" ? emailValue : selectedValueRef.current);
 
   if (!val && !currentQuizStep.optional) return;
+  if (isDate && val && (!/^\d{4}-\d{2}-\d{2}$/.test(val) || !Number.isFinite(Date.parse(val)) || new Date(val).toISOString().slice(0,10) !== val)) return;
+  if (stepId === "dob" && val && val > new Date(Date.now()-new Date().getTimezoneOffset()*60000).toISOString().slice(0,10)) return;
 
   storeAnswer(stepId, val || "");
 
@@ -1061,7 +1069,8 @@ const handleNext = useCallback((overrideVal?: string) => {
         stage: existingData.stage || "",
         // Klaviyo-only mirroring fields.
         dam_size: existingData.damSize,
-        due_date: existingData.dueDate,
+        due_date: existingData.stage === "preparing" ? existingData.dueDate : undefined,
+        dob: existingData.stage !== "preparing" ? existingData.dob : undefined,
         experience: existingData.experience,
         // Implicit marketing consent — submit click is the consent action.
         subscribed: true,
@@ -1136,6 +1145,7 @@ const handleNext = useCallback((overrideVal?: string) => {
 
     resetTracking();
     if (initialPath) void initQuizSession(initialPath);
+    setSelectedAlternative(false);
     setNewData({ timeline: null, dueDate: null, breed: "", experience: null, litterSize: null, containment: null, zones: null, branchAnswer: null, damSize: null, panelHeight: null, hasWindow: null });
     setExistingData({ breed: "", damSize: null, experience: null, boxSize: null, boxHeight: null, hasWindow: null, stage: null, dueDate: null });
   }, [initialPath, onQuizStarted]);
@@ -1325,15 +1335,17 @@ const handleNext = useCallback((overrideVal?: string) => {
 
   // ===== RESULTS: New customer — Standard bundles =====
   if (isComplete && customerType === "new") {
-    const result = computeFullResult(newData);
+    const recommendedResult = computeFullResult(newData);
+    const alternativeResult = computeFullResult({...newData, branchAnswer: !newData.branchAnswer});
+    const result = selectedAlternative ? alternativeResult : recommendedResult;
     const visibleAddOns = result.addOns;
 
     // API-driven values (override local when available)
-    const apiBundleName = path1Result?.bundle || result.bundle;
+    const apiBundleName = (!selectedAlternative && path1Result?.bundle) || result.bundle;
     // Cart URL: trust backend `shopify_cart_url` first; fall back to local size-aware
     // lookup based on the bundle the quiz routed to. No damSize-based bundle swapping.
-    const apiCartUrl = path1Result?.shopify_cart_url || getBundleUrl(result.bundle, result.boxSize, result.panelHeight, newData.damSize === "over_90", newData.hasWindow);
-    const apiAddOns = path1Result?.suggested_addons;
+    const apiCartUrl = (!selectedAlternative && path1Result?.shopify_cart_url) || getBundleUrl(result.bundle, result.boxSize, result.panelHeight, newData.damSize === "over_90", newData.hasWindow);
+    const apiAddOns = selectedAlternative ? undefined : path1Result?.suggested_addons;
     const isSupportFollowup = path1Result?.support_followup === true && path1Result?.bundle !== "Condo";
     // XL/Giant always ships the TALL 48"x76"x28" box — derive the label from
     // the selected variant instead of the standard boxSize/boxSize/panelHeight
@@ -1359,12 +1371,20 @@ const handleNext = useCallback((overrideVal?: string) => {
         <div className="flex justify-center mb-6 md:mb-8">
           <a href="https://www.ezwhelp.com/" target="_blank" rel="noopener noreferrer"><img src={ezwhelpLogo} alt="EZWhelp" className="h-8 md:h-10 object-contain opacity-50" /></a>
         </div>
-        {/* Bundle Card — tappable to view details, with attention wiggle */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {[recommendedResult, alternativeResult].map((card, index) => {
+          const cardUrl = (index === 0 && path1Result?.shopify_cart_url) || getBundleUrl(card.bundle, card.boxSize, card.panelHeight, newData.damSize === 'over_90', newData.hasWindow);
+          return (
         <motion.a
-          href={apiCartUrl}
+          key={card.bundle}
+          href={cardUrl}
           target="_blank"
           rel="noopener noreferrer"
-          onClick={() => trackProductClick(`bundle-${apiBundleName}`, 0)}
+          onClick={() => {
+            setSelectedAlternative(index === 1);
+            trackBundleCard(card.bundle, index === 0 ? 'recommended' : 'alternative', emailValue);
+            trackProductClick('bundle-' + card.bundle, index);
+          }}
           className="block duo-card overflow-hidden mb-3 md:mb-5 no-underline"
           animate={{
             rotate: [0, -0.8, 0.8, -0.5, 0.5, 0],
@@ -1376,31 +1396,32 @@ const handleNext = useCallback((overrideVal?: string) => {
           onMouseEnter={() => playHover()}
         >
           <BundleSlideshow
-            bundle={result.bundle}
-            boxSize={result.boxSize}
-            panelHeight={result.panelHeight}
-            alt={`${result.bundle} Bundle`}
+            bundle={card.bundle}
+            boxSize={card.boxSize}
+            panelHeight={card.panelHeight}
+            alt={`${card.bundle} Bundle`}
           />
           <div className="p-4 md:p-6 lg:p-7">
-            <h2 className="text-base md:text-xl lg:text-2xl font-display font-black text-foreground text-center">{apiBundleName} Bundle</h2>
+            <div className="h-6 text-center">{index === 0 && <span className="text-xs font-bold text-primary">Recommended</span>}</div>
+            <h2 className="text-base md:text-xl lg:text-2xl font-display font-black text-foreground text-center">{card.bundle} Bundle</h2>
             <p className="text-[11px] md:text-xs text-muted-foreground font-medium mt-0.5 md:mt-1 text-center">
-              {boxSizeLabel} • {newData.zones} Zone{Number(newData.zones) > 1 ? "s" : ""} • {result.padRecommendation.replace("Extra ", "")}
+              {boxSizeLabel} • {newData.zones} Zone{Number(newData.zones) > 1 ? "s" : ""} • {card.padRecommendation.replace("Extra ", "")}
             </p>
             {/* XL/Giant: Arya asked to remove the long bundle-description paragraph
                 between the size line and What's Included (2026-07-10) — kept for
                 all other dam sizes. */}
             {newData.damSize !== "over_90" && (
               <p className="text-[10px] md:text-xs text-muted-foreground/80 mt-2 md:mt-3 leading-relaxed text-center max-w-sm mx-auto">
-                {bundleDescriptions[result.bundle]}
-                {result.confidenceMessage && (
-                  <span className="block mt-1 font-medium" style={{ color: '#6B5B4A' }}>{result.confidenceMessage}</span>
+                {bundleDescriptions[card.bundle]}
+                {card.confidenceMessage && (
+                  <span className="block mt-1 font-medium" style={{ color: '#6B5B4A' }}>{card.confidenceMessage}</span>
                 )}
               </p>
             )}
             <div className="mt-3 md:mt-4 pt-3 md:pt-4 border-t border-border/40">
               <p className="text-[10px] md:text-[11px] font-semibold text-muted-foreground uppercase tracking-wider mb-2">What's Included</p>
               <ul className="text-[11px] md:text-xs text-foreground/80 space-y-1.5 list-none">
-                {bundleIncludesList[result.bundle]?.map((item, i) => (
+                {bundleIncludesList[card.bundle]?.map((item, i) => (
                   <li key={i} className="flex items-center gap-2">
                     <span className="w-4 h-4 rounded-full flex items-center justify-center text-[9px] font-bold flex-shrink-0" style={{ background: '#FDF0E7', color: '#D46A3A' }}>✓</span>
                     <span>{item}</span>
@@ -1408,9 +1429,13 @@ const handleNext = useCallback((overrideVal?: string) => {
                 ))}
               </ul>
             </div>
-            <p className="text-[10px] md:text-[11px] mt-3 md:mt-4 font-medium text-center" style={{ color: '#D46A3A' }}>Recommended for your breeding timeline</p>
+            <p className="text-[10px] md:text-[11px] mt-3 md:mt-4 font-medium text-center" style={{ color: '#D46A3A' }}>View bundle details</p>
           </div>
         </motion.a>
+
+          );
+        })}
+        </div>
 
         {/* Tall box safety recommendation when containment = active */}
         {newData.containment === "active" && result.panelHeight === "28" && (
@@ -1649,6 +1674,7 @@ const handleNext = useCallback((overrideVal?: string) => {
                 <div className="flex-1 block">
                   <motion.button
                     onClick={() => {
+                      trackBundleCard(apiBundleName, selectedAlternative ? 'alternative' : 'recommended', emailValue);
                       const reviewItems: CartReviewItem[] = [
                         {
                           name: `${apiBundleName} Bundle`,

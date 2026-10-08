@@ -1,3 +1,4 @@
+const LANE_API = `${import.meta.env.VITE_API_URL || "http://localhost:3000"}/api/quiz/lanes`;
 import { useEffect, useRef } from 'react';
 import { useQueries } from '@tanstack/react-query';
 import { CartLine, cartUrl, Lane, LiveProduct, product } from './engine';
@@ -5,7 +6,7 @@ import { identity, quizVersion, resetLaneAttempt, sources } from './identity';
 
 export interface StoreProduct {handle:string;variants:{id:string;price:number;available:boolean;title:string;sku:string|null}[]}
 export async function loadProduct(handle:string):Promise<StoreProduct> {
-  const r=await fetch(`/api/quiz-lanes/products/${encodeURIComponent(handle)}`,{signal:AbortSignal.timeout(20000)});
+  const r=await fetch(`${LANE_API}/products/${encodeURIComponent(handle)}`,{signal:AbortSignal.timeout(20000)});
   if(!r.ok)throw Error('Unable to confirm price and availability.');return r.json();
 }
 export function useLiveProducts(keys:string[]) {
@@ -25,12 +26,12 @@ export function track(lane:Lane,event:string,properties:Record<string,unknown>={
     stepTimes.set(run.attempt_id,Date.now());
   }
   const payload={lane,event,properties:{...properties,source:sources[lane],quiz_version:quizVersion,attempt_id:run.attempt_id},...run,context:run,ts:new Date().toISOString(),id:crypto.randomUUID()};
-  return fetch('/api/quiz-lanes/events',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),keepalive:true}).then(r=>{if(!r.ok)throw Error('Tracking unavailable');return true;}).catch(()=>{window.dispatchEvent(new CustomEvent('quiz-tracking-unavailable'));return false;});
+  return fetch(`${LANE_API}/events`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),keepalive:true}).then(r=>{if(!r.ok)throw Error('Tracking unavailable');return true;}).catch(()=>{window.dispatchEvent(new CustomEvent('quiz-tracking-unavailable'));return false;});
 }
 export async function submitProfile(lane:Lane,email:string,properties:Record<string,unknown>){
   if(lane==='gift')throw Error('Gift shopping does not collect an email.');
   const run=identity(lane);
-  const r=await fetch('/api/quiz-lanes/profile',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({lane,email:email.trim().toLowerCase(),properties,...run,context:run,ts:new Date().toISOString()}),signal:AbortSignal.timeout(20000)});
+  const r=await fetch(`${LANE_API}/profile`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({lane,email:email.trim().toLowerCase(),properties,...run,context:run,ts:new Date().toISOString()}),signal:AbortSignal.timeout(20000)});
   if(!r.ok)throw Error('We could not save your email for follow-up. You can still use your results and checkout.');
   return r.json();
 }

@@ -2,11 +2,11 @@ import http from 'node:http';
 import {readFile} from 'node:fs/promises';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {createQuizApi} from './quiz-api.mjs';
+
 const root=path.resolve(fileURLToPath(new URL('../dist/',import.meta.url)));
-const api=createQuizApi();
+
 http.createServer(async(req,res)=>{
-  if(await api(req,res))return;
+
   let pathname;
   try{pathname=decodeURIComponent(new URL(req.url,'http://localhost').pathname);}
   catch{res.writeHead(400);res.end('Invalid path');return;}
