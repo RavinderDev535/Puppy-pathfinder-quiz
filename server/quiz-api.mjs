@@ -1,6 +1,6 @@
 ﻿import { randomUUID } from 'node:crypto';
 import { createRequire } from 'node:module';
-import { createHash, timingSafeEqual } from 'node:crypto';
+import { createHash, createHmac, timingSafeEqual } from 'node:crypto';
 import { dashboardSnapshot } from './dashboard-snapshot.mjs';
 import { createQuizStore } from './quiz-store.mjs';
 import { normalizeProfile, saveProfile } from './quiz-profile.mjs';
@@ -13,6 +13,12 @@ const lanes=new Set(['fab','ezclassic','restock','upgrade','gift']);
 const uuid=/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const json=(res,status,data)=>{res.writeHead(status,{'Content-Type':'application/json','Cache-Control':'no-store'});res.end(JSON.stringify(data));};
 async function body(req){let text='';for await(const chunk of req){text+=chunk;if(text.length>32768)throw Error('Request too large');}return JSON.parse(text);}
+async function rawBody(req){let text='';for await(const chunk of req){text+=chunk;if(text.length>1_000_000)throw Error('Request too large');}return text;}
+function cartAttemptId(order) {
+  const attrs=[...(order.note_attributes||[]),...(order.attributes||[]),...(order.cart_attributes||[])];
+  const value=attrs.find(row=>row?.name==='attempt_id'||row?.key==='attempt_id')?.value;
+  return typeof value==='string'&&uuid.test(value) ? value : null;
+}
 async function shopify(handle){
   const old=cache.get(handle);if(old&&old.until>Date.now())return old.value;
   const response=await fetch(`https://www.ezwhelp.com/products/${handle}.js`,{signal:AbortSignal.timeout(15000)});
@@ -55,7 +61,9 @@ export function createQuizApi(env=process.env, dependencies={}){
             observation:a.observation_json?JSON.parse(a.observation_json):undefined,lookupCustomer,
             listIds:[env.KLAVIYO_MASTER_LIST_ID],facilityListId:env.KLAVIYO_FACILITY_LIST_ID,
             onObservation:o=>s.update(a.id,{observation_json:JSON.stringify(o),is_new_lead:o.is_new_lead,
-              was_existing_customer:o.was_existing_customer,lead_checked_at:o.checked_at,needs_review:o.lookup_failed}),
+              was_existing_customer:o.was_existing_customer,lead_checked_at:o.checked_at,needs_review:o.lookup_failed,
+              email:input.email,email_captured:1,has_window:input.properties.windowed,
+              box_config:input.properties.box_size,properties_json:JSON.stringify(input.properties),profile_status:'pending'}),
           });
           const current=s.db.prepare('SELECT payload_json FROM profile_jobs WHERE attempt_id=?').get(a.id);
           if(current?.payload_json!==job.payload_json)continue;
@@ -104,6 +112,20 @@ export function createQuizApi(env=process.env, dependencies={}){
         res.setHeader?.('Access-Control-Allow-Headers','Content-Type, Authorization');
         res.writeHead(204);res.end();return true;
       }
+      if(apiPath==='/api/quiz/lanes/shopify/orders') {
+        if(req.method!=='POST'){json(res,405,{error:'Method not allowed'});return true;}
+        const raw=await rawBody(req);
+        const signature=req.headers['x-shopify-hmac-sha256'];
+        if(!env.SHOPIFY_WEBHOOK_SECRET||typeof signature!=='string') { json(res,401,{error:'Unauthorized'});return true; }
+        const actual=createHmac('sha256',env.SHOPIFY_WEBHOOK_SECRET).update(raw).digest('base64');
+        if(signature.length!==actual.length||!timingSafeEqual(Buffer.from(signature),Buffer.from(actual))){json(res,401,{error:'Unauthorized'});return true;}
+        const order=JSON.parse(raw);
+        if(!order?.id||!order.created_at)throw Error('Invalid Shopify order');
+        const attempt_id=cartAttemptId(order);
+        store().recordOrder({shopify_order_id:order.id,attempt_id,email:order.email||order.customer?.email||null,
+          ts:order.created_at,order_value:order.current_total_price??order.total_price,line_items:order.line_items||[]});
+        res.writeHead(200);res.end();return true;
+      }
       if(apiPath==='/api/quiz/lanes/dashboard-snapshot'){
         if(req.method!=='GET'){json(res,405,{error:'Method not allowed'});return true;}
         if(!env.QUIZ_DASHBOARD_TOKEN){json(res,503,{error:'Dashboard connection is not configured'});return true;}
@@ -135,6 +157,8 @@ export function createQuizApi(env=process.env, dependencies={}){
         // The completion event uses its own ID (email capture already uses the attempt UUID).
         if(!env.KLAVIYO_PRIVATE_API_KEY||!env.KLAVIYO_LIST_ID||!env.KLAVIYO_MASTER_LIST_ID){
           if(!s.attempt(input.attempt_id).observation_json)s.update(input.attempt_id,{is_new_lead:null,needs_review:true,
+            email:input.email,email_captured:1,has_window:input.properties.windowed,box_config:input.properties.box_size,
+            properties_json:JSON.stringify(input.properties),profile_status:'pending',
             observation_json:JSON.stringify({is_new_lead:null,lookup_failed:true,checked_at:new Date().toISOString()})});
           json(res,202,{saved:true,follow_up:'pending'});return true;
         }

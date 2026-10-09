@@ -1,6 +1,6 @@
 // @vitest-environment node
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { randomUUID } from 'node:crypto';
+import { createHmac, randomUUID } from 'node:crypto';
 import { Readable } from 'node:stream';
 import { mkdtempSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
@@ -79,6 +79,20 @@ describe('dashboard persistence and integration boundaries',()=>{
     const {post}=setup();
     expect((await post('events',{...input(),attempt_id:undefined})).status).toBe(400);
     expect((await post('events',{...input(),event:'Checkout Started'})).status).toBe(400);
+  });
+  it('records Shopify orders using cart attempt_id first, then email, while retaining unmatched store sales',async()=>{
+    const {store,api,post}=setup({SHOPIFY_WEBHOOK_SECRET:'webhook-secret'});
+    const attempt=input();await post('events',attempt);store.update(attempt.attempt_id,{email:'breeder@example.com'});
+    async function webhook(order:Record<string,unknown>){
+      const raw=JSON.stringify(order),signature=createHmac('sha256','webhook-secret').update(raw).digest('base64');
+      const req=Readable.from([raw]) as Readable & {url:string;method:string;headers:Record<string,string>};
+      req.url='/api/quiz/lanes/shopify/orders';req.method='POST';req.headers={'x-shopify-hmac-sha256':signature};
+      let status=0;await api(req,{writeHead:(code:number)=>{status=code;},end:()=>{}});return status;
+    }
+    expect(await webhook({id:1,created_at:'2026-05-25T07:00:00Z',email:'other@example.com',total_price:'42.50',note_attributes:[{name:'attempt_id',value:attempt.attempt_id}],line_items:[]})).toBe(200);
+    expect(await webhook({id:2,created_at:'2026-05-25T07:00:00Z',email:'nobody@example.com',total_price:'10.00',line_items:[]})).toBe(200);
+    expect(store.db.prepare('SELECT attempt_id FROM orders WHERE shopify_order_id=?').get('1').attempt_id).toBe(attempt.attempt_id);
+    expect(store.db.prepare('SELECT attempt_id FROM orders WHERE shopify_order_id=?').get('2').attempt_id).toBeNull();
   });
   it('Gift never creates a Klaviyo profile, even via events',async()=>{
     const {post,api,request}=setup({KLAVIYO_PRIVATE_API_KEY:'mock',KLAVIYO_LIST_ID:'quiz',KLAVIYO_MASTER_LIST_ID:'master'});

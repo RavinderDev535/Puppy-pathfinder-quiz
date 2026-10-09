@@ -10,6 +10,22 @@ submission detail drawer. Gift does not enter lead classification.
 
 ## Deployment
 
+## Live data contract
+
+The quiz service is live-only: it has no dashboard generator or fallback values.
+The shared launch denominator is **25 May 2026, 07:00 UTC** (`QUIZ_LAUNCH_AT`).
+
+Configure Shopify's `orders/create` and `orders/updated` webhooks to POST to
+`/api/quiz/lanes/shopify/orders`, with `SHOPIFY_WEBHOOK_SECRET` set to the
+webhook signing secret. The endpoint verifies Shopify's HMAC before persisting
+an order. It uses `note_attributes.attempt_id` first and email only as a
+fallback; unmatched orders stay in `orders` for total-store calculations but
+are never attributed to quiz revenue.
+
+The authenticated dashboard snapshot includes `data_mode: "live"`, `launch_at`,
+and every persisted core table. A dashboard should render database zeros for an
+empty snapshot; it must not substitute generated values.
+
 Deploy the `version2` backend from `Downloads/test.server.js` first. It creates
 `quiz_lane_submissions` in the existing Postgres database and adds the required
 event/order/date columns at startup. It reuses `quiz_sessions`, `funnel_events`,

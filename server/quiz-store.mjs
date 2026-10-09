@@ -92,12 +92,30 @@ export function createQuizStore(filename = 'data/quiz.sqlite') {
   }
   function queueProfile(input) {
     const a = ensure(input);
-    if (a.email && a.email !== input.email) throw Error('Restart the quiz before changing a submitted email');
-    const p = input.properties;
-    update(a.id,{...p,is_new_lead:a.is_new_lead,was_existing_customer:a.was_existing_customer,email:input.email,email_captured:1,has_window:p.windowed,
-      box_config:p.box_size,properties_json:JSON.stringify(p),profile_status:'pending'});
+    // Do not write lead properties onto the attempt here.  The worker first
+    // observes Klaviyo and Shopify, then writes the observed flags and finally
+    // records the completed profile operation.  This preserves the submit
+    // sequence even when a job has to be retried.
     db.prepare(`INSERT INTO profile_jobs(attempt_id,payload_json) VALUES(?,?)
       ON CONFLICT(attempt_id) DO UPDATE SET payload_json=excluded.payload_json,next_try=0`).run(a.id,JSON.stringify(input));
   }
-  return { db, attempt, update, ensure, record, queueProfile, close: () => db.close() };
+  // Shopify sends every order, not only quiz orders.  Keeping unmatched orders is
+  // intentional: it makes total store revenue and non-quiz AOV reproducible from
+  // the same orders table, while quiz revenue remains strictly attributable.
+  function recordOrder(order) {
+    const email=typeof order.email==='string' ? order.email.trim().toLowerCase() : null;
+    let attemptId=order.attempt_id;
+    if (!attemptId || !attempt(attemptId)) {
+      // Email is only a fallback.  It is deliberately never used when a valid
+      // cart attribute is present, and an unknown order remains unattributed.
+      attemptId=email ? db.prepare('SELECT id FROM attempts WHERE email=? ORDER BY ts DESC LIMIT 1').get(email)?.id : null;
+    }
+    db.prepare(`INSERT INTO orders(shopify_order_id,attempt_id,email,ts,order_value,line_items_json)
+      VALUES(?,?,?,?,?,?) ON CONFLICT(shopify_order_id) DO UPDATE SET
+      attempt_id=excluded.attempt_id,email=excluded.email,ts=excluded.ts,
+      order_value=excluded.order_value,line_items_json=excluded.line_items_json`)
+      .run(String(order.shopify_order_id),attemptId||null,email,order.ts,Number(order.order_value)||0,JSON.stringify(order.line_items||[]));
+    return attemptId||null;
+  }
+  return { db, attempt, update, ensure, record, queueProfile, recordOrder, close: () => db.close() };
 }
