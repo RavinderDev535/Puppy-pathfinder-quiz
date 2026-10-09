@@ -87,9 +87,24 @@ export function createQuizApi(env=process.env, dependencies={}){
   const timer=setInterval(()=>{void flush().catch(e=>console.error('[quiz-sync]',e.message));},30000);timer.unref();
   const handler=async function quizApi(req,res){
     const url=new URL(req.url,'http://localhost');
-    if(!url.pathname.startsWith('/api/quiz-lanes/'))return false;
+    // Keep the old route working for already-deployed clients, while the
+    // frontend and documentation use the canonical /api/quiz/lanes route.
+    const apiPath=url.pathname.replace(/^\/api\/quiz-lanes\//,'/api/quiz/lanes/');
+    if(!apiPath.startsWith('/api/quiz/lanes/'))return false;
     try{
-      if(url.pathname==='/api/quiz-lanes/dashboard-snapshot'){
+      // The Vite development server runs on a different port from this API.
+      // Additional production origins must be explicitly configured.
+      const origin=req.headers.origin;
+      const allowedOrigins=new Set((env.QUIZ_CORS_ORIGINS||'http://localhost:5173,http://127.0.0.1:5173').split(',').map(value=>value.trim()).filter(Boolean));
+      if(origin&&new URL(origin).host!==req.headers.host&&!allowedOrigins.has(origin)){json(res,403,{error:'Origin not allowed'});return true;}
+      if(origin)res.setHeader?.('Access-Control-Allow-Origin',origin);
+      res.setHeader?.('Vary','Origin');
+      if(req.method==='OPTIONS'){
+        res.setHeader?.('Access-Control-Allow-Methods','GET, POST, OPTIONS');
+        res.setHeader?.('Access-Control-Allow-Headers','Content-Type, Authorization');
+        res.writeHead(204);res.end();return true;
+      }
+      if(apiPath==='/api/quiz/lanes/dashboard-snapshot'){
         if(req.method!=='GET'){json(res,405,{error:'Method not allowed'});return true;}
         if(!env.QUIZ_DASHBOARD_TOKEN){json(res,503,{error:'Dashboard connection is not configured'});return true;}
         const supplied=req.headers.authorization||'';
@@ -97,15 +112,13 @@ export function createQuizApi(env=process.env, dependencies={}){
         if(!timingSafeEqual(hash(supplied),hash(`Bearer ${env.QUIZ_DASHBOARD_TOKEN}`))){json(res,401,{error:'Unauthorized'});return true;}
         json(res,200,dashboardSnapshot(store()));return true;
       }
-      if(url.pathname==='/api/quiz-lanes/status'&&req.method==='GET') {json(res,200,{email:!!(env.KLAVIYO_PRIVATE_API_KEY&&env.KLAVIYO_LIST_ID&&env.KLAVIYO_MASTER_LIST_ID),analytics:true});return true;}
-      if(url.pathname.startsWith('/api/quiz-lanes/products/')&&req.method==='GET'){
-        const handle=url.pathname.split('/').pop();if(!handles.has(handle)){json(res,404,{error:'Unknown product'});return true;}
+      if(apiPath==='/api/quiz/lanes/status'&&req.method==='GET') {json(res,200,{email:!!(env.KLAVIYO_PRIVATE_API_KEY&&env.KLAVIYO_LIST_ID&&env.KLAVIYO_MASTER_LIST_ID),analytics:true});return true;}
+      if(apiPath.startsWith('/api/quiz/lanes/products/')&&req.method==='GET'){
+        const handle=apiPath.split('/').pop();if(!handles.has(handle)){json(res,404,{error:'Unknown product'});return true;}
         json(res,200,await shopify(handle));return true;
       }
-      if(!['/api/quiz-lanes/profile','/api/quiz-lanes/events'].includes(url.pathname)){json(res,404,{error:'Unknown endpoint'});return true;}
+      if(!['/api/quiz/lanes/profile','/api/quiz/lanes/events'].includes(apiPath)){json(res,404,{error:'Unknown endpoint'});return true;}
       if(req.method!=='POST'){json(res,405,{error:'Method not allowed'});return true;}
-      const origin=req.headers.origin;
-      if(origin&&new URL(origin).host!==req.headers.host){json(res,403,{error:'Origin not allowed'});return true;}
       let input;
       try {
         input=await body(req);

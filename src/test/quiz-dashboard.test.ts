@@ -17,7 +17,7 @@ function setup(env:Record<string,string>={},request=vi.fn(async()=>({data:{id:'p
   const api=createQuizApi(env,{store,klaviyo:request});cleanup.push(()=>api.close());
   async function post(route:string,data:unknown) {
     const req=Readable.from([JSON.stringify(data)]) as Readable & {url:string;method:string;headers:Record<string,string>};
-    req.url=`/api/quiz-lanes/${route}`;req.method='POST';req.headers={host:'localhost',origin:'http://localhost'};
+    req.url=`/api/quiz/lanes/${route}`;req.method='POST';req.headers={host:'localhost',origin:'http://localhost'};
     let status=0,result:Record<string,unknown>={};
     const res={writeHead:(code:number)=>{status=code;},end:(text:string)=>{result=JSON.parse(text);}};
     await api(req,res);return {status,result};
@@ -32,7 +32,7 @@ describe('dashboard persistence and integration boundaries',()=>{
     }
     async function snapshot(token?:string){
       let status=0,data:Record<string,unknown>={};
-      await api({method:'GET',url:'/api/quiz-lanes/dashboard-snapshot',headers:{authorization:token}},
+      await api({method:'GET',url:'/api/quiz/lanes/dashboard-snapshot',headers:{authorization:token}},
         {writeHead:(code:number)=>{status=code;},end:(value:string)=>{data=JSON.parse(value);}});
       return {status,data};
     }
@@ -45,7 +45,7 @@ describe('dashboard persistence and integration boundaries',()=>{
   });
   it('keeps snapshot access disabled until its server-only credential is configured',async()=>{
     const {api}=setup();let status=0;
-    await api({method:'GET',url:'/api/quiz-lanes/dashboard-snapshot',headers:{}},{writeHead:(code:number)=>{status=code;},end:()=>{}});
+    await api({method:'GET',url:'/api/quiz/lanes/dashboard-snapshot',headers:{}},{writeHead:(code:number)=>{status=code;},end:()=>{}});
     expect(status).toBe(503);
   });
   it.each(['ezclassic','fab','restock','upgrade','gift'])('persists %s without Klaviyo credentials',async lane=>{
