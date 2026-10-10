@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { computeLifecycleResult } from "@/lib/lifecycle-engine";
+import { computeLifecycleResult, goHomeDateFromDob } from "@/lib/lifecycle-engine";
 import type { ExistingCustomerData } from "@/lib/types";
 
 /**
@@ -59,6 +59,19 @@ describe("Path 2 — stage banner tone & headline", () => {
   it("null stage → neutral fallback", () => {
     const r = computeLifecycleResult(baseData({ stage: null }));
     expect(r.banner.tone).toBe("neutral");
+  });
+});
+
+describe("Capture Date of Birth requirements", () => {
+  it("uses the pre-birth recommendation template for the due_7 stage", () => {
+    const due = computeLifecycleResult(baseData({ stage: "due_7" }));
+    const preparing = computeLifecycleResult(baseData({ stage: "preparing" }));
+    expect(due.banner.tone).toBe("urgent_readiness");
+    expect(due.primaryRecommendations.map(item => item.name)).toEqual(preparing.primaryRecommendations.map(item => item.name));
+  });
+
+  it("calculates go-home day 56 days after the actual birth date", () => {
+    expect(goHomeDateFromDob("2026-01-01")).toBe("2026-02-26");
   });
 });
 

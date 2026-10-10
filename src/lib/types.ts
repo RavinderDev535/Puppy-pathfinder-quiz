@@ -63,7 +63,7 @@ export interface ExistingCustomerData {
   boxSize: "28" | "38" | "48" | "48xl" | "unsure" | null;
   boxHeight: "18" | "28" | "unsure" | null;
   hasWindow: "yes" | "no" | "unsure" | null;
-  stage: "preparing" | "born_0_3" | "1_2_weeks" | "3_plus_weeks" | null;
+  stage: "preparing" | "due_7" | "born_0_3" | "1_2_weeks" | "3_plus_weeks" | null;
   dueDate: string | null;
 }
 

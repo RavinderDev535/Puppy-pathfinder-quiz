@@ -204,6 +204,7 @@ export const existingCustomerBoxSteps: QuizStep[] = [
     type: "select",
     options: [
       { label: "Preparing (not born yet)", value: "preparing" },
+      { label: "Due in 7 days", value: "due_7" },
       { label: "Born 0–3 days", value: "born_0_3" },
       { label: "1–2 weeks old", value: "1_2_weeks" },
       { label: "3+ weeks old", value: "3_plus_weeks" },
@@ -213,12 +214,12 @@ export const existingCustomerBoxSteps: QuizStep[] = [
     id: "dueDate",
     question: "What is your due date?",
     type: "date",
-    showIf: (data: any) => data.stage === "preparing",
+    showIf: (data: any) => data.stage === "preparing" || data.stage === "due_7",
   },
   {
     id: "dob",
     question: "What is your litter's date of birth?",
     type: "date",
-    showIf: (data: any) => !!data.stage && data.stage !== "preparing",
+    showIf: (data: any) => !!data.stage && data.stage !== "preparing" && data.stage !== "due_7",
   },
 ];

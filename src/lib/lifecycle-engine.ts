@@ -253,6 +253,12 @@ function getStageBanner(stage: ExistingCustomerData["stage"]): TimelineBanner {
         tone: "calm_preparedness",
         emphasis: ["heat", "whelping kit", "pads", "readiness"],
       };
+    case "due_7":
+      return {
+        headline: "Your litter is due soon — finish preparing your existing setup.",
+        tone: "urgent_readiness",
+        emphasis: ["heat", "whelping kit", "pads", "readiness"],
+      };
     case "born_0_3":
       return {
         headline: "Keep your newborns warm, safe, and closely monitored.",
@@ -284,7 +290,7 @@ export function computeLifecycleResult(data: ExistingCustomerData): LifecycleRes
   const { stage, hasWindow, boxHeight, boxSize } = data;
   const banner = getStageBanner(stage);
   let primary: LifecycleRecommendation[] = [];
-  let conditional: LifecycleRecommendation[] = [];
+  const conditional: LifecycleRecommendation[] = [];
 
   const tractionUrl = getTractionPadUrl(boxSize);
   const acrylicUrl = getAcrylicDoorUrl(boxHeight);
@@ -300,6 +306,7 @@ export function computeLifecycleResult(data: ExistingCustomerData): LifecycleRes
 
   switch (stage) {
     case "preparing":
+    case "due_7":
       primary = [
         { name: "Heat Combo", description: "Consistent warmth for newborn puppies", url: heatComboUrl, imageUrl: "https://cdn.shopify.com/s/files/1/0626/9389/products/HeatLampComboEZclassic.jpg?v=1762457294", category: "warmth_safety" },
         { name: "Heat Pad", description: "Direct surface warmth — pair with Heat Combo for stable temps before puppies arrive", url: heatPadUrl, imageUrl: heatPadImage, category: "warmth_safety" },
@@ -364,9 +371,18 @@ export function computeLifecycleResult(data: ExistingCustomerData): LifecycleRes
 
   return {
     stage: stage || "unknown",
-    stageLabel: stage === "preparing" ? "Getting Ready for Your Litter" : stage === "born_0_3" ? "Newborn Essentials — First 72 Hours" : stage === "1_2_weeks" ? "Supporting Early Growth — Weeks 1–2" : "Thriving Litter — 3+ Weeks",
+    stageLabel: stage === "preparing" ? "Getting Ready for Your Litter" : stage === "due_7" ? "Due in 7 Days" : stage === "born_0_3" ? "Newborn Essentials — First 72 Hours" : stage === "1_2_weeks" ? "Supporting Early Growth — Weeks 1–2" : "Thriving Litter — 3+ Weeks",
     banner,
     primaryRecommendations: primary,
     conditionalRecommendations: conditional,
   };
+}
+
+export function goHomeDateFromDob(dob: string): string {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(dob) || !Number.isFinite(Date.parse(dob)) || new Date(dob).toISOString().slice(0, 10) !== dob) {
+    throw new Error("Choose a valid date of birth.");
+  }
+  const date = new Date(`${dob}T12:00:00Z`);
+  date.setUTCDate(date.getUTCDate() + 56);
+  return date.toISOString().slice(0, 10);
 }

@@ -19,7 +19,7 @@ export function normalizeFabRails(cart:CartLine[]):CartLine[]{
 }
 export function Cart({lane,lines,live,setLines,email,properties={},content='recommended',onCheckout}:{lane:Lane;lines:CartLine[];live:Record<string,LiveProduct>;setLines?:(rows:CartLine[])=>void;email?:string;properties?:Record<string,unknown>;content?:string;onCheckout?:()=>void}){
   const [open,setOpen]=useState(false);const [emailStep,setEmailStep]=useState(false);const [address,setAddress]=useState(email||'');
-  const [reminder,setReminder]=useState(true);const [busy,setBusy]=useState(false);const [error,setError]=useState('');const [profileFailed,setProfileFailed]=useState(false);
+  const [reminder,setReminder]=useState(false);const [busy,setBusy]=useState(false);const [error,setError]=useState('');const [profileFailed,setProfileFailed]=useState(false);
   const errors=validateCart(lines,live);const total=lines.reduce((sum,r)=>sum+(live[r.key]?.price||0)*r.quantity,0);
   const known=lines.every(r=>live[r.key]?.price!=null);const url=cartUrl(lines,live,lane,content);
   const quantity=lines.reduce((sum,r)=>sum+r.quantity,0);

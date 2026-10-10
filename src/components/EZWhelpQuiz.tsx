@@ -35,7 +35,7 @@ import {
 } from "@/lib/quiz-config";
 import { computeFullResult } from "@/lib/structural-engine";
 
-import { computeLifecycleResult } from "@/lib/lifecycle-engine";
+import { computeLifecycleResult, goHomeDateFromDob } from "@/lib/lifecycle-engine";
 import { getNewCustomerRecommendation, getExistingCustomerRecommendation, getNewCustomerRecommendationSet, getExistingCustomerRecommendationSet } from "@/lib/smart-recommendations";
 import type { SmartRecommendationSet } from "@/lib/smart-recommendations";
 import { getBreedRecommendation } from "@/lib/breed-box-sizes";
@@ -1060,6 +1060,7 @@ const handleNext = useCallback((overrideVal?: string) => {
           setApiLoading(false);
         });
     } else if (customerType === "existing") {
+      const preBirth = existingData.stage === "preparing" || existingData.stage === "due_7";
       submitPath2({
         email: emailValue || "",
         breed: existingData.breed,
@@ -1069,8 +1070,9 @@ const handleNext = useCallback((overrideVal?: string) => {
         stage: existingData.stage || "",
         // Klaviyo-only mirroring fields.
         dam_size: existingData.damSize,
-        due_date: existingData.stage === "preparing" ? existingData.dueDate : undefined,
-        dob: existingData.stage !== "preparing" ? existingData.dob : undefined,
+        due_date: preBirth ? existingData.dueDate : undefined,
+        dob: !preBirth ? existingData.dob : undefined,
+        go_home_date: !preBirth && existingData.dob ? goHomeDateFromDob(existingData.dob) : undefined,
         experience: existingData.experience,
         // Implicit marketing consent — submit click is the consent action.
         subscribed: true,

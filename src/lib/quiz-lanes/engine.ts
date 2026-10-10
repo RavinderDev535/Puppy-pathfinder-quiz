@@ -91,6 +91,11 @@ export function singleShelf(owner:Owner,a:Answers): Offer[] {
   } : {preparing:['*heat','*slip','kit','liner','seat'],due_7:['*heat','*quick','kit','combo','seat'],born_0_3:['*heat','*quick','*slip','camera','door'],week_1_2:['*traction','*quick','room','camera'],week_3_plus:['*room','*quick','mess','feeding','traction']};
   const rows:Offer[]=template[a.stage].flatMap(entry=>{
     const kind=entry.replace('*','');const key=match[kind];if(!key)return [];
+    // Fab's client matrix omits the heat combo entirely for experienced breeders
+    // (3-5 and 6+ litters); keep it off the shelf rather than offering it unticked.
+    if(fab&&kind==='heat'&&['3_5','6_plus'].includes(a.experience))return [];
+    // The 6+ cases specify no pad line beyond the locked box and rails.
+    if(fab&&['gray','quick','slip','traction'].includes(kind)&&a.experience==='6_plus')return [];
     const isPad=['gray','quick','slip','traction'].includes(kind);
     let selected=entry.startsWith('*');
     if(a.experience==='3_5')selected=isPad;

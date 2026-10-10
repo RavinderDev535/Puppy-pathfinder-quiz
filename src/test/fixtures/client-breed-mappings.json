@@ -1,0 +1,2952 @@
+{
+  "ezclassic": {
+    "breeds": [
+      {
+        "name": "Affenpinscher",
+        "sizes": [
+          "28x28",
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "no"
+      },
+      {
+        "name": "Afghan Hound",
+        "sizes": [
+          "48x48"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Airdale Terrier",
+        "sizes": [
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Akita",
+        "sizes": [
+          "48x76"
+        ],
+        "height": "tall (required)",
+        "locked": "YES"
+      },
+      {
+        "name": "Alaskan Malamute",
+        "sizes": [
+          "48x48"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "American Eskimo",
+        "sizes": [
+          "28x28",
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "no"
+      },
+      {
+        "name": "American Foxhound",
+        "sizes": [
+          "48x48"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "American Staffordshire Terrier",
+        "sizes": [
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "American Water Spaniel",
+        "sizes": [
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Anatolian Sheepdog",
+        "sizes": [
+          "48x76"
+        ],
+        "height": "tall (required)",
+        "locked": "YES"
+      },
+      {
+        "name": "Australian Cattle Dog",
+        "sizes": [
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Australian Shepherd",
+        "sizes": [
+          "38x38",
+          "48x48"
+        ],
+        "height": "standard",
+        "locked": "no"
+      },
+      {
+        "name": "Australian Terrier",
+        "sizes": [
+          "28x28",
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "no"
+      },
+      {
+        "name": "Basenji",
+        "sizes": [
+          "28x28",
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "no"
+      },
+      {
+        "name": "Basset Hound",
+        "sizes": [
+          "48x48"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Beagle",
+        "sizes": [
+          "28x28",
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "no"
+      },
+      {
+        "name": "Bearded Collie",
+        "sizes": [
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Beauceron",
+        "sizes": [
+          "48x48"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Bedlington Terrier",
+        "sizes": [
+          "28x28",
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "no"
+      },
+      {
+        "name": "Belgian Malinois",
+        "sizes": [
+          "48x48"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Belgian Sheepdog",
+        "sizes": [
+          "48x48"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Belgian Tervuren",
+        "sizes": [
+          "48x48"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Bernese Mountain Dog",
+        "sizes": [
+          "48x76"
+        ],
+        "height": "tall (required)",
+        "locked": "YES"
+      },
+      {
+        "name": "Bichon Frise",
+        "sizes": [
+          "28x28",
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "no"
+      },
+      {
+        "name": "Black And Tan Coonhound",
+        "sizes": [
+          "48x48"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Black Russian Terrier",
+        "sizes": [
+          "48x76"
+        ],
+        "height": "tall (required)",
+        "locked": "YES"
+      },
+      {
+        "name": "Bloodhound",
+        "sizes": [
+          "48x76"
+        ],
+        "height": "tall (required)",
+        "locked": "YES"
+      },
+      {
+        "name": "Border Collie",
+        "sizes": [
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Border Terrier",
+        "sizes": [
+          "28x28",
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "no"
+      },
+      {
+        "name": "Borzoi",
+        "sizes": [
+          "48x76"
+        ],
+        "height": "tall (required)",
+        "locked": "YES"
+      },
+      {
+        "name": "Boston Terrier",
+        "sizes": [
+          "28x28",
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "no"
+      },
+      {
+        "name": "Bouvier Des Flandres",
+        "sizes": [
+          "48x48"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Boxer",
+        "sizes": [
+          "48x48",
+          "48x76"
+        ],
+        "height": "standard, tall optional",
+        "locked": "no"
+      },
+      {
+        "name": "Briard",
+        "sizes": [
+          "48x48"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Brittany",
+        "sizes": [
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Brussels Griffon",
+        "sizes": [
+          "28x28",
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "no"
+      },
+      {
+        "name": "Bull Dog",
+        "sizes": [
+          "38x38",
+          "48x48"
+        ],
+        "height": "standard",
+        "locked": "no"
+      },
+      {
+        "name": "Bull Terrier",
+        "sizes": [
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Bullmastiff",
+        "sizes": [
+          "48x76"
+        ],
+        "height": "tall (required)",
+        "locked": "YES"
+      },
+      {
+        "name": "Cairn Terrier",
+        "sizes": [
+          "28x28",
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "no"
+      },
+      {
+        "name": "Canaan Dog",
+        "sizes": [
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Cardigan Welsh Corgi",
+        "sizes": [
+          "28x28",
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "no"
+      },
+      {
+        "name": "Cavalier King Charles Spaniel",
+        "sizes": [
+          "28x28",
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "no"
+      },
+      {
+        "name": "Chesapeake Bay Retriever",
+        "sizes": [
+          "48x48"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Chihuahua",
+        "sizes": [
+          "28x28"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Chinese Crested",
+        "sizes": [
+          "28x28"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Chinese Shar Pei",
+        "sizes": [
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Chow Chow",
+        "sizes": [
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Clumber Spaniel",
+        "sizes": [
+          "48x48"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Cocker Spaniel-American",
+        "sizes": [
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Cocker Spaniel-English",
+        "sizes": [
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Collie (Rough) & (Smooth)",
+        "sizes": [
+          "48x48"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Coton de Tulear",
+        "sizes": [
+          "28x28",
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "no"
+      },
+      {
+        "name": "Curly Coated Retriever",
+        "sizes": [
+          "48x48"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Dachshund",
+        "sizes": [
+          "28x28",
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "no"
+      },
+      {
+        "name": "Dalmatian",
+        "sizes": [
+          "38x38",
+          "48x48"
+        ],
+        "height": "standard",
+        "locked": "no"
+      },
+      {
+        "name": "Dandie Dinmont Terrier",
+        "sizes": [
+          "28x28",
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "no"
+      },
+      {
+        "name": "Doberman Pinscher",
+        "sizes": [
+          "48x48"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "English Foxhound",
+        "sizes": [
+          "48x48"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "English Setter",
+        "sizes": [
+          "48x48"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "English Springer Spaniel",
+        "sizes": [
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "English Toy Spaniel",
+        "sizes": [
+          "28x28",
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "no"
+      },
+      {
+        "name": "Field Spaniel",
+        "sizes": [
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Finnish Spitz",
+        "sizes": [
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Flat Coated Retriever",
+        "sizes": [
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Fox Terrier – Smooth",
+        "sizes": [
+          "28x28",
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "no"
+      },
+      {
+        "name": "Fox Terrier – Wirehair",
+        "sizes": [
+          "28x28",
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "no"
+      },
+      {
+        "name": "French Bulldog",
+        "sizes": [
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "German Pinscher",
+        "sizes": [
+          "28x28",
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "no"
+      },
+      {
+        "name": "German Shepherd Dog",
+        "sizes": [
+          "48x76"
+        ],
+        "height": "tall (required)",
+        "locked": "YES"
+      },
+      {
+        "name": "German Shorthaired Pointer",
+        "sizes": [
+          "48x48"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "German Wirehaired Pointer",
+        "sizes": [
+          "48x48"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Giant Schnauzer",
+        "sizes": [
+          "48x48"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Glen Imaal Terrier",
+        "sizes": [
+          "28x28",
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "no"
+      },
+      {
+        "name": "Golden Retriever",
+        "sizes": [
+          "48x48"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Gordon Setter",
+        "sizes": [
+          "48x48"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Great Dane",
+        "sizes": [
+          "48x76"
+        ],
+        "height": "tall (required)",
+        "locked": "YES"
+      },
+      {
+        "name": "Great Pyrenees",
+        "sizes": [
+          "48x76"
+        ],
+        "height": "tall (required)",
+        "locked": "YES"
+      },
+      {
+        "name": "Great Swiss Mountain Dog",
+        "sizes": [
+          "48x76"
+        ],
+        "height": "tall (required)",
+        "locked": "YES"
+      },
+      {
+        "name": "Greyhound",
+        "sizes": [
+          "48x48",
+          "48x76"
+        ],
+        "height": "standard, tall optional",
+        "locked": "no"
+      },
+      {
+        "name": "Harrier",
+        "sizes": [
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Ibizan Hound",
+        "sizes": [
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Irish Setter",
+        "sizes": [
+          "48x48"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Irish Terrier",
+        "sizes": [
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Irish Water Spaniel",
+        "sizes": [
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Irish Wolfhound",
+        "sizes": [
+          "48x76"
+        ],
+        "height": "tall (required)",
+        "locked": "YES"
+      },
+      {
+        "name": "Italian Greyhound",
+        "sizes": [
+          "28x28"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Jack Russell Terrier",
+        "sizes": [
+          "28x28"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Japanese Chin",
+        "sizes": [
+          "28x28"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Keeshond",
+        "sizes": [
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Kerry Blue Terrier",
+        "sizes": [
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Komondor",
+        "sizes": [
+          "48x48"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Kuvasz",
+        "sizes": [
+          "48x76"
+        ],
+        "height": "tall (required)",
+        "locked": "YES"
+      },
+      {
+        "name": "Labrador Retriever",
+        "sizes": [
+          "48x48"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Lakeland Terrier",
+        "sizes": [
+          "28x28",
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "no"
+      },
+      {
+        "name": "Maltese",
+        "sizes": [
+          "28x28"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Manchester Terrier (Standard)",
+        "sizes": [
+          "28x28",
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "no"
+      },
+      {
+        "name": "Manchester Terrier (Toy)",
+        "sizes": [
+          "28x28"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Mastiff",
+        "sizes": [
+          "48x76"
+        ],
+        "height": "tall (required)",
+        "locked": "YES"
+      },
+      {
+        "name": "Neopolitan Mastiff",
+        "sizes": [
+          "48x76"
+        ],
+        "height": "tall (required)",
+        "locked": "YES"
+      },
+      {
+        "name": "Newfoundland",
+        "sizes": [
+          "48x76"
+        ],
+        "height": "tall (required)",
+        "locked": "YES"
+      },
+      {
+        "name": "Norwegian Elkhound",
+        "sizes": [
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Nova Scotia Duck Tolling Retriever",
+        "sizes": [
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Old English Sheepdog (Bobtail)",
+        "sizes": [
+          "48x48"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Otter Hound",
+        "sizes": [
+          "48x76"
+        ],
+        "height": "tall (required)",
+        "locked": "YES"
+      },
+      {
+        "name": "Papillon",
+        "sizes": [
+          "28x28"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Petit Basset Griffon Vendeen",
+        "sizes": [
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Pharaoh Hound",
+        "sizes": [
+          "38x38",
+          "48x48"
+        ],
+        "height": "standard",
+        "locked": "no"
+      },
+      {
+        "name": "Plott Hound",
+        "sizes": [
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Pointer",
+        "sizes": [
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Polish Lowland Sheepdog",
+        "sizes": [
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Pomeranian",
+        "sizes": [
+          "28x28"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Poodle Miniature",
+        "sizes": [
+          "28x28",
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "no"
+      },
+      {
+        "name": "Poodle Standard",
+        "sizes": [
+          "48x48",
+          "48x76"
+        ],
+        "height": "standard, tall optional",
+        "locked": "no"
+      },
+      {
+        "name": "Poodle Toy",
+        "sizes": [
+          "28x28"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Portuguese Water Dog",
+        "sizes": [
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Pug",
+        "sizes": [
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Puli",
+        "sizes": [
+          "28x28",
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "no"
+      },
+      {
+        "name": "Redbone Coonhound",
+        "sizes": [
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Rhodesian Ridgeback",
+        "sizes": [
+          "48x48"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Rottweiler",
+        "sizes": [
+          "48x76"
+        ],
+        "height": "tall (required)",
+        "locked": "YES"
+      },
+      {
+        "name": "Saint Bernard",
+        "sizes": [
+          "48x76"
+        ],
+        "height": "tall (required)",
+        "locked": "YES"
+      },
+      {
+        "name": "Saluki",
+        "sizes": [
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Samoyed",
+        "sizes": [
+          "38x38",
+          "48x48"
+        ],
+        "height": "standard",
+        "locked": "no"
+      },
+      {
+        "name": "Schipperke",
+        "sizes": [
+          "28x28",
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "no"
+      },
+      {
+        "name": "Scottish Deerhound",
+        "sizes": [
+          "48x48",
+          "48x76"
+        ],
+        "height": "standard, tall optional",
+        "locked": "no"
+      },
+      {
+        "name": "Scottish Terrier",
+        "sizes": [
+          "28x28",
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "no"
+      },
+      {
+        "name": "Sealyham Terrier",
+        "sizes": [
+          "28x28",
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "no"
+      },
+      {
+        "name": "Shetland Sheepdog (Sheltie)",
+        "sizes": [
+          "28x28",
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "no"
+      },
+      {
+        "name": "Shiba Inu",
+        "sizes": [
+          "28x28",
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "no"
+      },
+      {
+        "name": "Shih Tzu",
+        "sizes": [
+          "28x28",
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "no"
+      },
+      {
+        "name": "Siberian Husky",
+        "sizes": [
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Silky Terrier",
+        "sizes": [
+          "28x28",
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "no"
+      },
+      {
+        "name": "Skye Terrier",
+        "sizes": [
+          "28x28",
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "no"
+      },
+      {
+        "name": "Soft-Coated Wheaten Terrier",
+        "sizes": [
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Spinone Italiano",
+        "sizes": [
+          "48x48",
+          "48x76"
+        ],
+        "height": "standard, tall optional",
+        "locked": "no"
+      },
+      {
+        "name": "Staffordshire Bull Terrier",
+        "sizes": [
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Standard Schnauzer",
+        "sizes": [
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Sussex Spaniel",
+        "sizes": [
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Tibetan Mastiff",
+        "sizes": [
+          "48x76"
+        ],
+        "height": "tall (required)",
+        "locked": "YES"
+      },
+      {
+        "name": "Tibetan Spaniel",
+        "sizes": [
+          "28x28",
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "no"
+      },
+      {
+        "name": "Tibetan Terrier",
+        "sizes": [
+          "28x28",
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "no"
+      },
+      {
+        "name": "Toy Fox Terrier",
+        "sizes": [
+          "28x28"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Vizsla",
+        "sizes": [
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Weimaraner",
+        "sizes": [
+          "48x48"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Welsh Springer Spaniel",
+        "sizes": [
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Welsh Terrier",
+        "sizes": [
+          "28x28",
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "no"
+      },
+      {
+        "name": "West Highland White Terrier",
+        "sizes": [
+          "28x28",
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "no"
+      },
+      {
+        "name": "Whippet",
+        "sizes": [
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Wirehaired Pointing Griffon",
+        "sizes": [
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Yorkshire Terrier",
+        "sizes": [
+          "28x28"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Pembroke Welsh Corgi",
+        "sizes": [
+          "28x28",
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "no"
+      },
+      {
+        "name": "Shetland Sheepdog",
+        "sizes": [
+          "28x28",
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "no"
+      },
+      {
+        "name": "Miniature Schnauzer",
+        "sizes": [
+          "28x28"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Havanese",
+        "sizes": [
+          "28x28"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Lhasa Apso",
+        "sizes": [
+          "28x28"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Pekingese",
+        "sizes": [
+          "28x28"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Norwich Terrier",
+        "sizes": [
+          "28x28"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Norfolk Terrier",
+        "sizes": [
+          "28x28"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Rat Terrier",
+        "sizes": [
+          "28x28"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Miniature Pinscher",
+        "sizes": [
+          "28x28"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Alaskan Klee Kai",
+        "sizes": [
+          "28x28"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Maltipoo",
+        "sizes": [
+          "28x28"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Pomsky",
+        "sizes": [
+          "28x28",
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "no"
+      },
+      {
+        "name": "Cavapoo",
+        "sizes": [
+          "28x28",
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "no"
+      },
+      {
+        "name": "Cockapoo",
+        "sizes": [
+          "28x28",
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "no"
+      },
+      {
+        "name": "Miniature American Shepherd",
+        "sizes": [
+          "28x28",
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "no"
+      },
+      {
+        "name": "Soft Coated Wheaten Terrier",
+        "sizes": [
+          "38x38"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Goldendoodle (Standard)",
+        "sizes": [
+          "48x48"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Labradoodle (Standard)",
+        "sizes": [
+          "48x48"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "American Bully",
+        "sizes": [
+          "48x48"
+        ],
+        "height": "standard",
+        "locked": "YES"
+      },
+      {
+        "name": "Sheepadoodle",
+        "sizes": [
+          "48x48",
+          "48x76"
+        ],
+        "height": "standard, tall optional",
+        "locked": "no"
+      },
+      {
+        "name": "Bernedoodle (Standard)",
+        "sizes": [
+          "48x48",
+          "48x76"
+        ],
+        "height": "standard, tall optional",
+        "locked": "no"
+      },
+      {
+        "name": "Cane Corso",
+        "sizes": [
+          "48x76"
+        ],
+        "height": "tall (required)",
+        "locked": "YES"
+      },
+      {
+        "name": "Dogue de Bordeaux",
+        "sizes": [
+          "48x76"
+        ],
+        "height": "tall (required)",
+        "locked": "YES"
+      },
+      {
+        "name": "Boerboel",
+        "sizes": [
+          "48x76"
+        ],
+        "height": "tall (required)",
+        "locked": "YES"
+      },
+      {
+        "name": "Leonberger",
+        "sizes": [
+          "48x76"
+        ],
+        "height": "tall (required)",
+        "locked": "YES"
+      }
+    ],
+    "additionalBreeds": [
+      {
+        "name": "Pembroke Welsh Corgi",
+        "primary": "28x28",
+        "secondary": "38x38",
+        "height": "standard",
+        "basis": "Long-bodied. Matches Cardigan Welsh Corgi already in the table"
+      },
+      {
+        "name": "Shetland Sheepdog",
+        "primary": "28x28",
+        "secondary": "38x38",
+        "height": "standard",
+        "basis": "Sized with Schipperke and similar small herders"
+      },
+      {
+        "name": "Miniature Schnauzer",
+        "primary": "28x28",
+        "secondary": null,
+        "height": "standard",
+        "basis": "Small terrier build"
+      },
+      {
+        "name": "Havanese",
+        "primary": "28x28",
+        "secondary": null,
+        "height": "standard",
+        "basis": "Toy breed"
+      },
+      {
+        "name": "Lhasa Apso",
+        "primary": "28x28",
+        "secondary": null,
+        "height": "standard",
+        "basis": "Small, long-bodied"
+      },
+      {
+        "name": "Pekingese",
+        "primary": "28x28",
+        "secondary": null,
+        "height": "standard",
+        "basis": "Toy breed"
+      },
+      {
+        "name": "Norwich Terrier",
+        "primary": "28x28",
+        "secondary": null,
+        "height": "standard",
+        "basis": "Matches Border Terrier in the table"
+      },
+      {
+        "name": "Norfolk Terrier",
+        "primary": "28x28",
+        "secondary": null,
+        "height": "standard",
+        "basis": "Matches Border Terrier in the table"
+      },
+      {
+        "name": "Rat Terrier",
+        "primary": "28x28",
+        "secondary": null,
+        "height": "standard",
+        "basis": "Matches Fox Terrier sizing"
+      },
+      {
+        "name": "Miniature Pinscher",
+        "primary": "28x28",
+        "secondary": null,
+        "height": "standard",
+        "basis": "Toy breed"
+      },
+      {
+        "name": "Alaskan Klee Kai",
+        "primary": "28x28",
+        "secondary": null,
+        "height": "standard",
+        "basis": "Toy to small spitz"
+      },
+      {
+        "name": "Maltipoo",
+        "primary": "28x28",
+        "secondary": null,
+        "height": "standard",
+        "basis": "Toy crossbreed"
+      },
+      {
+        "name": "Pomsky",
+        "primary": "28x28",
+        "secondary": "38x38",
+        "height": "standard",
+        "basis": "Converted at 50% in live quiz data"
+      },
+      {
+        "name": "Cavapoo",
+        "primary": "28x28",
+        "secondary": "38x38",
+        "height": "standard",
+        "basis": "Small crossbreed, wide weight range"
+      },
+      {
+        "name": "Cockapoo",
+        "primary": "28x28",
+        "secondary": "38x38",
+        "height": "standard",
+        "basis": "Small to medium crossbreed"
+      },
+      {
+        "name": "Miniature American Shepherd",
+        "primary": "28x28",
+        "secondary": "38x38",
+        "height": "standard",
+        "basis": "Sized with Schipperke and small herders"
+      },
+      {
+        "name": "Soft Coated Wheaten Terrier",
+        "primary": "38x38",
+        "secondary": null,
+        "height": "standard",
+        "basis": "Matches Irish Terrier in the table"
+      },
+      {
+        "name": "Goldendoodle (Standard)",
+        "primary": "48x48",
+        "secondary": null,
+        "height": "standard",
+        "basis": "Matches Golden Retriever in the table"
+      },
+      {
+        "name": "Labradoodle (Standard)",
+        "primary": "48x48",
+        "secondary": null,
+        "height": "standard",
+        "basis": "Matches Labrador Retriever in the table"
+      },
+      {
+        "name": "American Bully",
+        "primary": "48x48",
+        "secondary": null,
+        "height": "standard",
+        "basis": "Stocky. Matches Bulldog and Bull Terrier grouping"
+      },
+      {
+        "name": "Sheepadoodle",
+        "primary": "48x48",
+        "secondary": "48x76",
+        "height": "standard, tall optional",
+        "basis": "Old English Sheepdog cross. Larger individuals need tall"
+      },
+      {
+        "name": "Bernedoodle (Standard)",
+        "primary": "48x48",
+        "secondary": "48x76",
+        "height": "standard, tall optional",
+        "basis": "Bernese cross. Bernese itself is locked to 48x76"
+      },
+      {
+        "name": "Cane Corso",
+        "primary": "48x76",
+        "secondary": null,
+        "height": "tall (required)",
+        "basis": "46in plus 8 = 54in minimum per EZwhelp sizing rule"
+      },
+      {
+        "name": "Dogue de Bordeaux",
+        "primary": "48x76",
+        "secondary": null,
+        "height": "tall (required)",
+        "basis": "Mastiff group. Matches Bullmastiff in the table"
+      },
+      {
+        "name": "Boerboel",
+        "primary": "48x76",
+        "secondary": null,
+        "height": "tall (required)",
+        "basis": "Mastiff group. Matches Mastiff in the table"
+      },
+      {
+        "name": "Leonberger",
+        "primary": "48x76",
+        "secondary": null,
+        "height": "tall (required)",
+        "basis": "Matches Newfoundland and Great Pyrenees in the table"
+      }
+    ],
+    "weightFallback": [
+      {
+        "weight": "Under 16 lbs",
+        "size": "28x28",
+        "height": "standard"
+      },
+      {
+        "weight": "16-40 lbs",
+        "size": "38x38",
+        "height": "standard"
+      },
+      {
+        "weight": "40-90 lbs",
+        "size": "48x48",
+        "height": "standard"
+      },
+      {
+        "weight": "90+ lbs",
+        "size": "48x76",
+        "height": "tall (required)"
+      }
+    ]
+  },
+  "fab": {
+    "breeds": [
+      {
+        "name": "Affenpinscher",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Afghan Hound",
+        "ezclassicSize": "48x48",
+        "size": "4x4",
+        "availability": "Normal",
+        "note": null
+      },
+      {
+        "name": "Airdale Terrier",
+        "ezclassicSize": "38x38",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Akita",
+        "ezclassicSize": "48x76",
+        "size": "4x6",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Alaskan Klee Kai",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Alaskan Malamute",
+        "ezclassicSize": "48x48",
+        "size": "4x4",
+        "availability": "Normal",
+        "note": null
+      },
+      {
+        "name": "American Bully",
+        "ezclassicSize": "48x48",
+        "size": "4x4",
+        "availability": "Normal",
+        "note": null
+      },
+      {
+        "name": "American Eskimo",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "American Foxhound",
+        "ezclassicSize": "48x48",
+        "size": "4x4",
+        "availability": "Normal",
+        "note": null
+      },
+      {
+        "name": "American Staffordshire Terrier",
+        "ezclassicSize": "38x38",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "American Water Spaniel",
+        "ezclassicSize": "38x38",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Anatolian Sheepdog",
+        "ezclassicSize": "48x76",
+        "size": "4x6",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Australian Cattle Dog",
+        "ezclassicSize": "38x38",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Australian Shepherd",
+        "ezclassicSize": "38x38",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Australian Terrier",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Basenji",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Basset Hound",
+        "ezclassicSize": "48x48",
+        "size": "4x4",
+        "availability": "Normal",
+        "note": null
+      },
+      {
+        "name": "Beagle",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Bearded Collie",
+        "ezclassicSize": "38x38",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Beauceron",
+        "ezclassicSize": "48x48",
+        "size": "4x4",
+        "availability": "Normal",
+        "note": null
+      },
+      {
+        "name": "Bedlington Terrier",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Belgian Malinois",
+        "ezclassicSize": "48x48",
+        "size": "4x4",
+        "availability": "Normal",
+        "note": null
+      },
+      {
+        "name": "Belgian Sheepdog",
+        "ezclassicSize": "48x48",
+        "size": "4x4",
+        "availability": "Normal",
+        "note": null
+      },
+      {
+        "name": "Belgian Tervuren",
+        "ezclassicSize": "48x48",
+        "size": "4x4",
+        "availability": "Normal",
+        "note": null
+      },
+      {
+        "name": "Bernedoodle (Standard)",
+        "ezclassicSize": "48x48",
+        "size": "4x4",
+        "availability": "Normal",
+        "note": null
+      },
+      {
+        "name": "Bernese Mountain Dog",
+        "ezclassicSize": "48x76",
+        "size": "4x6",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Bichon Frise",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Black And Tan Coonhound",
+        "ezclassicSize": "48x48",
+        "size": "4x4",
+        "availability": "Normal",
+        "note": null
+      },
+      {
+        "name": "Black Russian Terrier",
+        "ezclassicSize": "48x76",
+        "size": "4x6",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Bloodhound",
+        "ezclassicSize": "48x76",
+        "size": "4x6",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Boerboel",
+        "ezclassicSize": "48x76",
+        "size": "4x6",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Border Collie",
+        "ezclassicSize": "38x38",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Border Terrier",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Borzoi",
+        "ezclassicSize": "48x76",
+        "size": "4x6",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Boston Terrier",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Bouvier Des Flandres",
+        "ezclassicSize": "48x48",
+        "size": "4x4",
+        "availability": "Normal",
+        "note": null
+      },
+      {
+        "name": "Boxer",
+        "ezclassicSize": "48x48",
+        "size": "4x4",
+        "availability": "Normal",
+        "note": null
+      },
+      {
+        "name": "Briard",
+        "ezclassicSize": "48x48",
+        "size": "4x4",
+        "availability": "Normal",
+        "note": null
+      },
+      {
+        "name": "Brittany",
+        "ezclassicSize": "38x38",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Brussels Griffon",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Bull Dog",
+        "ezclassicSize": "38x38",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Bull Terrier",
+        "ezclassicSize": "38x38",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Bullmastiff",
+        "ezclassicSize": "48x76",
+        "size": "4x6",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Cairn Terrier",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Canaan Dog",
+        "ezclassicSize": "38x38",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Cane Corso",
+        "ezclassicSize": "48x76",
+        "size": "4x6",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Cardigan Welsh Corgi",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Cavalier King Charles Spaniel",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Cavapoo",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Chesapeake Bay Retriever",
+        "ezclassicSize": "48x48",
+        "size": "4x4",
+        "availability": "Normal",
+        "note": null
+      },
+      {
+        "name": "Chihuahua",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Chinese Crested",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Chinese Shar Pei",
+        "ezclassicSize": "38x38",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Chow Chow",
+        "ezclassicSize": "38x38",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Clumber Spaniel",
+        "ezclassicSize": "48x48",
+        "size": "4x4",
+        "availability": "Normal",
+        "note": null
+      },
+      {
+        "name": "Cockapoo",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Cocker Spaniel-American",
+        "ezclassicSize": "38x38",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Cocker Spaniel-English",
+        "ezclassicSize": "38x38",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Collie (Rough) & (Smooth)",
+        "ezclassicSize": "48x48",
+        "size": "4x4",
+        "availability": "Normal",
+        "note": null
+      },
+      {
+        "name": "Coton de Tulear",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Curly Coated Retriever",
+        "ezclassicSize": "48x48",
+        "size": "4x4",
+        "availability": "Normal",
+        "note": null
+      },
+      {
+        "name": "Dachshund",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Dalmatian",
+        "ezclassicSize": "38x38",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Dandie Dinmont Terrier",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Doberman Pinscher",
+        "ezclassicSize": "48x48",
+        "size": "4x4",
+        "availability": "Normal",
+        "note": null
+      },
+      {
+        "name": "Dogue de Bordeaux",
+        "ezclassicSize": "48x76",
+        "size": "4x6",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "English Foxhound",
+        "ezclassicSize": "48x48",
+        "size": "4x4",
+        "availability": "Normal",
+        "note": null
+      },
+      {
+        "name": "English Setter",
+        "ezclassicSize": "48x48",
+        "size": "4x4",
+        "availability": "Normal",
+        "note": null
+      },
+      {
+        "name": "English Springer Spaniel",
+        "ezclassicSize": "38x38",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "English Toy Spaniel",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Field Spaniel",
+        "ezclassicSize": "38x38",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Finnish Spitz",
+        "ezclassicSize": "38x38",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Flat Coated Retriever",
+        "ezclassicSize": "38x38",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Fox Terrier – Smooth",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Fox Terrier – Wirehair",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "French Bulldog",
+        "ezclassicSize": "38x38",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "German Pinscher",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "German Shepherd Dog",
+        "ezclassicSize": "48x76",
+        "size": "4x6",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "German Shorthaired Pointer",
+        "ezclassicSize": "48x48",
+        "size": "4x4",
+        "availability": "Normal",
+        "note": null
+      },
+      {
+        "name": "German Wirehaired Pointer",
+        "ezclassicSize": "48x48",
+        "size": "4x4",
+        "availability": "Normal",
+        "note": null
+      },
+      {
+        "name": "Giant Schnauzer",
+        "ezclassicSize": "48x48",
+        "size": "4x4",
+        "availability": "Normal",
+        "note": null
+      },
+      {
+        "name": "Glen Imaal Terrier",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Golden Retriever",
+        "ezclassicSize": "48x48",
+        "size": "4x4",
+        "availability": "Normal",
+        "note": null
+      },
+      {
+        "name": "Goldendoodle (Standard)",
+        "ezclassicSize": "48x48",
+        "size": "4x4",
+        "availability": "Normal",
+        "note": null
+      },
+      {
+        "name": "Gordon Setter",
+        "ezclassicSize": "48x48",
+        "size": "4x4",
+        "availability": "Normal",
+        "note": null
+      },
+      {
+        "name": "Great Dane",
+        "ezclassicSize": "48x76",
+        "size": "4x6",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Great Pyrenees",
+        "ezclassicSize": "48x76",
+        "size": "4x6",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Great Swiss Mountain Dog",
+        "ezclassicSize": "48x76",
+        "size": "4x6",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Greyhound",
+        "ezclassicSize": "48x48",
+        "size": "4x4",
+        "availability": "Normal",
+        "note": null
+      },
+      {
+        "name": "Harrier",
+        "ezclassicSize": "38x38",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Havanese",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Ibizan Hound",
+        "ezclassicSize": "38x38",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Irish Setter",
+        "ezclassicSize": "48x48",
+        "size": "4x4",
+        "availability": "Normal",
+        "note": null
+      },
+      {
+        "name": "Irish Terrier",
+        "ezclassicSize": "38x38",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Irish Water Spaniel",
+        "ezclassicSize": "38x38",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Irish Wolfhound",
+        "ezclassicSize": "48x76",
+        "size": "4x6",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Italian Greyhound",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Jack Russell Terrier",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Japanese Chin",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Keeshond",
+        "ezclassicSize": "38x38",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Kerry Blue Terrier",
+        "ezclassicSize": "38x38",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Komondor",
+        "ezclassicSize": "48x48",
+        "size": "4x4",
+        "availability": "Normal",
+        "note": null
+      },
+      {
+        "name": "Kuvasz",
+        "ezclassicSize": "48x76",
+        "size": "4x6",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Labradoodle (Standard)",
+        "ezclassicSize": "48x48",
+        "size": "4x4",
+        "availability": "Normal",
+        "note": null
+      },
+      {
+        "name": "Labrador Retriever",
+        "ezclassicSize": "48x48",
+        "size": "4x4",
+        "availability": "Normal",
+        "note": null
+      },
+      {
+        "name": "Lakeland Terrier",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Leonberger",
+        "ezclassicSize": "48x76",
+        "size": "4x6",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Lhasa Apso",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Maltese",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Maltipoo",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Manchester Terrier (Standard)",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Manchester Terrier (Toy)",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Mastiff",
+        "ezclassicSize": "48x76",
+        "size": "4x6",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Miniature American Shepherd",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Miniature Pinscher",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Miniature Schnauzer",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Neopolitan Mastiff",
+        "ezclassicSize": "48x76",
+        "size": "4x6",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Newfoundland",
+        "ezclassicSize": "48x76",
+        "size": "4x6",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Norfolk Terrier",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Norwegian Elkhound",
+        "ezclassicSize": "38x38",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Norwich Terrier",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Nova Scotia Duck Tolling Retriever",
+        "ezclassicSize": "38x38",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Old English Sheepdog (Bobtail)",
+        "ezclassicSize": "48x48",
+        "size": "4x4",
+        "availability": "Normal",
+        "note": null
+      },
+      {
+        "name": "Otter Hound",
+        "ezclassicSize": "48x76",
+        "size": "4x6",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Papillon",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Pekingese",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Pembroke Welsh Corgi",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Petit Basset Griffon Vendeen",
+        "ezclassicSize": "38x38",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Pharaoh Hound",
+        "ezclassicSize": "38x38",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Plott Hound",
+        "ezclassicSize": "38x38",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Pointer",
+        "ezclassicSize": "38x38",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Polish Lowland Sheepdog",
+        "ezclassicSize": "38x38",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Pomeranian",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Pomsky",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Poodle Miniature",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Poodle Standard",
+        "ezclassicSize": "48x48",
+        "size": "4x4",
+        "availability": "Normal",
+        "note": null
+      },
+      {
+        "name": "Poodle Toy",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Portuguese Water Dog",
+        "ezclassicSize": "38x38",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Pug",
+        "ezclassicSize": "38x38",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Puli",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Rat Terrier",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Redbone Coonhound",
+        "ezclassicSize": "38x38",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Rhodesian Ridgeback",
+        "ezclassicSize": "48x48",
+        "size": "4x4",
+        "availability": "Normal",
+        "note": null
+      },
+      {
+        "name": "Rottweiler",
+        "ezclassicSize": "48x76",
+        "size": "4x6",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Saint Bernard",
+        "ezclassicSize": "48x76",
+        "size": "4x6",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Saluki",
+        "ezclassicSize": "38x38",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Samoyed",
+        "ezclassicSize": "38x38",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Schipperke",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Scottish Deerhound",
+        "ezclassicSize": "48x48",
+        "size": "4x4",
+        "availability": "Normal",
+        "note": null
+      },
+      {
+        "name": "Scottish Terrier",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Sealyham Terrier",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Sheepadoodle",
+        "ezclassicSize": "48x48",
+        "size": "4x4",
+        "availability": "Normal",
+        "note": null
+      },
+      {
+        "name": "Shetland Sheepdog",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Shetland Sheepdog (Sheltie)",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Shiba Inu",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Shih Tzu",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Siberian Husky",
+        "ezclassicSize": "38x38",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Silky Terrier",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Skye Terrier",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Soft Coated Wheaten Terrier",
+        "ezclassicSize": "38x38",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Soft-Coated Wheaten Terrier",
+        "ezclassicSize": "38x38",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Spinone Italiano",
+        "ezclassicSize": "48x48",
+        "size": "4x4",
+        "availability": "Normal",
+        "note": null
+      },
+      {
+        "name": "Staffordshire Bull Terrier",
+        "ezclassicSize": "38x38",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Standard Schnauzer",
+        "ezclassicSize": "38x38",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Sussex Spaniel",
+        "ezclassicSize": "38x38",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Tibetan Mastiff",
+        "ezclassicSize": "48x76",
+        "size": "4x6",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Tibetan Spaniel",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Tibetan Terrier",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Toy Fox Terrier",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Vizsla",
+        "ezclassicSize": "38x38",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Weimaraner",
+        "ezclassicSize": "48x48",
+        "size": "4x4",
+        "availability": "Normal",
+        "note": null
+      },
+      {
+        "name": "Welsh Springer Spaniel",
+        "ezclassicSize": "38x38",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Welsh Terrier",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "West Highland White Terrier",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      },
+      {
+        "name": "Whippet",
+        "ezclassicSize": "38x38",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Wirehaired Pointing Griffon",
+        "ezclassicSize": "38x38",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "Seconds - disclose before purchase"
+      },
+      {
+        "name": "Yorkshire Terrier",
+        "ezclassicSize": "28x28",
+        "size": "3x3",
+        "availability": "SECONDS",
+        "note": "No Fab box this small. 3x3 is the minimum"
+      }
+    ],
+    "weightFallback": [
+      {
+        "weight": "Under 16 lbs",
+        "size": "3x3",
+        "status": "SECONDS",
+        "note": "No smaller Fab box exists. Consider steering to EZclassic 28x28"
+      },
+      {
+        "weight": "16-40 lbs",
+        "size": "3x3",
+        "status": "SECONDS",
+        "note": "Disclose seconds status"
+      },
+      {
+        "weight": "40-90 lbs",
+        "size": "4x4",
+        "status": "Normal",
+        "note": "The only normally stocked Fab size"
+      },
+      {
+        "weight": "90+ lbs",
+        "size": "4x6",
+        "status": "SECONDS",
+        "note": "7x6 Whopper is the better fit but is sold out"
+      }
+    ]
+  }
+}
