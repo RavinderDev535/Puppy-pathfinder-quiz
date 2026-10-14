@@ -4,7 +4,7 @@
 .lane-content { min-height:220px; display:flex; flex-direction:column; justify-content:center; }
 .lane-eyebrow { margin-bottom:20px; color:#82705b; font-size:11px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; }
 .lane-shell .lane-content > h1 { position:relative; margin:0 0 8px; padding:12px 14px 10px; background:var(--story-cream); border:2px solid var(--story-wood-edge); border-radius:14px; box-shadow:0 4px 0 var(--story-wood-edge); font:800 clamp(19px,5vw,28px)/1.2 Nunito,system-ui,sans-serif; }
-.lane-shell .lane-content > h1::before { content:"";position:absolute;left:8%;right:8%;top:-9px;height:12px;border:2px solid var(--story-wood-edge);border-radius:8px;background:linear-gradient(#e4b778,var(--story-wood)); }
+.lane-shell .lane-content > h1::before { display:none; }
 .lane-shell h2 { font-size:20px; font-weight:800; margin:24px 0 14px; }
 .lane-shell h3 { font-weight:800; font-size:15px; line-height:1.35; }
 .lane-muted,.lane-summary { color:var(--story-helper); font-size:13px; line-height:1.5; margin:12px 0 18px; }
@@ -40,8 +40,7 @@
 .lane-chips button,.lane-tabs button { min-height:48px;border:1px solid #c5a582;padding:10px 14px;border-radius:12px;background:#fffaf1;font-weight:700; }
 .lane-chips button[aria-pressed=true],.lane-tabs button[aria-selected=true] { border-color:#8a5a32;background:#e9c89e;box-shadow:inset 0 0 0 1px #8a5a32; }
 .lane-navigation { border-top:1px solid #0000000f; }
-.lane-progress { height:10px;overflow:hidden;border-radius:999px;background:#e8dcc8;margin:12px 0; }
-.lane-shell .lane-navigation > .lane-progress > div { height:100%;background:var(--story-coral) !important;border-radius:inherit;transition:width .2s; }
+.lane-progress { height:10px;overflow:hidden;border-radius:999px;background-color:#e8dcc8;background-image:linear-gradient(90deg,#e07a4b,#e07a4b);background-repeat:no-repeat;background-size:0% 100%;margin:12px 0;transition:background-size .45s cubic-bezier(.22,1,.36,1); }
 .lane-shell .reference-back { display:inline-flex;align-items:center;gap:5px; }
 .lane-product { display:flex;flex-wrap:wrap;align-items:flex-start;gap:12px;padding:16px;margin:12px 0;border:1px solid #dbcab4;border-radius:14px;background:#fffdfa;min-width:0; }
 .lane-product > img { width:72px;height:72px;object-fit:contain;border-radius:8px; }

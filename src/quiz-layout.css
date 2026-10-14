@@ -37,6 +37,8 @@
   border: 2px solid var(--story-wood-edge); border-radius: 8px;
   background: linear-gradient(180deg, #e4b778, var(--story-wood));
 }
+.reference-quiz-card .storybook-question-content > h2::before,
+.reference-quiz-card #gate-question::before { display: none; }
 .reference-quiz-card .storybook-question-content > h2 + div:empty { display: none; }
 .reference-quiz-card .storybook-question-subtitle { margin: 0 2px 8px; text-align: left; color: var(--story-helper) !important; font-size: 13px; line-height: 1.35; font-weight: 600; }
 .reference-quiz-card .storybook-question-content > .grid { display: flex; flex-direction: column; gap: 9px; max-width: none; }

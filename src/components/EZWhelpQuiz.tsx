@@ -313,7 +313,7 @@ const GateQuestionCard: React.FC<{
     {/* Soft, premium hint — calm and inviting */}
     <p
       className="text-center mb-4 md:mb-5 font-display font-semibold text-xs md:text-sm"
-      style={{ color: '#A08968', letterSpacing: '0.02em' }}
+      style={{ color: '#4A2E16', letterSpacing: '0.02em' }}
     >
       Choose your path to begin
     </p>
@@ -621,7 +621,7 @@ const QuestionCard: React.FC<{
                 <span className="font-display font-extrabold text-sm md:text-base lg:text-lg text-left block leading-tight" style={{ color: '#2D2316' }}>{opt.label}</span>
                 {opt.description && <span className="text-xs md:text-sm font-semibold block leading-snug mt-0.5" style={{ color: '#6B5B4A' }}>{opt.description}</span>}
                 {isRecommended && recInfo && (
-                  <span className="text-[10px] md:text-[11px] font-semibold block mt-1 italic" style={{ color: '#A08968' }}>
+                  <span className="text-[10px] md:text-[11px] font-semibold block mt-1 italic" style={{ color: '#4A2E16' }}>
                     {recInfo.reason}
                   </span>
                 )}
@@ -829,8 +829,8 @@ const EZWhelpQuiz: React.FC<{ initialPath?: CustomerType; onQuizStarted?: (start
   }, [existingData.stage]);
 
   const steps = !gateAnswered ? [gateStep] : customerType === "new" ? newCustomerStepList : existingStepList;
-  const totalSteps = gateAnswered ? steps.length + 1 : 1;
-  const globalStep = gateAnswered ? currentStep + 2 : 1;
+  const totalSteps = gateAnswered ? steps.length : 1;
+  const globalStep = gateAnswered ? currentStep + 1 : 0;
   useEffect(() => {
     // The path-choice screen introduces the empty home. The first actual quiz
     // question already has a puppy waiting inside it, then each new question
@@ -2134,9 +2134,9 @@ const handleNext = useCallback((overrideVal?: string) => {
       </div>
 
       {/* Back & Restart navigation */}
-      {!isFirstStep && (
-        <div className="quiz-navigation mt-3 md:mt-5 pt-3 md:pt-4" style={{ borderTop: '1px solid rgba(0,0,0,0.06)' }}>
-          <ProgressBar current={globalStep} total={totalSteps} />
+      <div className="quiz-navigation mt-3 md:mt-5 pt-3 md:pt-4" style={{ borderTop: '1px solid rgba(0,0,0,0.06)' }}>
+        <ProgressBar current={globalStep} total={totalSteps} />
+        {!isFirstStep && (
           <div className="reference-quiz-nav">
             <button onClick={() => { playBack(); handleBack(); }} className="reference-back">
               ← Back
@@ -2146,8 +2146,8 @@ const handleNext = useCallback((overrideVal?: string) => {
               <button onClick={handleRestart} className="reference-restart">Restart</button>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
 
       {/* EZWhelp logo at bottom of quiz card */}
       <div className="quiz-brand flex justify-center mt-1 md:mt-7 pb-0 md:pb-4">

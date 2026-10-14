@@ -93,7 +93,7 @@ const BreedSelector: React.FC<BreedSelectorProps> = ({ value, onChange, onNext }
   return (
     <div className="storybook-breed-selector">
       {/* Helper text */}
-      <p className="breed-helper text-center mb-3 text-xs font-semibold" style={{ color: "#A08968" }}>
+      <p className="breed-helper text-center mb-3 text-xs font-semibold" style={{ color: "#4A2E16" }}>
         Choose the option that fits best.
       </p>
 
@@ -160,7 +160,7 @@ const BreedSelector: React.FC<BreedSelectorProps> = ({ value, onChange, onNext }
             <div className="relative">
               <Search
                 className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none"
-                style={{ color: "#A08968" }}
+                style={{ color: "#4A2E16" }}
               />
               <Input
                 ref={inputRef}
@@ -266,7 +266,7 @@ const BreedSelector: React.FC<BreedSelectorProps> = ({ value, onChange, onNext }
               className="text-center text-base md:text-lg h-12 md:h-14 rounded-2xl border font-bold bg-card focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
               style={{ borderColor: accent }}
             />
-            <p className="text-center mt-2 text-[11px] font-semibold" style={{ color: "#A08968" }}>
+            <p className="text-center mt-2 text-[11px] font-semibold" style={{ color: "#4A2E16" }}>
               Use this if your breed isn't in our list.
             </p>
           </motion.div>

@@ -179,7 +179,7 @@ const BoxConfigSelector: React.FC<BoxConfigSelectorProps> = ({ value, onChange, 
         <button
           onClick={() => setShowUnsureHelp(!showUnsureHelp)}
           className="inline-flex items-center gap-1 text-[10px] md:text-[11px] font-semibold cursor-pointer"
-          style={{ color: '#A08968' }}
+          style={{ color: '#4A2E16' }}
         >
           <HelpCircle className="w-3 h-3" /> Not sure which size?
         </button>
