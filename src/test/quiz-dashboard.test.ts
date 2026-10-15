@@ -118,6 +118,8 @@ describe('dashboard persistence and integration boundaries',()=>{
     expect(calls.indexOf('events')).toBeGreaterThan(calls.indexOf('profile-subscription-bulk-create-jobs'));
     expect(store.attempt(e.attempt_id).is_new_lead).toBe(1);
     expect(store.db.prepare("SELECT * FROM events WHERE event_name='Quiz Completed'").all()).toHaveLength(1);
+    const completed=store.db.prepare("SELECT payload_json FROM events WHERE event_name='Quiz Completed'").get();
+    expect(JSON.parse(completed.payload_json).system).toBe('fab');
   });
   it('a failed lookup persists NULL and review flag, retaining a recoverable profile job',async()=>{
     const request=vi.fn(async()=>{throw Error('offline');});

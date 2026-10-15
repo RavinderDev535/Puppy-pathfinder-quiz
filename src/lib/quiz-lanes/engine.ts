@@ -10,9 +10,9 @@ export interface Owner { system: System; size: Size; height: 'standard' | 'tall'
 export interface Answers { breed: string; breed_free_text?: string; weight: string; experience: string; stage: Stage; jumps: boolean; windowed: boolean; date: string; litter: Litter; email: string }
 export interface Product { key: string; sku: string | null; variantId: string; handle: string; title: string; variant: string; image: string }
 export interface Offer { key: string; quantity: number; selected: boolean; category: string; locked?: boolean; note?: string }
-export interface LiveProduct extends Product { price: number | null; available: boolean; error?: string }
+export interface LiveProduct extends Product { price: number | null; available: boolean; inventoryQuantity?: number | null; error?: string }
 export interface CartLine { key: string; quantity: number; owner?: string }
-interface Seed { sku?: string | null; variant?: string; title?: string; family?: string; badge?: string; gates?: {height?: string; footprint?: string[]; fab_panel?: string; system?: string} }
+interface Seed { sku?: string | null; variant?: string; title?: string; family?: string; badge?: string; cart_blocked?: boolean; gates?: {height?: string; footprint?: string[]; fab_panel?: string; system?: string} }
 interface Footprint {
   pads: Record<string, Seed>; liner?: Seed; combo_liner?: Seed; spare_rail_kit?: Seed;
   rooms_standard?: {solid:Seed;windowed:Seed}; rooms_tall?: {solid:Seed;windowed:Seed};
@@ -24,6 +24,10 @@ export const products: Product[] = data.products;
 export const breeds = data.breeds.map(b => ({name:b.name,sizes:b.sizes as Size[]})).sort((a,b)=>a.name.localeCompare(b.name));
 export const sizeOrder: Size[] = ['28x28','38x38','48x48','48x76'];
 export const fabSizes: Size[] = ['3x3','4x4','4x6','7x6'];
+export const giftSizes:Record<System,Size[]> = {
+  ezclassic:data.compatibility.gift.ezclassic_sizes as Size[],
+  fab:data.compatibility.gift.fab_sizes as Size[],
+};
 export const stageLabels: Record<Stage,string> = {preparing:'Preparing',due_7:'Due in 7 days',born_0_3:'Born 0 to 3 days',week_1_2:'1 to 2 weeks',week_3_plus:'3 weeks or more'};
 export const litterLabels: Record<Litter,string> = {'1_3':'1 to 3','4_6':'4 to 6','7_9':'7 to 9','10_plus':'10 or more'};
 export const experienceLabels: Record<string,string> = {first:'First','1_2':'1 to 2','3_5':'3 to 5','6_plus':'6 or more'};
@@ -91,13 +95,11 @@ export function singleShelf(owner:Owner,a:Answers): Offer[] {
   } : {preparing:['*heat','*slip','kit','liner','seat'],due_7:['*heat','*quick','kit','combo','seat'],born_0_3:['*heat','*quick','*slip','camera','door'],week_1_2:['*traction','*quick','room','camera'],week_3_plus:['*room','*quick','mess','feeding','traction']};
   const rows:Offer[]=template[a.stage].flatMap(entry=>{
     const kind=entry.replace('*','');const key=match[kind];if(!key)return [];
-    // Fab's client matrix omits the heat combo entirely for experienced breeders
-    // (3-5 and 6+ litters); keep it off the shelf rather than offering it unticked.
-    if(fab&&kind==='heat'&&['3_5','6_plus'].includes(a.experience))return [];
-    // The 6+ cases specify no pad line beyond the locked box and rails.
-    if(fab&&['gray','quick','slip','traction'].includes(kind)&&a.experience==='6_plus')return [];
     const isPad=['gray','quick','slip','traction'].includes(kind);
     let selected=entry.startsWith('*');
+    // Breeders with 1–2 litters still see the full stage shelf, but do not
+    // get the Whelping Kit preselected by default.
+    if(a.experience==='1_2'&&kind==='kit')selected=false;
     if(a.experience==='3_5')selected=isPad;
     if(a.experience==='6_plus')selected=false;
     if(fab&&a.jumps&&kind==='cover')selected=true;
@@ -143,7 +145,9 @@ export function sizeUpgrade(owner:Owner,breed:string,weight:string) {
   const candidates=matrix[`${owner.size}|${owner.height}|${owner.windowed?'win':'solid'}`]?.kits||[];
   const label=target==='48x76'?'48x76':target.split('x')[0];
   const seed=candidates.find(k=>k.variant?.endsWith(`to ${label} Box`));
+  if(seed?.cart_blocked)return {kind:'blocked' as const,target,variant:seed.variant};
   const kit=seed && products.find(p=>(seed.sku?p.sku===seed.sku:p.variant===seed.variant&&p.handle==='tall-ezclassic-size-up-kit'));
+  if(seed&&(!kit||!/^[0-9]+$/.test(kit.variantId)))return {kind:'blocked' as const,target,variant:seed.variant};
   return {kind:kit?'kit' as const:'box' as const,target,key:kit?.key};
 }
 export function spaceShelf(owner:Owner,litter:Litter):Offer[]{
@@ -161,9 +165,10 @@ export function spaceShelf(owner:Owner,litter:Litter):Offer[]{
   return [...new Map(rows.map(row=>[row.key,row])).values()].sort((a,b)=>Number(b.selected)-Number(a.selected));
 }
 export function mergeCart(cart:CartLine[],line:CartLine):CartLine[]{
-  if(!product(line.key)||!Number.isSafeInteger(line.quantity)||line.quantity<1)return cart;
-  const old=cart.find(x=>x.key===line.key);
-  return old?cart.map(x=>x.key===line.key?{...x,quantity:x.quantity+line.quantity,owner:x.owner===line.owner?x.owner:[x.owner,line.owner].filter(Boolean).join('; ')}:x):[...cart,line];
+  const item=product(line.key);const identity=item?.sku?`sku:${item.sku}`:item&&/^\d+$/.test(item.variantId)?`variant:${item.variantId}`:null;
+  if(!identity||!Number.isSafeInteger(line.quantity)||line.quantity<1)return cart;
+  const old=cart.find(x=>{const p=product(x.key);return p&&(p.sku?`sku:${p.sku}`:`variant:${p.variantId}`)===identity;});
+  return old?cart.map(x=>{const p=product(x.key);return p&&(p.sku?`sku:${p.sku}`:`variant:${p.variantId}`)===identity?{...x,quantity:x.quantity+line.quantity,owner:x.owner===line.owner?x.owner:[x.owner,line.owner].filter(Boolean).join('; ')}:x;}):[...cart,line];
 }
 export function validateCart(cart:CartLine[],live:Record<string,LiveProduct>):string[] {
   const errors:string[]=[];
@@ -187,6 +192,9 @@ const bundleContents:Record<string,Record<string,number>>={
 export function bundleCandidates(owner:Owner){
   if(owner.system==='fab')return [];
   return Object.entries(data.bundles).flatMap(([name,bundle])=>bundle.variants.flatMap(v=>{
+    // Condo bundles contain a second complete whelping area and are never
+    // appropriate for this single-box quiz.
+    if(name.toLowerCase().includes('condo'))return [];
     const dimensions=v.size.match(/\d+/g)||[];const windowed='panel_option' in v&&v.panel_option?.toLowerCase().includes('window');
     if(`${dimensions[0]}x${dimensions[1]}`!==owner.size||v.size.toLowerCase().includes('tall')!==(owner.height==='tall')||!!windowed!==owner.windowed)return [];
     return [{name,key:v.sku,contents:bundleContents[name]}];

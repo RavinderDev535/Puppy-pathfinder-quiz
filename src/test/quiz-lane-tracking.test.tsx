@@ -15,6 +15,7 @@ describe('quiz browser tracking contract',()=>{
     const live=Object.fromEntries(rows.map(r=>[r.key,{...product(r.key)!,price:10000,available:true}]));
     const url=new URL(cartUrl(rows,live,'fab')!);const first=identity('fab').attempt_id;
     await track('fab','Added to Cart');await submitProfile('fab',' TEST@example.com ',{email_consent:true});
+    expect(JSON.parse(fetch.mock.calls[0][1].body).properties.system).toBe('fab');
     expect(url.searchParams.get('attributes[attempt_id]')).toBe(first);
     for(const [,options] of fetch.mock.calls)expect(JSON.parse(options.body).attempt_id).toBe(first);
     expect(JSON.parse(fetch.mock.calls[1][1].body).email).toBe('test@example.com');

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { CartLine, cartUrl, Lane, LiveProduct, product, requiredBox, products, Size, validateCart } from '@/lib/quiz-lanes/engine';
-import { loadProduct, submitProfile, track } from '@/lib/quiz-lanes/client';
+import { finishLaneEvents, loadProduct, submitProfile, track } from '@/lib/quiz-lanes/client';
 import { consentCopy, money } from './Shared';
 
 export function useCart(lane:Lane){
@@ -40,7 +40,8 @@ export function Cart({lane,lines,live,setLines,email,properties={},content='reco
       if((emailStep||email)&&!skipProfile){try{await submitProfile(lane,email||address,{...properties,recommended_cart_url:target,email_consent:true,consent_timestamp:new Date().toISOString(),consent_source:lane,...(lane==='restock'?{reminder_optin:reminder,last_restock_date:new Date().toISOString().slice(0,10),last_restock_skus:lines.map(r=>product(r.key)?.sku).filter(Boolean).join(',')}:{})});track(lane,lane==='restock'?'Restock Email Captured':lane==='upgrade'?'Upgrade Email Captured':'email_my_build',{email_consent:true,reminder_optin:reminder},address);}catch{setProfileFailed(true);throw Error('We could not save your email for follow-up. Retry, or continue to checkout without email follow-up.');}}
       const recorded=await track(lane,'Added to Cart',{variant_ids:lines.map(r=>fresh[r.key].variantId),quantities:lines.map(r=>r.quantity),cart_value:lines.reduce((s,r)=>s+fresh[r.key].price!*r.quantity,0)/100},email||address);
       if(!recorded)throw Error('We could not save your cart. Please retry checkout.');
-      onCheckout?.();window.location.assign(target);
+      if(lane==='gift'||lane==='restock'||lane==='upgrade')void track(lane,'Checkout Started',{cart_value:lines.reduce((s,r)=>s+fresh[r.key].price!*r.quantity,0)/100});
+      finishLaneEvents(lane);onCheckout?.();window.location.assign(target);
     }catch(e){setError(e instanceof Error?e.message:'Checkout is unavailable. Please retry.');}finally{setBusy(false);}
   };
   return <>
@@ -48,6 +49,6 @@ export function Cart({lane,lines,live,setLines,email,properties={},content='reco
     {emailStep&&lines.length>0&&<section className="lane-email"><h2>Where should we send your order?</h2><label htmlFor="checkout-email">Your email</label><input id="checkout-email" type="email" autoComplete="email" value={address} onChange={e=>setAddress(e.target.value)}/>{lane==='restock'&&<label className="lane-check"><input type="checkbox" checked={reminder} onChange={e=>setReminder(e.target.checked)}/>Remind me when I'm due for more pads</label>}<p>{consentCopy}</p></section>}
     {error&&<div className="lane-notice" role="alert">{error}{profileFailed&&<button disabled={busy} onClick={()=>void checkout(true)}>Continue without email follow-up</button>}</div>}
     {lines.length>0&&errors.length>0&&<div className="lane-notice" role="status">{errors.map(message=><p key={message}>{message}</p>)}<p><a href="mailto:customer_service@ezwhelp.com">Contact customer service for help with this setup.</a></p></div>}
-    <footer className="lane-cart"><div><strong>{quantity?`${quantity} item${quantity===1?'':'s'}`:'Your cart is empty'}</strong><span>{quantity?(known?money(total):'Confirming prices…'):'Choose something to get started'}</span></div>{setLines&&<button onClick={()=>{setOpen(!open);if(!open)track(lane,'cart_open',{item_count:quantity});}} disabled={!lines.length}>{open?'Hide cart':'Review cart'}</button>}<button className="lane-primary" disabled={!url||busy} onClick={()=>void checkout()}>{busy?'Checking…':'Go to checkout'}</button></footer>
+    <footer className="lane-cart"><div><strong>{quantity?`${quantity} item${quantity===1?'':'s'}`:'Your cart is empty'}</strong><span>{quantity?(known?money(total):'Confirming prices…'):'Choose something to get started'}</span></div>{setLines&&<button onClick={()=>{setOpen(!open);if(!open)track(lane,'cart_open',{item_count:quantity,total:known?total/100:undefined});}} disabled={!lines.length}>{open?'Hide cart':'Review cart'}</button>}<button className="lane-primary" disabled={!url||busy} onClick={()=>void checkout()}>{busy?'Checking…':lane==='restock'&&!emailStep?'Continue to email':'Go to checkout'}</button></footer>
   </>;
 }

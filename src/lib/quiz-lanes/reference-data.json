@@ -5585,6 +5585,10 @@
     }
   ],
   "compatibility": {
+    "gift": {
+      "ezclassic_sizes": ["28x28", "38x38", "48x48", "48x76"],
+      "fab_sizes": ["3x3", "4x4", "4x6"]
+    },
     "ezc_footprint_map": {
       "28x28": {
         "spare_rail_kit": {
@@ -7129,13 +7133,13 @@
           "sku": null,
           "variant": "TALL 38 Box to 48 Box",
           "includes": "structural parts + new larger pad and liner",
-          "cart_blocked": true
+          "cart_blocked": false
         },
         {
           "sku": null,
           "variant": "TALL 38 Box to 48x76 Box",
           "includes": "structural parts + new larger pad and liner",
-          "cart_blocked": true
+          "cart_blocked": false
         }
       ]
     },
@@ -7145,13 +7149,13 @@
           "sku": null,
           "variant": "Windowed TALL 38 Box to 48 Box",
           "includes": "structural parts + new larger pad and liner",
-          "cart_blocked": true
+          "cart_blocked": false
         },
         {
           "sku": null,
           "variant": "Windowed TALL 38 Box to 48x76 Box",
           "includes": "structural parts + new larger pad and liner",
-          "cart_blocked": true
+          "cart_blocked": false
         }
       ]
     },
@@ -7169,7 +7173,7 @@
           "sku": null,
           "variant": "TALL 48 Box to 48x76 Box",
           "includes": "structural parts + new larger pad and liner",
-          "cart_blocked": true
+          "cart_blocked": false
         }
       ]
     },
@@ -7179,7 +7183,7 @@
           "sku": null,
           "variant": "Windowed TALL 48 Box to 48x76 Box",
           "includes": "structural parts + new larger pad and liner",
-          "cart_blocked": true
+          "cart_blocked": false
         }
       ]
     },

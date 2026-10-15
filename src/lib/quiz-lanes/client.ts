@@ -1,10 +1,11 @@
 const LANE_API = `${import.meta.env.VITE_API_URL || "http://localhost:3000"}/api/quiz/lanes`;
+const KLAVIYO_PUBLIC_KEY = import.meta.env.VITE_KLAVIYO_PUBLIC_KEY || '';
 import { useEffect, useRef } from 'react';
 import { useQueries } from '@tanstack/react-query';
 import { CartLine, cartUrl, Lane, LiveProduct, product } from './engine';
 import { identity, quizVersion, resetLaneAttempt, sources } from './identity';
 
-export interface StoreProduct {handle:string;variants:{id:string;price:number;available:boolean;title:string;sku:string|null}[]}
+export interface StoreProduct {handle:string;variants:{id:string;price:number;available:boolean;inventory_quantity?:number|null;title:string;sku:string|null}[]}
 export async function loadProduct(handle:string):Promise<StoreProduct> {
   const r=await fetch(`${LANE_API}/products/${encodeURIComponent(handle)}`,{signal:AbortSignal.timeout(20000)});
   if(!r.ok)throw Error('Unable to confirm price and availability.');return r.json();
@@ -14,18 +15,32 @@ export function useLiveProducts(keys:string[]) {
   const queries=useQueries({queries:handles.map(handle=>({queryKey:['lane-product',handle],queryFn:()=>loadProduct(handle),staleTime:30000,retry:1}))});
   const live:Record<string,LiveProduct>={};
   for(const key of keys){const seed=product(key);if(!seed)continue;const query=queries[handles.indexOf(seed.handle)];const v=query.data?.variants.find(v=>v.id===seed.variantId);
-    live[key]={...seed,price:v&&Number.isFinite(v.price)&&v.price>0?v.price:null,available:v?.available===true,error:query.isError||query.isSuccess&&!v?'Unable to confirm this product.':undefined};
+    live[key]={...seed,price:v&&Number.isFinite(v.price)&&v.price>0?v.price:null,available:v?.available===true,inventoryQuantity:v?.inventory_quantity??null,error:query.isError||query.isSuccess&&!v?'Unable to confirm this product.':undefined};
   }
   return {live,loading:queries.some(q=>q.isLoading),retry:()=>queries.forEach(q=>void q.refetch())};
 }
 const stepTimes = new Map<string,number>();
+const finishedAttempts = new Set<string>();
+let warnedMissingGiftKey=false;
+export function finishLaneEvents(lane:Lane){finishedAttempts.add(identity(lane).attempt_id);}
 export function track(lane:Lane,event:string,properties:Record<string,unknown>={},_email?:string,run=identity(lane)){
   // A failed delivery is not reported as success. No personal data is logged or persisted locally.
   if(event==='Quiz Step Completed') {
     properties={...properties,ms_spent:properties.ms_spent??Math.max(0,Date.now()-(stepTimes.get(run.attempt_id)||Date.parse(run.started_at)))};
     stepTimes.set(run.attempt_id,Date.now());
   }
-  const payload={lane,event,properties:{...properties,source:sources[lane],quiz_version:quizVersion,attempt_id:run.attempt_id},...run,context:run,ts:new Date().toISOString(),id:crypto.randomUUID()};
+  const payload={lane,event,properties:{...properties,...(lane==='fab'?{system:'fab'}:{}),source:sources[lane],quiz_version:quizVersion,attempt_id:run.attempt_id},...run,context:run,ts:new Date().toISOString(),id:crypto.randomUUID()};
+  // Gift, Restock, and Upgrade events use Klaviyo's public client endpoint so
+  // anonymous starts and abandonment are recorded without creating a profile.
+  if(['gift','restock','upgrade'].includes(lane)){
+    if(KLAVIYO_PUBLIC_KEY){
+      void fetch(`https://a.klaviyo.com/client/events/?company_id=${encodeURIComponent(KLAVIYO_PUBLIC_KEY)}`,{method:'POST',headers:{'Content-Type':'application/vnd.api+json','revision':'2026-10-15'},body:JSON.stringify({data:{type:'event',attributes:{properties:{...payload.properties,session_id:run.session_id},metric:{data:{type:'metric',attributes:{name:event}}},profile:{data:{type:'profile',attributes:{anonymous_id:run.session_id}}},unique_id:payload.id,time:payload.ts}}}),keepalive:true}).then(r=>{if(!r.ok)throw Error('Klaviyo client event unavailable');}).catch(()=>window.dispatchEvent(new CustomEvent('quiz-tracking-unavailable')));
+    }else if(!warnedMissingGiftKey){warnedMissingGiftKey=true;console.warn(`[${lane}-quiz] Klaviyo guest events are not connected: set VITE_KLAVIYO_PUBLIC_KEY to the account Site ID.`);}
+  }
+  // Checkout Started for guest/Restock flows is sent by the public client
+  // endpoint when the buyer leaves for Shopify. Store-originated order events
+  // remain signed and are handled by the Shopify webhook.
+  if(['gift','restock','upgrade'].includes(lane)&&event==='Checkout Started')return Promise.resolve(true);
   return fetch(`${LANE_API}/events`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),keepalive:true}).then(r=>{if(!r.ok)throw Error('Tracking unavailable');return true;}).catch(()=>{window.dispatchEvent(new CustomEvent('quiz-tracking-unavailable'));return false;});
 }
 export async function submitProfile(lane:Lane,email:string,properties:Record<string,unknown>){
@@ -59,7 +74,7 @@ export function useLaneEvents(lane:Lane,state:Record<string,unknown>,finished:bo
     let exited=false;
     void track(lane,'door_select',{lane});
     void track(lane,lane==='gift'?'Gift Started':lane==='restock'?'Restock Started':'Quiz Started');
-    const abandoned=()=>{if(exited||latest.current.finished)return;exited=true;void track(lane,lane==='gift'?'Gift Abandoned':lane==='restock'?'Restock Abandoned':'Quiz Abandoned',{...latest.current.state,last_step_name:latest.current.state.last_step,last_step_number:latest.current.state.step_number},undefined,run);};
+    const abandoned=()=>{if(exited||latest.current.finished||finishedAttempts.has(run.attempt_id))return;exited=true;void track(lane,lane==='gift'?'Gift Abandoned':lane==='restock'?'Restock Abandoned':'Quiz Abandoned',{...latest.current.state,last_step_name:latest.current.state.last_step,last_step_number:latest.current.state.step_number},undefined,run);};
     window.addEventListener('pagehide',abandoned);return()=>{
       window.removeEventListener('pagehide',abandoned);
       // Defer cleanup so React StrictMode's effect replay does not create an exit.

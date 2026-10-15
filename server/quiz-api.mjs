@@ -24,7 +24,7 @@ async function shopify(handle){
   const response=await fetch(`https://www.ezwhelp.com/products/${handle}.js`,{signal:AbortSignal.timeout(15000)});
   if(!response.ok)throw Error('Product could not be loaded');
   const p=await response.json();
-  const value={handle:p.handle,variants:p.variants.map(v=>({id:String(v.id),price:v.price,available:v.available===true,title:v.title,sku:v.sku}))};
+  const value={handle:p.handle,variants:p.variants.map(v=>({id:String(v.id),price:v.price,available:v.available===true,inventory_quantity:Number.isFinite(v.inventory_quantity)?v.inventory_quantity:null,title:v.title,sku:v.sku}))};
   cache.set(handle,{value,until:Date.now()+30000});return value;
 }
 export function createQuizApi(env=process.env, dependencies={}){
@@ -69,7 +69,7 @@ export function createQuizApi(env=process.env, dependencies={}){
           if(current?.payload_json!==job.payload_json)continue;
           s.update(a.id,{profile_status:'saved',properties_json:JSON.stringify(result.properties)});
           // Completion events are delivered only after profile properties and list requests.
-          if(!s.db.prepare("SELECT 1 FROM events WHERE attempt_id=? AND event_name='Quiz Completed'").get(a.id)) s.record({...input,id:randomUUID(),event:'Quiz Completed',properties:result.properties});
+          if(!s.db.prepare("SELECT 1 FROM events WHERE attempt_id=? AND event_name='Quiz Completed'").get(a.id)) s.record({...input,id:randomUUID(),event:'Quiz Completed',properties:{...result.properties,...(input.lane==='fab'?{system:'fab'}:{})}});
           s.db.prepare('DELETE FROM profile_jobs WHERE attempt_id=?').run(a.id);
         } catch(error) {
           s.update(a.id,{profile_status:'pending',needs_review:true});
@@ -77,9 +77,11 @@ export function createQuizApi(env=process.env, dependencies={}){
             .run(Date.now()+Math.min(3600000,1000*2**Math.min(job.tries+1,12)),error.message,a.id);
         }
       }
-      // Gift and unidentified visitors stay in our database: Klaviyo events create profiles.
+      // Gift and Restock events use Klaviyo's public client endpoint with an
+      // anonymous session identity. Keep them out of this private Events API
+      // worker to avoid duplicate metrics and profile attachment.
       const events=s.db.prepare(`SELECT e.*,a.email FROM events e JOIN attempts a ON a.id=e.attempt_id
-        WHERE e.klaviyo_sent=0 AND a.profile_status='saved' AND e.surface!='gift' ORDER BY e.ts,e.rowid LIMIT 100`).all();
+        WHERE e.klaviyo_sent=0 AND a.profile_status='saved' AND e.surface NOT IN ('gift','restock') ORDER BY e.ts,e.rowid LIMIT 100`).all();
       for(const event of events){
         try {
           await klaviyo('events','POST',{data:{type:'event',attributes:{unique_id:event.id,time:event.ts,

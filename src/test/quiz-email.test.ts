@@ -1,8 +1,13 @@
 import { describe, expect, it, vi } from 'vitest';
 import { saveProfile } from '../../server/quiz-api.mjs';
+import { normalizeProfile } from '../../server/quiz-profile.mjs';
 
 const input={lane:'fab',email:'test@example.com',properties:{email_consent:true,consent_timestamp:'2026-10-04T00:00:00Z'}};
 describe('quiz email sequencing (mock service only)',()=>{
+  it('accepts the Upgrade new-dam and target-size profile fields',()=>{
+    const profile=normalizeProfile({lane:'upgrade',email:'grower@example.com',attempt_id:'123e4567-e89b-42d3-a456-426614174000',session_id:'123e4567-e89b-42d3-a456-426614174001',properties:{email_consent:true,upgrade_path:'size',new_dam_breed:'Golden Retriever',target_box_size:'48x48'}});
+    expect(profile.properties.new_dam_breed).toBe('Golden Retriever');expect(profile.properties.target_box_size).toBe('48x48');
+  });
   it('writes properties before requesting subscription',async()=>{
     const request=vi.fn(async(path:string)=>path.startsWith('profiles?')?{data:[]}:{data:{id:'profile-test'}});
     await saveProfile(input,request,'list-test');
