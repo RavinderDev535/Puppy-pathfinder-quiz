@@ -7,7 +7,8 @@ import { normalizeProfile, saveProfile } from './quiz-profile.mjs';
 export { saveProfile } from './quiz-profile.mjs';
 const require=createRequire(import.meta.url);
 const {products}=require('../src/lib/quiz-lanes/reference-data.json');
-const handles=new Set(products.map(p=>p.handle));
+const bundleCatalog=require('../src/lib/live-bundle-catalog.json');
+const handles=new Set([...products.map(p=>p.handle),...Object.keys(bundleCatalog)]);
 const cache=new Map();
 const lanes=new Set(['fab','ezclassic','restock','upgrade','gift']);
 const uuid=/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -140,6 +141,18 @@ export function createQuizApi(env=process.env, dependencies={}){
       if(apiPath.startsWith('/api/quiz/lanes/products/')&&req.method==='GET'){
         const handle=apiPath.split('/').pop();if(!handles.has(handle)){json(res,404,{error:'Unknown product'});return true;}
         json(res,200,await shopify(handle));return true;
+      }
+      if(apiPath==='/api/quiz/lanes/bundle-events') {
+        if(req.method!=='POST'){json(res,405,{error:'Method not allowed'});return true;}
+        const input=await body(req);
+        if(!uuid.test(input.id||'')||!uuid.test(input.session_id||'')||typeof input.email!=='string'||!/^\S+@\S+\.\S+$/.test(input.email)||!['Bundle Card Clicked','Added to Cart','Two Room Condo Link Clicked'].includes(input.event)||!Number.isFinite(Date.parse(input.ts))){json(res,400,{error:'Invalid bundle event'});return true;}
+        const record={...input,lane:'bundle',attempt_id:input.session_id};
+        const s=store();s.record(record);
+        // Bundle submissions use the legacy profile service. Attach these events
+        // to that email without changing consent, lists, or lead classification.
+        s.update(record.attempt_id,{email:input.email.trim().toLowerCase(),profile_status:'saved'});
+        void flush().catch(e=>console.error('[quiz-sync]',e.message));
+        json(res,202,{queued:true});return true;
       }
       if(!['/api/quiz/lanes/profile','/api/quiz/lanes/events'].includes(apiPath)){json(res,404,{error:'Unknown endpoint'});return true;}
       if(req.method!=='POST'){json(res,405,{error:'Method not allowed'});return true;}

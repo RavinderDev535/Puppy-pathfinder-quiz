@@ -149,3 +149,20 @@ describe('Klaviyo workbook contract',()=>{
     expect(result.properties).toMatchObject({is_new_lead:true,was_existing_customer:true});
   });
 });
+
+describe('bundle results Klaviyo delivery',()=>{
+  it('retains every switch and sends all three events to the submitted profile',async()=>{
+    const {store,post,api,request}=setup({KLAVIYO_PRIVATE_API_KEY:'test-key'});
+    const session_id=randomUUID();
+    for(const event of ['Bundle Card Clicked','Bundle Card Clicked','Added to Cart','Two Room Condo Link Clicked']) {
+      expect((await post('bundle-events',{id:randomUUID(),session_id,email:'breeder@example.com',event,ts:new Date().toISOString(),properties:{bundle_name:'Pro',card_position:'recommended',variant_ids:['44599577608434'],quantities:[1],cart_value:100,two_room_condo_variant_id:'55237173870964'}})).status).toBe(202);
+      await api.flush();
+    }
+    expect(store.db.prepare('SELECT * FROM events WHERE klaviyo_sent=1').all()).toHaveLength(4);
+    for(const [i,name] of ['Bundle Card Clicked','Bundle Card Clicked','Added to Cart','Two Room Condo Link Clicked'].entries()) {
+      expect(request).toHaveBeenNthCalledWith(i+1,'events','POST',{data:{type:'event',attributes:expect.objectContaining({
+        metric:{data:{type:'metric',attributes:{name}}},profile:{data:{type:'profile',attributes:{email:'breeder@example.com'}}}
+      })}});
+    }
+  });
+});

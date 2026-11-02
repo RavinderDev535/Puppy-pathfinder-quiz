@@ -1,0 +1,664 @@
+{
+  "bundles-ezclassic-starter-set": {
+    "handle": "bundles-ezclassic-starter-set",
+    "variants": [
+      {
+        "id": "44599571775730",
+        "title": "28\" x 28\" x 18\"",
+        "price": 32978,
+        "available": true
+      },
+      {
+        "id": "44599571841266",
+        "title": "38\" x 38\" x 18\"",
+        "price": 42838,
+        "available": true
+      },
+      {
+        "id": "51622182879604",
+        "title": "TALL 38\" x 38\"  x 28\"",
+        "price": 58138,
+        "available": true
+      },
+      {
+        "id": "44599571906802",
+        "title": "48\" x 48\" x 18\"",
+        "price": 52273,
+        "available": true
+      },
+      {
+        "id": "51631290777972",
+        "title": "TALL 48\" x 48\" x 28\"",
+        "price": 77688,
+        "available": true
+      },
+      {
+        "id": "54815127732596",
+        "title": "TALL 48\" x 76\" x 28\"",
+        "price": 92138,
+        "available": true
+      }
+    ]
+  },
+  "bundles-ezclassic-basic-set": {
+    "handle": "bundles-ezclassic-basic-set",
+    "variants": [
+      {
+        "id": "44599534649586",
+        "title": "28\" x 28\" x 18\"",
+        "price": 48786,
+        "available": true
+      },
+      {
+        "id": "44599534682354",
+        "title": "38\" x 38\" x 18\"",
+        "price": 58646,
+        "available": true
+      },
+      {
+        "id": "51639406395764",
+        "title": "TALL 38\" x 38\" x 28\"",
+        "price": 73946,
+        "available": true
+      },
+      {
+        "id": "44599534715122",
+        "title": "48\" x 48\" x 18\"",
+        "price": 68081,
+        "available": true
+      },
+      {
+        "id": "51639406461300",
+        "title": "TALL 48\" x 48\" x 28\"",
+        "price": 93496,
+        "available": true
+      },
+      {
+        "id": "54815292293492",
+        "title": "TALL 48\" x 76\" x 28\"",
+        "price": 107946,
+        "available": true
+      }
+    ]
+  },
+  "copy-of-bundles-ezclassic-pro-set": {
+    "handle": "copy-of-bundles-ezclassic-pro-set",
+    "variants": [
+      {
+        "id": "44599577542898",
+        "title": "28\" x 28\" x 18\"",
+        "price": 67021,
+        "available": true
+      },
+      {
+        "id": "44599577608434",
+        "title": "38\" x 38\" x 18\"",
+        "price": 83120,
+        "available": true
+      },
+      {
+        "id": "51639434019188",
+        "title": "TALL 38\" x 38\" x 28\"",
+        "price": 110830,
+        "available": true
+      },
+      {
+        "id": "44599577673970",
+        "title": "48\" x 48\" x 18\"",
+        "price": 98700,
+        "available": true
+      },
+      {
+        "id": "51639434084724",
+        "title": "TALL 48\" x 48\" x 28\"",
+        "price": 145535,
+        "available": true
+      },
+      {
+        "id": "54814982308212",
+        "title": "TALL 48\" x 76\" x 28\"",
+        "price": 161408,
+        "available": true
+      }
+    ]
+  },
+  "bundles-ezclassic-elite-set": {
+    "handle": "bundles-ezclassic-elite-set",
+    "variants": [
+      {
+        "id": "44599584555250",
+        "title": "28\" x 28\" x 18\"",
+        "price": 80121,
+        "available": true
+      },
+      {
+        "id": "44599584620786",
+        "title": "38\" x 38\" x 18\"",
+        "price": 97223,
+        "available": true
+      },
+      {
+        "id": "51639459447156",
+        "title": "TALL 38\" x 38\" x 28\"",
+        "price": 126038,
+        "available": true
+      },
+      {
+        "id": "44599584686322",
+        "title": "48\" x 48\" x 18\"",
+        "price": 114009,
+        "available": true
+      },
+      {
+        "id": "51639459512692",
+        "title": "TALL 48\" x 48\" x 28\"",
+        "price": 161364,
+        "available": true
+      },
+      {
+        "id": "54815248777588",
+        "title": "TALL 48\" x 76\" x 28\"",
+        "price": 178660,
+        "available": true
+      }
+    ]
+  },
+  "bundles-ezclassic-play-yard-set": {
+    "handle": "bundles-ezclassic-play-yard-set",
+    "variants": [
+      {
+        "id": "44622308835570",
+        "title": "28\" x 28\" x 18\" / Solid",
+        "price": 45134,
+        "available": true
+      },
+      {
+        "id": "54777029624180",
+        "title": "28\" x 28\" x 18\" / Windowed",
+        "price": 52102,
+        "available": true
+      },
+      {
+        "id": "44622308901106",
+        "title": "38\" x 38\" x 18\" / Solid",
+        "price": 64937,
+        "available": true
+      },
+      {
+        "id": "54777029656948",
+        "title": "38\" x 38\" x 18\" / Windowed",
+        "price": 75052,
+        "available": true
+      },
+      {
+        "id": "44622308966642",
+        "title": "48\" x 48\" x 18\" / Solid",
+        "price": 85592,
+        "available": true
+      },
+      {
+        "id": "54777029689716",
+        "title": "48\" x 48\" x 18\" / Windowed",
+        "price": 96387,
+        "available": true
+      },
+      {
+        "id": "54777018810740",
+        "title": "TALL 38” x 38” x 28” / Solid",
+        "price": 105399,
+        "available": true
+      },
+      {
+        "id": "54777029722484",
+        "title": "TALL 38” x 38” x 28” / Windowed",
+        "price": 117724,
+        "available": true
+      },
+      {
+        "id": "54777018843508",
+        "title": "TALL 48” x 48” x 28” / Solid",
+        "price": 153424,
+        "available": true
+      },
+      {
+        "id": "54777029755252",
+        "title": "TALL 48” x 48” x 28” / Windowed",
+        "price": 163199,
+        "available": true
+      },
+      {
+        "id": "54818236662132",
+        "title": "TALL 48\" x 76\" x 28\" / Solid",
+        "price": 172549,
+        "available": true
+      },
+      {
+        "id": "54818236694900",
+        "title": "TALL 48\" x 76\" x 28\" / Windowed",
+        "price": 181899,
+        "available": true
+      }
+    ]
+  },
+  "ezclassic-condo-bundle": {
+    "handle": "ezclassic-condo-bundle",
+    "variants": [
+      {
+        "id": "51849455403380",
+        "title": "28\"x28\"x18\" Box 59.5\"x59.5\" Condo / Two Pads",
+        "price": 67999,
+        "available": false
+      },
+      {
+        "id": "51849455436148",
+        "title": "38\"x38\"x18\" Box 81.25\"x81.25\" Condo / Two Pads",
+        "price": 90184,
+        "available": true
+      },
+      {
+        "id": "51849455468916",
+        "title": "48\"x48\"x18\" Box 102\"x102\" Condo / Two Pads",
+        "price": 111094,
+        "available": true
+      },
+      {
+        "id": "51849455501684",
+        "title": "TALL 38\"x38\"x28\" Box 81.25\"x81.25\" Condo / Two Pads",
+        "price": 129284,
+        "available": true
+      },
+      {
+        "id": "51849455534452",
+        "title": "TALL 48\"x48\"x28\" Box 102\"x102\" Condo / Two Pads",
+        "price": 176034,
+        "available": true
+      },
+      {
+        "id": "54325883732340",
+        "title": "TALL 48\"x76\"28\" Box 102\"x131\" Condo / Two Pads",
+        "price": 197624,
+        "available": true
+      }
+    ]
+  },
+  "ezclassic-two-2-room-condo-bundle": {
+    "handle": "ezclassic-two-2-room-condo-bundle",
+    "variants": [
+      {
+        "id": "55237173838196",
+        "title": "28\"x28\"x18\" Box 59.5\"x88.25\" TWO Room Condo / Two Pads",
+        "price": 99449,
+        "available": true
+      },
+      {
+        "id": "55237173870964",
+        "title": "38\"x38\"x18\" Box 81.25\"x120\" TWO Room Condo / Two Pads",
+        "price": 130899,
+        "available": true
+      },
+      {
+        "id": "55237173903732",
+        "title": "48\"x48\"x18\" Box 102\"x152\" TWO Room Condo / Two Pads",
+        "price": 161499,
+        "available": true
+      },
+      {
+        "id": "55237173936500",
+        "title": "TALL 38\"x38\"x28\" Box 81.25\"x120\" TWO Room Condo / Two Pads",
+        "price": 190399,
+        "available": true
+      },
+      {
+        "id": "55237173969268",
+        "title": "TALL 48\"x48\"x28\" Box 102\"x152\" TWO Room Condo / Two Pads",
+        "price": 254999,
+        "available": true
+      },
+      {
+        "id": "55237174002036",
+        "title": "TALL 48\"x76\"28\" Box 131\"x152\" TWO Room Condo / Two Pads",
+        "price": 276249,
+        "available": true
+      }
+    ]
+  },
+  "ezwhelp-reusable-quick-dry-pad-2-pack": {
+    "handle": "ezwhelp-reusable-quick-dry-pad-2-pack",
+    "variants": [
+      {
+        "id": "46535234257138",
+        "title": "29.5\"x29.5\" - 2 Pack - Matches EZclassic 28x28",
+        "price": 2379,
+        "available": true
+      },
+      {
+        "id": "46535234289906",
+        "title": "40\"x40\" - 2 Pack - Matches EZclassic 38x38",
+        "price": 3654,
+        "available": true
+      },
+      {
+        "id": "46535234322674",
+        "title": "50.5\"x50.5\" - 2 Pack - Matches EZclassic 48x48",
+        "price": 4674,
+        "available": true
+      },
+      {
+        "id": "46535234355442",
+        "title": "50.5\"x80.5\" - Single Pack - Matches EZclassic 48x76",
+        "price": 4499,
+        "available": true
+      },
+      {
+        "id": "44927828754674",
+        "title": "27\"x32\" - 2 Pack",
+        "price": 2124,
+        "available": true
+      },
+      {
+        "id": "44927828787442",
+        "title": "48\"x48\" - 2 Pack",
+        "price": 4249,
+        "available": true
+      },
+      {
+        "id": "44927828820210",
+        "title": "48\"x60\" - 2 Pack",
+        "price": 5099,
+        "available": true
+      },
+      {
+        "id": "44927828852978",
+        "title": "72\"x72\" - Single Pack",
+        "price": 4674,
+        "available": true
+      },
+      {
+        "id": "46535234388210",
+        "title": "49\" Round - 2 pack",
+        "price": 3119,
+        "available": true
+      },
+      {
+        "id": "46535234420978",
+        "title": "61\" Round - 2 pack",
+        "price": 4499,
+        "available": true
+      }
+    ]
+  },
+  "ezwhelp-traction-pad": {
+    "handle": "ezwhelp-traction-pad",
+    "variants": [
+      {
+        "id": "43956779909362",
+        "title": "28\" x 28\"",
+        "price": 4499,
+        "available": false
+      },
+      {
+        "id": "43956779942130",
+        "title": "38.5\" x 38.5\"",
+        "price": 5999,
+        "available": true
+      },
+      {
+        "id": "43956779974898",
+        "title": "49\" x 49\"",
+        "price": 7499,
+        "available": false
+      }
+    ]
+  },
+  "black-white-slip-resistant-paw-print-pad-mat-2-pack": {
+    "handle": "black-white-slip-resistant-paw-print-pad-mat-2-pack",
+    "variants": [
+      {
+        "id": "40860370337987",
+        "title": "24\" x 48\"",
+        "price": 2159,
+        "available": true
+      },
+      {
+        "id": "40860370370755",
+        "title": "48\" x 48\"",
+        "price": 4319,
+        "available": true
+      },
+      {
+        "id": "40860370403523",
+        "title": "48\" x 72\"",
+        "price": 6239,
+        "available": true
+      },
+      {
+        "id": "40860370436291",
+        "title": "48\" Round",
+        "price": 4159,
+        "available": true
+      },
+      {
+        "id": "43769299075314",
+        "title": "29\" x 29\" matches EZclassc 28x28 Box",
+        "price": 2159,
+        "available": true
+      },
+      {
+        "id": "43769300418802",
+        "title": "39\" x 39\" matches EZclassic 38x38 Box",
+        "price": 3358,
+        "available": true
+      },
+      {
+        "id": "43769303040242",
+        "title": "50\" x 50\" matches EZclassic 48x48 Box",
+        "price": 4639,
+        "available": true
+      },
+      {
+        "id": "43769303630066",
+        "title": "48\" x 60\"",
+        "price": 4959,
+        "available": true
+      },
+      {
+        "id": "44373750087922",
+        "title": "50\" x 80\" matches EZclassic 48x76 Box",
+        "price": 8799,
+        "available": true
+      }
+    ]
+  },
+  "acrylic-glass-door-set-for-ezclassic-whelping-boxes": {
+    "handle": "acrylic-glass-door-set-for-ezclassic-whelping-boxes",
+    "variants": [
+      {
+        "id": "44460059263218",
+        "title": "Standard EZclassic Acrylic Glass Door Set",
+        "price": 2299,
+        "available": true
+      },
+      {
+        "id": "44460059295986",
+        "title": "TALL EZclassic Acrylic Glass Door Set",
+        "price": 3499,
+        "available": true
+      }
+    ]
+  },
+  "ezclassic-tall-28-add-on-room-1": {
+    "handle": "ezclassic-tall-28-add-on-room-1",
+    "variants": [
+      {
+        "id": "44453457428722",
+        "title": "38\" x 38\" x 28\"TALL Add-on",
+        "price": 29479,
+        "available": true
+      },
+      {
+        "id": "44453457461490",
+        "title": "48\" x 48\" x 28\"TALL Add-on",
+        "price": 43999,
+        "available": true
+      }
+    ]
+  },
+  "ezclassic-add-on-room": {
+    "handle": "ezclassic-add-on-room",
+    "variants": [
+      {
+        "id": "31184998400077",
+        "title": "28x28 Add-on",
+        "price": 10979,
+        "available": true
+      },
+      {
+        "id": "31184998432845",
+        "title": "38x38 Add-on",
+        "price": 16919,
+        "available": true
+      },
+      {
+        "id": "31184998465613",
+        "title": "48x48 Add-on",
+        "price": 22859,
+        "available": true
+      }
+    ]
+  },
+  "ezclassic-tall-windowed-add-on-room": {
+    "handle": "ezclassic-tall-windowed-add-on-room",
+    "variants": [
+      {
+        "id": "46569886122226",
+        "title": "38\" x 38\" x 28\"TALL Windowed Add-on",
+        "price": 29479,
+        "available": true
+      },
+      {
+        "id": "46569886154994",
+        "title": "48\" x 48\" x 28\"TALL Windowed Add-on",
+        "price": 43999,
+        "available": true
+      }
+    ]
+  },
+  "ezclassic-windowed-add-on-room": {
+    "handle": "ezclassic-windowed-add-on-room",
+    "variants": [
+      {
+        "id": "46569870393586",
+        "title": "28x28 Windowed Add-on",
+        "price": 13949,
+        "available": true
+      },
+      {
+        "id": "46569870426354",
+        "title": "38x38 Windowed Add-on",
+        "price": 19799,
+        "available": true
+      },
+      {
+        "id": "46569870459122",
+        "title": "48x48 Windowed Add-on",
+        "price": 25649,
+        "available": true
+      }
+    ]
+  },
+  "tall-ezclassic-mess-hall-add-on-room-set-tall-28-height": {
+    "handle": "tall-ezclassic-mess-hall-add-on-room-set-tall-28-height",
+    "variants": [
+      {
+        "id": "51764660830580",
+        "title": "38\" x 38\" x 28\" TALL Mess Hall",
+        "price": 42499,
+        "available": true
+      },
+      {
+        "id": "51764660863348",
+        "title": "48\" x 48\" x 28\" TALL Mess Hall",
+        "price": 55249,
+        "available": true
+      }
+    ]
+  },
+  "ezclassic-mess-hall-add-on-room-set-standard-18-height": {
+    "handle": "ezclassic-mess-hall-add-on-room-set-standard-18-height",
+    "variants": [
+      {
+        "id": "51764621410676",
+        "title": "28\" x 28\" x 18\" Mess Hall",
+        "price": 20399,
+        "available": true
+      },
+      {
+        "id": "51764621443444",
+        "title": "38\" x 38\" x 18\" Mess Hall",
+        "price": 27199,
+        "available": true
+      },
+      {
+        "id": "51764621476212",
+        "title": "48\" x 48\" x 18\" Mess Hall",
+        "price": 33149,
+        "available": true
+      }
+    ]
+  },
+  "whelping-kit": {
+    "handle": "whelping-kit",
+    "variants": [
+      {
+        "id": "19585620803",
+        "title": "Default Title",
+        "price": 11999,
+        "available": true
+      }
+    ]
+  },
+  "newborn-puppy-collar-set-24-pack": {
+    "handle": "newborn-puppy-collar-set-24-pack",
+    "variants": [
+      {
+        "id": "42500795302130",
+        "title": "Default Title",
+        "price": 3600,
+        "available": true
+      }
+    ]
+  },
+  "fab-box-corner-seat": {
+    "handle": "fab-box-corner-seat",
+    "variants": [
+      {
+        "id": "19585780739",
+        "title": "Default Title",
+        "price": 2699,
+        "available": true
+      }
+    ]
+  },
+  "ezwhelp-smart-whelping-box-wifi-camera-temperature-monitoring-system": {
+    "handle": "ezwhelp-smart-whelping-box-wifi-camera-temperature-monitoring-system",
+    "variants": [
+      {
+        "id": "40664559386819",
+        "title": "Default Title",
+        "price": 8999,
+        "available": true
+      }
+    ]
+  },
+  "ezwhelp-puppy-feeding-station-modular-2-pack": {
+    "handle": "ezwhelp-puppy-feeding-station-modular-2-pack",
+    "variants": [
+      {
+        "id": "40357908545731",
+        "title": "Default Title",
+        "price": 3149,
+        "available": true
+      }
+    ]
+  }
+}

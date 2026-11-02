@@ -238,3 +238,11 @@ export function trackBundleCard(bundle: string, cardPosition: 'recommended' | 'a
   dispatch({session_id:getSessionId(),event_type:'card_clicked',path:'path1',
     ...(email ? {email} : {}),event_data:{bundle_name:bundle,card_position:cardPosition,attempt_id:getSessionId()}});
 }
+
+/** Results events are queued server-side and attached to the submitted email. */
+export function trackBundleEvent(event:'Bundle Card Clicked'|'Added to Cart'|'Two Room Condo Link Clicked',properties:Record<string,unknown>,email:string):void {
+  const session=getSessionId();
+  void fetch(API_BASE+'/lanes/bundle-events',{method:'POST',headers:{'Content-Type':'application/json'},keepalive:true,
+    body:JSON.stringify({id:generateUuid(),session_id:session,email,event,properties,ts:new Date().toISOString()})
+  }).then(response=>{if(!response.ok)throw Error('Bundle tracking unavailable');}).catch(()=>window.dispatchEvent(new CustomEvent('quiz-tracking-unavailable')));
+}

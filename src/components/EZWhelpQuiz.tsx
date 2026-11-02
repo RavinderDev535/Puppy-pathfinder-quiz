@@ -1,3 +1,6 @@
+import { localToday, validDueDate } from "@/lib/quiz-dates";
+import BundleResults from "@/components/BundleResults";
+import { getBundleUrl, resolveXLBundleUrl } from "@/lib/live-bundle-config";
 import { trackBundleCard } from '@/lib/quiz-tracking';
 import React, { useState, useCallback, useMemo, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -187,90 +190,6 @@ function resolveOriginalAddOnImage(name?: string, url?: string, existing?: strin
   if (lower.includes("windowed") && lower.includes("add-on")) return ORIGINAL_ADD_ON_IMAGES_BY_HANDLE["ezclassic-windowed-add-on-room"];
   if (lower.includes("add-on room") || lower.includes("add-on")) return ORIGINAL_ADD_ON_IMAGES_BY_HANDLE["ezclassic-add-on-room"];
   return ensureRecImage(existing, name);
-}
-
-const bundleVariantUrls: Record<string, Record<VariantKey, string>> = {
-  Starter: {
-    "28-18": `${PROD_BASE}/products/bundles-ezclassic-starter-set?variant=44599571775730`,
-    "38-18": `${PROD_BASE}/products/bundles-ezclassic-starter-set?variant=44599571841266`,
-    "38-28": `${PROD_BASE}/products/bundles-ezclassic-starter-set?variant=51622182879604`,
-    "48-18": `${PROD_BASE}/products/bundles-ezclassic-starter-set?variant=44599571906802`,
-    "48-28": `${PROD_BASE}/products/bundles-ezclassic-starter-set?variant=51631290777972`,
-  },
-  Essential: {
-    "28-18": `${PROD_BASE}/products/bundles-ezclassic-basic-set?variant=44599534649586`,
-    "38-18": `${PROD_BASE}/products/bundles-ezclassic-basic-set?variant=44599534682354`,
-    "38-28": `${PROD_BASE}/products/bundles-ezclassic-basic-set?variant=51639406395764`,
-    "48-18": `${PROD_BASE}/products/bundles-ezclassic-basic-set?variant=44599534715122`,
-    "48-28": `${PROD_BASE}/products/bundles-ezclassic-basic-set?variant=51639406461300`,
-  },
-  Pro: {
-    "28-18": `${PROD_BASE}/products/copy-of-bundles-ezclassic-pro-set?variant=44599577542898`,
-    "38-18": `${PROD_BASE}/products/copy-of-bundles-ezclassic-pro-set?variant=44599577608434`,
-    "38-28": `${PROD_BASE}/products/copy-of-bundles-ezclassic-pro-set?variant=51639434019188`,
-    "48-18": `${PROD_BASE}/products/copy-of-bundles-ezclassic-pro-set?variant=44599577673970`,
-    "48-28": `${PROD_BASE}/products/copy-of-bundles-ezclassic-pro-set?variant=51639434084724`,
-  },
-  Elite: {
-    "28-18": `${PROD_BASE}/products/bundles-ezclassic-elite-set?variant=44599584555250`,
-    "38-18": `${PROD_BASE}/products/bundles-ezclassic-elite-set?variant=44599584620786`,
-    "38-28": `${PROD_BASE}/products/bundles-ezclassic-elite-set?variant=51639459447156`,
-    "48-18": `${PROD_BASE}/products/bundles-ezclassic-elite-set?variant=44599584686322`,
-    "48-28": `${PROD_BASE}/products/bundles-ezclassic-elite-set?variant=51639459512692`,
-  },
-  "Play Yard": {
-    "28-18": `${PROD_BASE}/products/bundles-ezclassic-play-yard-set?variant=44622308835570`,
-    "38-18": `${PROD_BASE}/products/bundles-ezclassic-play-yard-set?variant=44622308901106`,
-    "48-18": `${PROD_BASE}/products/bundles-ezclassic-play-yard-set?variant=44622308966642`,
-  },
-  Condo: {
-    "28-18": `${PROD_BASE}/products/ezclassic-condo-bundle?variant=51849455403380`,
-    "38-18": `${PROD_BASE}/products/ezclassic-condo-bundle?variant=51849455436148`,
-    "38-28": `${PROD_BASE}/products/ezclassic-condo-bundle?variant=51849455501684`,
-    "48-18": `${PROD_BASE}/products/ezclassic-condo-bundle?variant=51849455468916`,
-    "48-28": `${PROD_BASE}/products/ezclassic-condo-bundle?variant=51849455534452`,
-    "48-28-xl": `${PROD_BASE}/products/ezclassic-condo-bundle?variant=54325883732340`,
-  },
-};
-
-// XL/Giant (90+ lbs) bundle URLs — all TALL 48"x76"x28". Live variants now
-// exist for every outcome, so XL is a normal buyable path (no more Custom
-// Inquiry). Play Yard is the only one that splits on the window answer.
-// Mirrors the backend resolveXLBundleUrl; used only as the local/offline
-// fallback since online the backend supplies shopify_cart_url.
-const xlBundleUrls: Record<string, string | { window: string; solid: string }> = {
-  Starter:     `${PROD_BASE}/products/bundles-ezclassic-starter-set?variant=54815127732596`,
-  Essential:   `${PROD_BASE}/products/bundles-ezclassic-basic-set?variant=54815292293492`,
-  Elite:       `${PROD_BASE}/products/bundles-ezclassic-elite-set?variant=54815248777588`,
-  Pro:         `${PROD_BASE}/products/copy-of-bundles-ezclassic-pro-set?variant=54814982308212`,
-  Condo:       `${PROD_BASE}/products/ezclassic-condo-bundle?variant=54325883732340`,
-  "Play Yard": {
-    window: `${PROD_BASE}/products/bundles-ezclassic-play-yard-set?variant=54818236694900`,
-    solid:  `${PROD_BASE}/products/bundles-ezclassic-play-yard-set?variant=54818236662132`,
-  },
-};
-
-function resolveXLBundleUrl(bundle: string, hasWindow?: string | null): string {
-  const entry = xlBundleUrls[bundle];
-  if (!entry) return "#";
-  if (typeof entry === "string") return entry;
-  const isWindow = hasWindow === "yes" || hasWindow === "true";
-  return isWindow ? entry.window : entry.solid;
-}
-
-function getBundleUrl(
-  bundle: string,
-  boxSize: string,
-  panelHeight: string,
-  isXL?: boolean,
-  hasWindow?: string | null,
-): string {
-  // XL/Giant: every outcome now has a live variant. Play Yard splits on window.
-  if (isXL) {
-    return resolveXLBundleUrl(bundle, hasWindow);
-  }
-  const key = `${boxSize}-${panelHeight}`;
-  return bundleVariantUrls[bundle]?.[key] || bundleVariantUrls[bundle]?.["28-18"] || "#";
 }
 
 const bundleDescriptions: Record<string, string> = {
@@ -667,14 +586,15 @@ const QuestionCard: React.FC<{
       <div className="storybook-field max-w-xs mx-auto">
         <Input
           type="date"
+          min={step.id === "dueDate" ? localToday() : undefined}
           max={step.id === "dob" ? new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 10) : undefined}
-          aria-invalid={step.id === "dob" && !!dateValue && dateValue > new Date().toLocaleDateString("en-CA")}
+          aria-invalid={step.id === "dueDate" ? !validDueDate(dateValue || "") : step.id === "dob" && !!dateValue && dateValue > localToday()}
           value={dateValue || ""}
           onChange={(e) => onDateChange?.(e.target.value)}
           className="text-center text-base md:text-lg h-12 md:h-14 rounded-2xl border-2 font-bold focus:border-primary bg-card"
         />
         {dateValue && step.id === "dob" && dateValue > new Date(Date.now()-new Date().getTimezoneOffset()*60000).toISOString().slice(0,10) && <p role="alert">Date of birth cannot be in the future.</p>}
-        {dateValue && step.id === "dueDate" && dateValue < new Date(Date.now()-new Date().getTimezoneOffset()*60000).toISOString().slice(0,10) && <p>This due date is in the past.</p>}
+        {dateValue && step.id === "dueDate" && dateValue < new Date(Date.now()-new Date().getTimezoneOffset()*60000).toISOString().slice(0,10) && <p role="alert">Choose today or a future due date.</p>}
       </div>
     )}
 
@@ -972,6 +892,8 @@ const handleNext = useCallback((overrideVal?: string) => {
   if (isDate && val && (!/^\d{4}-\d{2}-\d{2}$/.test(val) || !Number.isFinite(Date.parse(val)) || new Date(val).toISOString().slice(0,10) !== val)) return;
   if (stepId === "dob" && val && val > new Date(Date.now()-new Date().getTimezoneOffset()*60000).toISOString().slice(0,10)) return;
 
+  if (stepId === "dueDate" && !validDueDate(val || "")) return;
+
   storeAnswer(stepId, val || "");
 
   if (stepId === "ownsBox") return;
@@ -1152,14 +1074,14 @@ const handleNext = useCallback((overrideVal?: string) => {
     setExistingData({ breed: "", damSize: null, experience: null, boxSize: null, boxHeight: null, hasWindow: null, stage: null, dueDate: null });
   }, [initialPath, onQuizStarted]);
 
-  const canProceed = currentQuizStep?.optional || (
+  const canProceed = (currentQuizStep?.id !== "dueDate" || validDueDate(dateValue)) && (currentQuizStep?.optional || (
     currentQuizStep?.type === "select" ? !!selectedValue :
     currentQuizStep?.type === "text" ? textValue.trim().length > 0 :
     currentQuizStep?.type === "date" ? !!dateValue :
     currentQuizStep?.type === "email" ? /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue) :
     currentQuizStep?.type === "breed" ? breedValue.trim().length > 0 :
     currentQuizStep?.type === "boxConfig" ? !!selectedValue && selectedValue.split("-").length === 3 : false
-  );
+  ));
 
   const isFirstStep = !gateAnswered && currentStep === 0;
   const isLastStep = gateAnswered && currentStep === steps.length - 1;
@@ -1213,7 +1135,7 @@ const handleNext = useCallback((overrideVal?: string) => {
   // ===== RESULTS: Custom Inquiry (backend-driven, e.g. XL non-Condo) =====
   // Trigger is OWNED BY THE BACKEND via `requires_custom_inquiry: true`.
   // Frontend never decides this from damSize alone.
-  if (isComplete && customerType === "new" && path1Result?.requires_custom_inquiry) {
+  if (isComplete && customerType === "new" && path1Result?.requires_custom_inquiry && newData.damSize !== "over_90") {
     const inquiryBundle = path1Result.bundle || "Bundle";
 
     return (
@@ -1335,427 +1257,9 @@ const handleNext = useCallback((overrideVal?: string) => {
     );
   }
 
-  // ===== RESULTS: New customer — Standard bundles =====
+  // Bundle routing remains in the existing deterministic engine.
   if (isComplete && customerType === "new") {
-    const recommendedResult = computeFullResult(newData);
-    const alternativeResult = computeFullResult({...newData, branchAnswer: !newData.branchAnswer});
-    const result = selectedAlternative ? alternativeResult : recommendedResult;
-    const visibleAddOns = result.addOns;
-
-    // API-driven values (override local when available)
-    const apiBundleName = (!selectedAlternative && path1Result?.bundle) || result.bundle;
-    // Cart URL: trust backend `shopify_cart_url` first; fall back to local size-aware
-    // lookup based on the bundle the quiz routed to. No damSize-based bundle swapping.
-    const apiCartUrl = (!selectedAlternative && path1Result?.shopify_cart_url) || getBundleUrl(result.bundle, result.boxSize, result.panelHeight, newData.damSize === "over_90", newData.hasWindow);
-    const apiAddOns = selectedAlternative ? undefined : path1Result?.suggested_addons;
-    const isSupportFollowup = path1Result?.support_followup === true && path1Result?.bundle !== "Condo";
-    // XL/Giant always ships the TALL 48"x76"x28" box — derive the label from
-    // the selected variant instead of the standard boxSize/boxSize/panelHeight
-    // formula, which produces the wrong 48"x48"x28" for XL. Used everywhere
-    // this size is shown: recommendation header AND the cart review screen.
-    const boxSizeLabel = newData.damSize === "over_90"
-      ? `48" x 76" x 28"`
-      : `${result.boxSize}" x ${result.boxSize}" x ${result.panelHeight}"`;
-
-    const ResultsContent = () => {
-
-    return (
-      <>
-        {!celebrationDone && <PawCelebration onComplete={handleCelebrationComplete} />}
-        <motion.div
-          
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: celebrationDone ? 1 : 0, y: celebrationDone ? 0 : 20 }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
-          className="w-full max-w-2xl lg:max-w-3xl mx-auto px-3 md:px-6 pt-6 md:pt-10"
-        >
-        {/* Small centered logo — breathing room above the bundle */}
-        <div className="flex justify-center mb-6 md:mb-8">
-          <a href="https://www.ezwhelp.com/" target="_blank" rel="noopener noreferrer"><img src={ezwhelpLogo} alt="EZWhelp" className="h-8 md:h-10 object-contain opacity-50" /></a>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {[recommendedResult, alternativeResult].map((card, index) => {
-          const cardUrl = (index === 0 && path1Result?.shopify_cart_url) || getBundleUrl(card.bundle, card.boxSize, card.panelHeight, newData.damSize === 'over_90', newData.hasWindow);
-          return (
-        <motion.a
-          key={card.bundle}
-          href={cardUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={() => {
-            setSelectedAlternative(index === 1);
-            trackBundleCard(card.bundle, index === 0 ? 'recommended' : 'alternative', emailValue);
-            trackProductClick('bundle-' + card.bundle, index);
-          }}
-          className="block duo-card overflow-hidden mb-3 md:mb-5 no-underline"
-          animate={{
-            rotate: [0, -0.8, 0.8, -0.5, 0.5, 0],
-            scale: [1, 1.008, 1.008, 1.005, 1.005, 1],
-          }}
-          transition={{ duration: 1.2, repeat: Infinity, repeatDelay: 4, ease: "easeInOut" }}
-          whileHover={{ scale: 1.02, y: -4, boxShadow: '0 18px 35px rgba(0,0,0,0.12)' }}
-          whileTap={{ scale: 0.97 }}
-          onMouseEnter={() => playHover()}
-        >
-          <BundleSlideshow
-            bundle={card.bundle}
-            boxSize={card.boxSize}
-            panelHeight={card.panelHeight}
-            alt={`${card.bundle} Bundle`}
-          />
-          <div className="p-4 md:p-6 lg:p-7">
-            <div className="h-6 text-center">{index === 0 && <span className="text-xs font-bold text-primary">Recommended</span>}</div>
-            <h2 className="text-base md:text-xl lg:text-2xl font-display font-black text-foreground text-center">{card.bundle} Bundle</h2>
-            <p className="text-[11px] md:text-xs text-muted-foreground font-medium mt-0.5 md:mt-1 text-center">
-              {boxSizeLabel} • {newData.zones} Zone{Number(newData.zones) > 1 ? "s" : ""} • {card.padRecommendation.replace("Extra ", "")}
-            </p>
-            {/* XL/Giant: Arya asked to remove the long bundle-description paragraph
-                between the size line and What's Included (2026-07-10) — kept for
-                all other dam sizes. */}
-            {newData.damSize !== "over_90" && (
-              <p className="text-[10px] md:text-xs text-muted-foreground/80 mt-2 md:mt-3 leading-relaxed text-center max-w-sm mx-auto">
-                {bundleDescriptions[card.bundle]}
-                {card.confidenceMessage && (
-                  <span className="block mt-1 font-medium" style={{ color: '#6B5B4A' }}>{card.confidenceMessage}</span>
-                )}
-              </p>
-            )}
-            <div className="mt-3 md:mt-4 pt-3 md:pt-4 border-t border-border/40">
-              <p className="text-[10px] md:text-[11px] font-semibold text-muted-foreground uppercase tracking-wider mb-2">What's Included</p>
-              <ul className="text-[11px] md:text-xs text-foreground/80 space-y-1.5 list-none">
-                {bundleIncludesList[card.bundle]?.map((item, i) => (
-                  <li key={i} className="flex items-center gap-2">
-                    <span className="w-4 h-4 rounded-full flex items-center justify-center text-[9px] font-bold flex-shrink-0" style={{ background: '#FDF0E7', color: '#D46A3A' }}>✓</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <p className="text-[10px] md:text-[11px] mt-3 md:mt-4 font-medium text-center" style={{ color: '#D46A3A' }}>View bundle details</p>
-          </div>
-        </motion.a>
-
-          );
-        })}
-        </div>
-
-        {/* Tall box safety recommendation when containment = active */}
-        {newData.containment === "active" && result.panelHeight === "28" && (
-          <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.4 }}
-            className="mb-3 md:mb-5 px-4 py-3 rounded-xl text-center"
-            style={{ background: '#EFF6FF', border: '1.5px solid #BFDBFE' }}
-          >
-            <p className="text-xs md:text-sm font-semibold" style={{ color: '#1E40AF' }}>
-              🛡️ Taller panels recommended for improved puppy safety and containment.
-            </p>
-          </motion.div>
-        )}
-
-
-        {/* Loading indicator while API responds */}
-        {apiLoading && (
-          <div className="text-center py-6">
-            <motion.div
-              animate={{ rotate: 360 }}
-              transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-              className="w-8 h-8 border-3 border-t-transparent rounded-full mx-auto mb-2"
-              style={{ borderColor: '#D46A3A', borderTopColor: 'transparent' }}
-            />
-            <p className="text-xs font-display font-bold" style={{ color: '#8A6F4E' }}>Loading your personalized results…</p>
-          </div>
-        )}
-
-        {/* API errors are not surfaced visually: the page already renders a complete
-            result from local computeFullResult (bundle, cart URL, add-ons all fall
-            back). Showing a red banner over a working page just creates panic.
-            Errors still log via console.error for diagnostics. */}
-
-        {/* Personalized Setup Support — shown for support_followup responses (e.g. Condo XL) */}
-        {isSupportFollowup && (
-          <div className="mb-3 md:mb-6">
-            <div className="flex items-center gap-3 mb-3 md:mb-4">
-              <div className="flex-1 h-px" style={{ background: 'linear-gradient(90deg, transparent 0%, #E8DDD0 50%, transparent 100%)' }} />
-              <Headset className="w-4 h-4" style={{ color: '#D46A3A' }} />
-              <div className="flex-1 h-px" style={{ background: 'linear-gradient(90deg, transparent 0%, #E8DDD0 50%, transparent 100%)' }} />
-            </div>
-            <div
-              className="duo-card p-5 md:p-7 text-center"
-              style={{ background: 'linear-gradient(135deg, #FDF0E7 0%, #F8E4D2 100%)', border: '1.5px solid #E8DDD0' }}
-            >
-              <div className="flex items-center justify-center gap-2 mb-2 md:mb-3">
-                <Headset className="w-4 h-4 md:w-5 md:h-5" style={{ color: '#D46A3A' }} />
-                <h3 className="text-sm md:text-base font-display font-black" style={{ color: '#2D2316' }}>
-                  Personalized Setup Support
-                </h3>
-              </div>
-              <p className="text-xs md:text-sm leading-relaxed max-w-lg mx-auto" style={{ color: '#5A4A3A' }}>
-                {path1Result?.message ||
-                  "Because you have an XL/Giant dam, our support team will reach out within 24 hours to help you with recommended accessories and any custom setup needs."}
-              </p>
-            </div>
-          </div>
-        )}
-
-        {/* API suggested add-ons (when available). Shown for both standard
-            results AND XL Condo (support_followup) — XL Condo customers get
-            the support-team callout AND the suggested add-on list per spec
-            sheet 3 XL Exceptions. */}
-        {apiAddOns && apiAddOns.length > 0 && (
-          <div className="mb-3 md:mb-6">
-            <h3 className="font-display font-bold text-foreground text-xs md:text-base mb-0.5 md:mb-1">Complete Your Setup</h3>
-            <p className="text-[10px] md:text-xs text-muted-foreground font-medium mb-2 md:mb-4">Breeders who add these report smoother litters</p>
-            <div className="space-y-2 md:grid md:grid-cols-2 md:gap-3 md:space-y-0">
-              {apiAddOns.map((addon, idx) => (
-                <motion.a
-                  key={addon.name}
-                  href={addon.url || "#"}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="duo-card px-2.5 py-2.5 md:px-3 md:py-3 flex items-center gap-2.5 md:gap-3 no-underline"
-                  style={{ border: '1.5px solid #E8DDD0' }}
-                  onMouseEnter={() => playPop()}
-                  whileHover={{ scale: 1.03, y: -4, boxShadow: '0 12px 28px rgba(0,0,0,0.1)' }}
-                  whileTap={{ scale: 0.96 }}
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: idx * 0.08, duration: 0.3 }}
-                >
-                  <img
-                    src={resolveOriginalAddOnImage(addon.name, addon.url, addon.image_url)}
-                    alt={addon.name}
-                    onError={(e) => { (e.currentTarget as HTMLImageElement).src = FALLBACK_REC_IMAGE; }}
-                    className="w-11 h-11 md:w-14 md:h-14 rounded-lg md:rounded-xl object-cover shrink-0 bg-[#EFE6DA]"
-                    style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }}
-                  />
-                  <span className="flex-1 min-w-0">
-                    <span className="font-display font-bold text-foreground text-xs md:text-sm block">{addon.name}</span>
-                  </span>
-                  <button
-                    className="shrink-0 font-display font-black text-[10px] md:text-[11px] uppercase px-3 md:px-4 h-7 md:h-8 flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95"
-                    style={{
-                      borderRadius: '10px',
-                      background: 'linear-gradient(135deg, #C4A67A 0%, #B0926A 100%)',
-                      color: '#FFF8F2',
-                    }}
-                  >View</button>
-                </motion.a>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Fallback: local add-ons when API has no results */}
-        {(!apiAddOns || apiAddOns.length === 0) && !apiLoading && (
-        <div className="mb-3 md:mb-6">
-          <h3 className="font-display font-bold text-foreground text-xs md:text-base mb-0.5 md:mb-1">Complete Your Setup</h3>
-          <p className="text-[10px] md:text-xs text-muted-foreground font-medium mb-2 md:mb-4">Breeders who add these report smoother litters</p>
-          
-          {(() => {
-            const categoryOrder = [
-              { key: "warmth_safety" as const, label: "Warmth & Safety", icon: <Shield className="w-3.5 h-3.5" /> },
-              { key: "space_growth" as const, label: "Space & Growth", icon: <Maximize2 className="w-3.5 h-3.5" /> },
-              { key: "hygiene_comfort" as const, label: "Hygiene & Comfort", icon: <Droplets className="w-3.5 h-3.5" /> },
-              { key: "monitoring_tools" as const, label: "Monitoring & Tools", icon: <MonitorSmartphone className="w-3.5 h-3.5" /> },
-            ];
-
-            const grouped = categoryOrder
-              .map(cat => ({
-                ...cat,
-                items: visibleAddOns
-                  .filter(a => a.category === cat.key)
-                  .sort((a, b) => a.priority - b.priority),
-              }))
-              .filter(cat => cat.items.length > 0)
-              .sort((a, b) => Math.min(...a.items.map(i => i.priority)) - Math.min(...b.items.map(i => i.priority)));
-
-            let globalIdx = 0;
-
-            return grouped.map((group) => (
-              <div key={group.key} className="mb-3 md:mb-4">
-                <div className="flex items-center gap-1.5 mb-1.5 md:mb-2">
-                  <span style={{ color: '#8A6F4E' }}>{group.icon}</span>
-                  <span className="font-display font-bold text-[11px] md:text-xs uppercase tracking-wider" style={{ color: '#8A6F4E' }}>{group.label}</span>
-                </div>
-                <div className="space-y-2 md:grid md:grid-cols-2 md:gap-3 md:space-y-0">
-                  {group.items.map((addon) => {
-                    const idx = globalIdx++;
-                    const spotlightDuration = Math.max(8, visibleAddOns.length * 2.5);
-                    const spotlightDelay = idx * (spotlightDuration / visibleAddOns.length);
-                    return (
-                      <motion.div
-                        key={addon.name}
-                        className="duo-card px-2.5 py-2.5 md:px-3 md:py-3 flex items-center gap-2.5 md:gap-3"
-                        style={{
-                          border: '1.5px solid #E8DDD0',
-                          animation: `addonSpotlight ${spotlightDuration}s ease-in-out infinite`,
-                          animationDelay: `${spotlightDelay}s`,
-                        }}
-                        onMouseEnter={() => playPop()}
-                        whileHover={{ scale: 1.03, y: -4, boxShadow: '0 12px 28px rgba(0,0,0,0.1), inset 0 2px 4px rgba(255,255,255,0.7)' }}
-                        whileTap={{ scale: 0.96, rotate: -1 }}
-                        transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                      >
-                        <a href={addon.url || "#"} target="_blank" rel="noopener noreferrer" className="shrink-0">
-                          <img
-                            src={ensureRecImage(addon.imageUrl, addon.name)}
-                            alt={addon.name}
-                            onError={(e) => { (e.currentTarget as HTMLImageElement).src = FALLBACK_REC_IMAGE; }}
-                            className="w-11 h-11 md:w-14 md:h-14 rounded-lg md:rounded-xl object-cover bg-[#EFE6DA]"
-                            style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }}
-                          />
-                        </a>
-                        <a href={addon.url || "#"} target="_blank" rel="noopener noreferrer" className="flex-1 min-w-0 no-underline">
-                          <span className="font-display font-bold text-foreground text-xs md:text-sm block">{addon.name}</span>
-                          <span className="block text-[10px] md:text-[11px] text-muted-foreground font-medium mt-0.5">{addon.description}</span>
-                        </a>
-                        <div className="shrink-0 flex flex-col items-center gap-1">
-                          <a href={addon.url || "#"} target="_blank" rel="noopener noreferrer">
-                            <button
-                              className="font-display font-black text-[10px] md:text-[11px] uppercase px-3 md:px-4 h-7 md:h-8 flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95"
-                              style={{
-                                borderRadius: '10px',
-                                background: 'linear-gradient(135deg, #C4A67A 0%, #B0926A 100%)',
-                                color: '#FFF8F2',
-                                animation: `addBtnGlow ${spotlightDuration}s ease-in-out infinite`,
-                                animationDelay: `${spotlightDelay + 0.15}s`,
-                              }}
-                            >+ Add</button>
-                          </a>
-                          <a href={addon.url || "#"} target="_blank" rel="noopener noreferrer" className="text-[9px] md:text-[10px] font-bold no-underline hover:underline" style={{ color: '#8A6F4E' }}>Details</a>
-                        </div>
-                      </motion.div>
-                    );
-                  })}
-                </div>
-              </div>
-            ));
-          })()}
-        </div>
-        )}
-
-        {/* Fixed floating action bar — always visible with wiggle */}
-        <motion.div
-          className="fixed bottom-0 left-0 right-0 z-50"
-          initial={{ y: 80 }}
-          animate={{ y: 0 }}
-          transition={{ delay: 0.5, type: "spring", stiffness: 300, damping: 25 }}
-          style={{
-            background: 'rgba(250,246,240,0.95)',
-            backdropFilter: 'blur(20px)',
-            WebkitBackdropFilter: 'blur(20px)',
-            borderTop: '1px solid rgba(0,0,0,0.08)',
-            boxShadow: '0 -4px 30px rgba(0,0,0,0.1)',
-          }}
-        >
-              <div className="max-w-2xl lg:max-w-3xl mx-auto px-4 py-2.5 md:py-3 flex items-center gap-2.5">
-                <a
-                  href={apiCartUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => trackProductClick(`bundle-${apiBundleName}`, 0)}
-                  className="flex-shrink-0 no-underline"
-                >
-                  <motion.button
-                    onClick={() => playButtonClick()}
-                    whileHover={{ scale: 1.04 }}
-                    whileTap={{ scale: 0.96 }}
-                    className="font-display font-semibold text-[11px] md:text-xs h-10 md:h-11 px-3 md:px-4 flex items-center justify-center gap-1.5 overflow-hidden"
-                    style={{
-                      borderRadius: '12px',
-                      background: 'transparent',
-                      color: '#8A6F4E',
-                      border: '1px solid rgba(196,166,122,0.4)',
-                    }}
-                  >
-                    View Details
-                  </motion.button>
-                </a>
-                <div className="flex-1 block">
-                  <motion.button
-                    onClick={() => {
-                      trackBundleCard(apiBundleName, selectedAlternative ? 'alternative' : 'recommended', emailValue);
-                      const reviewItems: CartReviewItem[] = [
-                        {
-                          name: `${apiBundleName} Bundle`,
-                          url: apiCartUrl,
-                          imageUrl: bundleImages[result.bundle],
-                          description: boxSizeLabel,
-                          required: true,
-                        },
-                        ...((apiAddOns && apiAddOns.length > 0)
-                          ? apiAddOns.map((a) => ({
-                              name: a.name,
-                              url: a.url || "",
-                              imageUrl: resolveOriginalAddOnImage(a.name, a.url, a.image_url),
-                            }))
-                          : visibleAddOns.map((a) => ({
-                              name: a.name,
-                              url: a.url || "",
-                              imageUrl: a.imageUrl,
-                              description: a.description,
-                            }))),
-                      ];
-                      openCartReview(reviewItems);
-                    }}
-                    animate={{
-                      scale: [1, 1.03, 1],
-                      rotate: [0, -1, 1, -0.5, 0.5, 0],
-                    }}
-                    transition={{
-                      scale: { duration: 2.5, repeat: Infinity, ease: "easeInOut" },
-                      rotate: { duration: 0.8, repeat: Infinity, repeatDelay: 3.5, ease: "easeInOut" },
-                    }}
-                    whileHover={{ scale: 1.06 }}
-                    whileTap={{ scale: 0.94 }}
-                    className="w-full font-display font-black text-[13px] md:text-sm h-10 md:h-11 flex items-center justify-center gap-2"
-                    style={{
-                      borderRadius: '12px',
-                      background: 'linear-gradient(135deg, #D46A3A 0%, #C4531A 100%)',
-                      color: '#FFFFFF',
-                      boxShadow: '0 3px 14px rgba(212,106,58,0.35), inset 0 1px 0 rgba(255,255,255,0.15)',
-                      letterSpacing: '0.02em',
-                    }}
-                  >
-                    <ShoppingCart className="w-3.5 h-3.5" /> Get Bundle
-                  </motion.button>
-                </div>
-              </div>
-              <div className="text-center pb-1.5 md:pb-2">
-                <span className="text-[9px] md:text-[10px] font-bold" style={{ color: '#B5ADA3' }}>
-                  Free Shipping • Secure Checkout
-                </span>
-              </div>
-        </motion.div>
-
-        {/* Start Over — at bottom, out of the way */}
-        <div className="flex justify-center mt-6 md:mt-8 mb-4">
-          <motion.button
-            onClick={handleRestart}
-            whileHover={{ scale: 1.04 }}
-            whileTap={{ scale: 0.96 }}
-            className="text-[11px] md:text-xs font-display font-semibold flex items-center gap-1.5 px-3.5 py-1.5 rounded-full transition-colors duration-200"
-            style={{
-              background: 'transparent',
-              color: '#A0876E',
-              border: '1px solid rgba(196,166,122,0.25)',
-            }}
-          >
-            <RotateCcw className="w-3 h-3 md:w-3.5 md:h-3.5" /> Start Over
-          </motion.button>
-        </div>
-
-        {/* Spacer for fixed bar */}
-        <div className="h-20 md:h-24" />
-
-      </motion.div>
-      </>
-    );
-    };
-
-    return <ResultsContent />;
+    return <BundleResults data={newData} email={emailValue} descriptions={bundleDescriptions} includes={bundleIncludesList} onRestart={handleRestart} supportMessage={path1Result?.support_followup && path1Result.bundle !== 'Condo' ? path1Result.message || 'Because you have an XL/Giant dam, our support team will reach out within 24 hours to help you with recommended accessories and any custom setup needs.' : undefined} />;
   }
 
   // ===== RESULTS: Existing customer =====

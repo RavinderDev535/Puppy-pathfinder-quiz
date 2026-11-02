@@ -63,7 +63,7 @@ export function createQuizStore(filename = 'data/quiz.sqlite') {
       // Include payload equality so two different answers within the window survive.
       const payload = JSON.stringify(p);
       const duplicate = db.prepare(`SELECT id FROM events WHERE id=? OR
-        (attempt_id=? AND event_name=? AND payload_json=? AND abs(julianday(ts)-julianday(?))*86400000 < 1000)`).get(input.id,input.attempt_id,name,payload,ts);
+        (surface != 'bundle' AND attempt_id=? AND event_name=? AND payload_json=? AND abs(julianday(ts)-julianday(?))*86400000 < 1000)`).get(input.id,input.attempt_id,name,payload,ts);
       if (duplicate) { db.exec('COMMIT'); return false; }
       db.prepare('INSERT INTO events(id,attempt_id,session_id,ts,event_name,surface,payload_json) VALUES(?,?,?,?,?,?,?)')
         .run(input.id,input.attempt_id,input.session_id,ts,name,input.lane,payload);
